@@ -1,25 +1,58 @@
-import React, {createContext} from 'react';
+import React from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
+import store from "./redux/redux_store";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
-import {Route} from "react-router-dom"
+import {BrowserRouter, Route} from "react-router-dom"
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Users from "./components/users/users";
+import UsersContainer from "./components/users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/login";
+import Preloader from "./components/common/preloader/preloader";
+import {connect, Provider} from "react-redux";
+import {getAuthUserData} from "./redux/auth_reducer";
 
 
-const App = (props) => {
-    return (
-        <div className="app-wraper">
-            <Header/>
-            <Navbar/>
-            <div className="app-wraper-content">
-                <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                <Route path='/profile' render={() => <Profile/>}/>
-                <Route path='/users' render={() => <Users/>}/>
+class App extends React.Component {
+    componentDidMount() {
+        this.props.getAuthUserData()
+    }
+
+    render() {
+        return (
+            <div className="app-wraper">
+                {this.props.isFetching ?
+                    <Preloader/> :
+                    <>
+                        <HeaderContainer/>
+                        <Navbar/>
+                        <div className="app-wraper-content">
+                            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                            <Route path='/users' render={() => <UsersContainer/>}/>
+                            <Route path='/login' render={() => <Login/>}/>
+                        </div>
+                    </>
+                }
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    isFetching: state.auth.isFetchingApp,
+});
+
+let AppContainer = connect(mapStateToProps, {getAuthUserData})(App);
+
+
+const MainApp = (props) => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>
+};
+
+
+export default MainApp
