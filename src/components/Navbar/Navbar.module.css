@@ -1,0 +1,26 @@
+.nav {
+    padding: 5%;
+    font-size: 2vw;
+    grid-area: n;
+    background-color: rgba(0, 0, 255, 0.4);
+
+}
+
+.item a{
+    color: white;
+    text-decoration: none;
+}
+
+.item .activeLink{
+    color: lightblue;
+    text-shadow: 3px 3px 3px black;
+}
+
+.friends_item{
+    display: flex;
+}
+.friends{
+    text-align: center;
+    margin-top: 50px;
+    color: white;
+}

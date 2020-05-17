@@ -1,0 +1,17 @@
+.content{
+  grid-area: c;
+  background-color: rgba(210, 105, 30, 0.4);
+
+}
+
+.panorama{
+  width: 100%;
+}
+
+.postsBlock{
+  padding: 10px;
+}
+
+.posts{
+  margin-top: 10px;
+}
