@@ -3,6 +3,7 @@ import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHING_START = 'TOGGLE_IS_FETCHING_START';
+const SET_AUTH = 'SET_AUTH';
 
 
 let initialState = {
@@ -20,6 +21,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
             };
+        case SET_AUTH:
+            return {
+                ...state, isAuth: action.isAuth,
+
+            };
         case TOGGLE_IS_FETCHING_START:
             return {...state, isFetchingApp: action.isFetchingApp};
         default:
@@ -29,10 +35,18 @@ const authReducer = (state = initialState, action) => {
 };
 
 
-export const setUserData = (login, email, userId, isAuth) => ({
-    type: SET_USER_DATA, payload: {login, email, userId, isAuth}
+export const setUserData = (login, userId, isAuth) => ({
+    type: SET_USER_DATA, payload: {login, userId, isAuth}
 });
-export const toggleIsFetchingStart = (isFetchingApp) => ({type: TOGGLE_IS_FETCHING_START, isFetchingApp});
+
+export const setAuth = (isAuth) => ({
+    type: SET_AUTH, isAuth
+});
+
+export const toggleIsFetchingStart = (isFetchingApp) => ({
+    type: TOGGLE_IS_FETCHING_START,
+    isFetchingApp
+});
 
 
 // это thunk, он возвращает функцию, мидлвар отлавливает такие функции,
@@ -42,30 +56,35 @@ export const getAuthUserData = () => async (dispatch) => {
 
     let response = await authAPI.me();
 
-    if (response.data.resultCode === 0) {
-        let {login, email, id} = response.data.data; // не важен порядок аргументов, главное чтобы названия совпадали
-        dispatch(setUserData(login, email, id, true));
+    if (response.status === 200) {
+        let {name: login, id} = response.data; // не важен порядок аргументов, главное чтобы названия совпадали
+        dispatch(setUserData(login, id, true));
     }
     dispatch(toggleIsFetchingStart(false))
 };
 
-export const LoginThunk = (email, password, rememberMe) => async (dispatch) => {
-    let response = await authAPI.login(email, password, rememberMe);
-    if (response.data.resultCode === 0) {
-        dispatch(getAuthUserData())
+export const LoginThunk = (email, password) => async (dispatch) => {
+    try {
+        let response = await authAPI.login(email, password);
+        const {access: accessToken, refresh: refreshToken} = response.data;
+        // const getToken = accessToken.split('.');
+        // const decoder = atob(accessToken.split('.')[1]);
+        sessionStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        dispatch(setAuth(true))
 
-    } else {
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Someerror";
-        dispatch(stopSubmit("login", {_error: message}))
+    } catch (error) {
+        console.log(error.response);
+
+        dispatch(stopSubmit("login", {_error: error.request.responseText})) // доработать поулчение описания ошибки
     }
+
 };
 
 export const LogoutThunk = (email, password, rememberMe) => async (dispatch) => {
-    let response = await authAPI.logout();
-    if (response.data.resultCode === 0) {
-        dispatch(setUserData(null, null, null, false))
-
-    }
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+    dispatch(setUserData(null, null, null, false))
 };
 
 export default authReducer;

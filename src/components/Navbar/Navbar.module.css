@@ -4,6 +4,7 @@
     grid-area: n;
     background-color: rgba(0, 0, 255, 0.4);
 
+
 }
 
 .item a{
@@ -23,4 +24,11 @@
     text-align: center;
     margin-top: 50px;
     color: white;
+}
+
+@media (max-device-width: 900px) {
+    .nav {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+    }
 }

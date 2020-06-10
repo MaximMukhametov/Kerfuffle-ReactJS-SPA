@@ -1,58 +1,68 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Posts from "./Post/Posts";
 import classes from './MyPosts.module.css';
-import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {fieldCreator, Input, Textarea} from "../../common/FormsControls/FormsControls";
+import {reduxForm, reset} from "redux-form";
+import MyPostsForm from "../../common/forms/postForm";
+import {changePostThunk} from "../../../redux/profile_reducer";
 
-const maxLength10 = maxLengthCreator(10);
-
-const MyPostsForm = (props) => {
-
-    // всё что передаётся в тэг Field в качестве параметров,
-    // уходит в компоненту component={Textarea} ,
-    // туда некоторые параметры попадают в полё input(такие как name, value  и т.д.),
-    // так же туда попадают параметры Meta, и все остальные парааметры просто передаются
-    // как обычные пропсы(например placeholder и lalalala={'lalalala'})
-    return (
-        <form onSubmit={props.handleSubmit}>
-                  {fieldCreator("Post","text", Textarea,{validate:[required, maxLength10],placeholder:"New Post"})}
-            <button>send</button>
-        </form>
-    )
-};
 
 // название только с большой буквы
-const MyPostsReduxForm = reduxForm({
-    form: 'MyPostsForm'
-})(MyPostsForm);
 
-const MyPosts = React.memo(props => {
-    let postElemetns = props.posts.map(p => <Posts key={p.id} messages={p.message} likesCount={p.likesCount}/>);
+
+const MyPosts = (props) => {
+    useEffect(() => {
+        // props.getPostThunk(props.match.params.userId)
+    }, props.posts, props.match.params);
+
+    let postElemetns = props.posts.map(
+        p => <Posts key={p.id}
+                    id={p.id}
+                    text={p.text}
+                    name={p.user_name}
+                    likes_count={p.likes}
+                    like_users={p.like}
+                    created_at={p.created_at}
+                    clickLike={props.likePostThunk}
+                    delPost={props.delPostThunk}
+                    editPost={props.changePostThunk}
+                    isOwner={!props.match.params.userId}/>
+
+    );
 
     let addPost = (textOfPost) => {
-        props.addPostActionCreator(textOfPost.Post)
+        props.addPostThunk(textOfPost.post)
     };
 
-    return (
-        <div className={classes.postsBlock}>
-            mypost
-            <div>
-                <h3>My post</h3>
-            </div>
-            <div>
-                <MyPostsReduxForm onSubmit={addPost}/>
-            </div>
-            <div className={classes.posts}>
-                {postElemetns}
-            </div>
-        </div>
-    )
+    const afterSubmit = (result, dispatch) => {
+        console.log(result, dispatch)
 
-}, function moviePropsAreEqual(prevMovie, nextMovie) {
-    console.log('prevMovie, nextMovie', prevMovie, nextMovie);
-    return prevMovie === nextMovie
-        && prevMovie === nextMovie;
-});
+    };
+    if (!props.profile) {
+        return <div>Loading...</div>
+    } else {
+        return (
+            <div className={classes.postsBlock}>
+                mypost
+                <div>
+                    <h3>My post</h3>
+                </div>
+                {!props.match.params.userId &&
+                <div>
+                    <MyPostsReduxForm onSubmit={addPost}/>
+                </div>}
+                <div className={classes.posts}>
+                    {postElemetns}
+                </div>
+            </div>
+        )
+    }
+};
+
+const MyPostsReduxForm = reduxForm({
+    form: 'MyPostsForm',
+    onSubmitSuccess: (result, dispatch, props) => {
+       dispatch(reset('MyPostsForm'))
+    },
+})(MyPostsForm);
 
 export default MyPosts

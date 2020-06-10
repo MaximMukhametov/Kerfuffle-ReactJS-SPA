@@ -1,37 +1,59 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, updateStatus} from "../../redux/profile_reducer";
+import {
+    getPostThunk,
+    getStatus,
+    getUserProfile,
+    savePhoto,
+    saveProfile,
+    updateStatus
+} from "../../redux/profile_reducer";
 import {withRouter} from "react-router-dom";
 import {toggleIsFetching} from "../../redux/users_reducer";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
+    refreshProfile() {
         this.props.toggleIsFetching(true);
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 7799
+            userId = '';
+            if (!this.props.isAuth) {
+                this.props.history.push("/login");
+            }
         }
 
-        Promise.all([this.props.getUserProfile(userId), this.props.getStatus(userId)]).then(response => {
+        Promise.all([this.props.getUserProfile(userId),
+            this.props.getStatus(userId),
+            this.props.getPostThunk(this.props.match.params.userId)]).then(response => {
             this.props.toggleIsFetching(false)
         })
-        // this.props.getUserProfile(userId)
-        // this.props.getStatus(userId)
-
     };
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
 
     render() {
         return (
             <div>
-
                 <Profile {...this.props}
+                         isOwner={!this.props.match.params.userId}
                          profile={this.props.profile}
                          isFetching={this.props.isFetching}
                          status={this.props.status}
-                         updateStatus={this.props.updateStatus}/>
+                         updateStatus={this.props.updateStatus}
+                         savePhoto={this.props.savePhoto}
+                         saveProfile={this.props.saveProfile}
+                         isLoadingPhoto={this.props.isLoadingPhoto}/>
 
             </div>
         )
@@ -48,7 +70,8 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
         status: state.profilePage.status,
         authorizedUserId: state.auth.userId,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        isLoadingPhoto: state.profilePage.isLoadingPhoto,
 
     })
 };
@@ -70,5 +93,13 @@ export default compose(
     withRouter,
     WithAuthRedirect,
     connect(mapStateToProps,
-        {toggleIsFetching, getUserProfile, getStatus, updateStatus})
+        {
+            toggleIsFetching,
+            getUserProfile,
+            getStatus,
+            updateStatus,
+            savePhoto,
+            saveProfile,
+            getPostThunk
+        })
 )(ProfileContainer)

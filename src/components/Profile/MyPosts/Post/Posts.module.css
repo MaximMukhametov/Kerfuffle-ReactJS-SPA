@@ -1,8 +1,23 @@
 .item {
-    width: ;
+
 }
 
 .item img {
     width: 50px;
     border-radius: 50px;
+}
+.like{
+    position: relative;
+}
+
+.like_users{
+    position: absolute;
+    display: none;
+}
+
+.like:hover .like_users{
+    display: inline-block;
+    background-color: lightblue;
+
+
 }

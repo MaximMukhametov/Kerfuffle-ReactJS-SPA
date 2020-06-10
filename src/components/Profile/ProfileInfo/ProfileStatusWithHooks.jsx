@@ -16,7 +16,12 @@ const ProfileStatusWithHooks = (props) => {
     const activateEditMode = () => {
         // setState метод из роительского класса React.Component, и он асинхронен, поэтому выполняется какое-то время
         setEditMod(!editMod);
+
+    };
+
+    const sendStatus = () => {
         props.updateStatus(status);
+        activateEditMode()
     };
 
     const onStatusChange = (e) => {
@@ -26,13 +31,13 @@ const ProfileStatusWithHooks = (props) => {
         <div>
             {!editMod &&
             <div>
-                <span onClick={activateEditMode}>{props.status || "...loading status"}</span>
+                <span onClick={props.isOwner && activateEditMode}>{props.status || "status"}</span>
             </div>
             }
 
             {editMod &&
             <div>
-                <input onChange={onStatusChange} autoFocus={true} onBlur={activateEditMode}
+                <input onChange={onStatusChange} autoFocus={true} onBlur={sendStatus}
                        value={status}/>
             </div>
             }

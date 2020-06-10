@@ -1,35 +1,20 @@
+import {authAPI, dialogsAPI} from "../api/api";
+import {setUserData, toggleIsFetchingStart} from "./auth_reducer";
 
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SET_DIALOGS_PREVIEW = 'SET_DIALOGS_PREVIEW';
 
 let initialState = {
-    dialogs: [
-        {id: 1, name: 'Max'},
-        {id: 2, name: 'Vova'},
-        {id: 3, name: 'Misha'},
-        {id: 4, name: 'Roma'},
-        {id: 5, name: 'Slava'},
-        {id: 6, name: 'Senya'},
-
-    ],
-    messages: [
-        {id: 1, message: 'hello'},
-        {id: 2, message: 'whats up'},
-        {id: 3, message: 'huuh?'},
-        {id: 4, message: 'wow hi'},
-        {id: 5, message: 'lets do it!'},
-        {id: 6, message: 'go go go'},
-
-    ],
+    dialogsPreview: [],
+    messagesWithUser: [],
 
 };
 
 
 export const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SEND_MESSAGE:
+        case SET_DIALOGS_PREVIEW:
             return {...state,
-                newMessageBody: '',
-                messages: [...state.messages, {id: 6, message: action.body}]};
+                dialogsPreview: action.dialogsPreview};
 
         default:
             return state;
@@ -37,8 +22,27 @@ export const messagesReducer = (state = initialState, action) => {
     ;
 };
 
-export const sendMessageCreator = (body) => ({type: SEND_MESSAGE, body});
+export const setDialogsPreview = (dialogsPreview) => ({type: SET_DIALOGS_PREVIEW, dialogsPreview});
 
 
+export const getAllUsersWithDialogsThunk = () => async (dispatch) => {
+    const response = await dialogsAPI.getAllUsersWithDialogs();
+    if (response.status ===200) {
+        dispatch(setDialogsPreview(response.data))
+
+    }
+};
 
 export default messagesReducer;
+
+
+// export const getAuthUserData = () => async (dispatch) => {
+//
+//     let response = await authAPI.me();
+//
+//     if (response.status === 200) {
+//         let {name: login, id} = response.data; // не важен порядок аргументов, главное чтобы названия совпадали
+//         dispatch(setUserData(login, id, true));
+//     }
+//     dispatch(toggleIsFetchingStart(false))
+// };

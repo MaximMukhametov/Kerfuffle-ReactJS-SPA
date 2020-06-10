@@ -1,16 +1,16 @@
 import React from "react";
-import {sendMessageCreator} from "../../redux/messages_reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-
+import {getAllUsersWithDialogsThunk} from "../../redux/messages_reducer";
 
 let mapStateProps = (state) => {
     return {
-        messagesPage: state.messagesPage,
+        dialogsPreview: state.messagesPage.dialogsPreview,
+        messagesWithUser: state.messagesPage.messagesWithUser
     }
-}
+};
 
 
 // HOC (хок) компонента, что-то типа декоратора в питоне, добавляет одинаковую функциональность к компонентам,
@@ -23,6 +23,6 @@ let mapStateProps = (state) => {
 
 
 export default compose(
-    connect(mapStateProps, {sendMessageCreator}),
+    connect(mapStateProps, {getAllUsersWithDialogsThunk}),
     WithAuthRedirect,
 )(Dialogs)
