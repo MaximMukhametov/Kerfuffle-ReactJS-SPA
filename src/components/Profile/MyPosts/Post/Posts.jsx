@@ -3,7 +3,7 @@ import classes from './Posts.module.css';
 import {reduxForm} from "redux-form";
 import MyPostsForm from "../../../common/forms/postForm";
 import userPhoto from "../../../../userPhoto.jpg";
-import {useSpring, animated} from 'react-spring'
+import {useTransition} from "react-spring";
 
 
 // название только с большой буквы
@@ -18,7 +18,7 @@ const Posts = ({
                }) => {
     let [editMod, setEditMod] = useState(false);
 
-    const springAnimation = useSpring({opacity: 1, from: {opacity: 0}})
+
 
     const like_user = like_users.map(u => <div>{u.name}<img
         src={(u.photos && (u.photos.small_img
@@ -35,15 +35,19 @@ const Posts = ({
 
     const activateEditMode = () => {
         setEditMod(!editMod);
-
     };
 
     return (
         <div className={classes.item}>
             {editMod ?
-                <ChangePostsReduxForm onSubmit={changePost}
-                                      initialValues={{post: text}}/> :
-                <animated.div style={springAnimation}>
+                <div>
+                    <ChangePostsReduxForm onSubmit={changePost}
+                                          initialValues={{post: text}}/>
+                    <button onClick={() => setEditMod(!editMod)}>Exit Edit
+                    </button>
+                </div> :
+
+                <div>
                     <img alt='sdf'
                          src='https://encrypted-tbn0.gstatic.com/
                          images?q=tbn%3AANd9GcR_WYzaA1BQvvu0FN7Zu1MsxawEDpzFdG7uczm3cp8_kPigMMFO'></img>
@@ -57,9 +61,9 @@ const Posts = ({
                     <button onClick={deletePost}>Delete</button>}
                     <button onClick={() => clickLike(id)}>Like</button>
                     }
-                    <button onClick={activateEditMode}>Edit</button>
+                    <button onClick={() => setEditMod(!editMod)}>Edit</button>
                     }
-                </animated.div>
+                </div>
             }
         </div>
     )

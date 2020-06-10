@@ -3,7 +3,7 @@ import Posts from "./Post/Posts";
 import classes from './MyPosts.module.css';
 import {reduxForm, reset} from "redux-form";
 import MyPostsForm from "../../common/forms/postForm";
-import {changePostThunk} from "../../../redux/profile_reducer";
+import {animated, useTransition} from "react-spring";
 
 
 // название только с большой буквы
@@ -14,19 +14,32 @@ const MyPosts = (props) => {
         // props.getPostThunk(props.match.params.userId)
     }, props.posts, props.match.params);
 
-    let postElemetns = props.posts.map(
-        p => <Posts key={p.id}
-                    id={p.id}
-                    text={p.text}
-                    name={p.user_name}
-                    likes_count={p.likes}
-                    like_users={p.like}
-                    created_at={p.created_at}
-                    clickLike={props.likePostThunk}
-                    delPost={props.delPostThunk}
-                    editPost={props.changePostThunk}
-                    isOwner={!props.match.params.userId}/>
 
+    const transitions = useTransition(props.posts, item => item.id, {
+        config: { mass: 10, tension: 2000, friction: 60 },
+        from: {transform: 'rotateX(90deg)', opacity: 1},
+        enter: {transform: 'rotateX(0deg)', opacity: 1},
+        leave: {transform: 'rotateX(90deg)', opacity: 1},
+    });
+    const AnimatedPosts = animated(Posts);
+
+    let postElemetns = !!props.posts && transitions.map(
+        (animatedObject) =>
+            <animated.div style={animatedObject.props}
+                          key={animatedObject.item.id}>
+            <Posts
+                            key={animatedObject.item.id}
+                            id={animatedObject.item.id}
+                            text={animatedObject.item.text}
+                            name={animatedObject.item.user_name}
+                            likes_count={animatedObject.item.likes}
+                            like_users={animatedObject.item.like}
+                            created_at={animatedObject.item.created_at}
+                            clickLike={props.likePostThunk}
+                            delPost={props.delPostThunk}
+                            editPost={props.changePostThunk}
+                            isOwner={!props.match.params.userId}/>
+                            </animated.div>
     );
 
     let addPost = (textOfPost) => {
@@ -61,7 +74,7 @@ const MyPosts = (props) => {
 const MyPostsReduxForm = reduxForm({
     form: 'MyPostsForm',
     onSubmitSuccess: (result, dispatch, props) => {
-       dispatch(reset('MyPostsForm'))
+        dispatch(reset('MyPostsForm'))
     },
 })(MyPostsForm);
 
