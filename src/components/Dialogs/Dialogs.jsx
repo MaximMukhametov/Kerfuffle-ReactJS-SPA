@@ -11,15 +11,18 @@ const maxLength50 = maxLengthCreator(50);
 const Dialogs = (props) => {
     useEffect(() => {
         props.getAllUsersWithDialogsThunk()
-    }, [props.dialogsPreview]);
+    }, []);
+
+    const getUserPhoto = (dialog) => (dialog.messagedata.written_by.id === props.authUserId?
+    dialog.messagedata.written_for.photos:dialog.messagedata.written_by.photos)
 
     let dialog = props.dialogsPreview.map(
-        p => <DialogItem userId={p.id}
-                         userName={p.name}
-                         message={p.messagedata.message}
-                         photos={p.messagedata.written_by.photos}
-                         writtenBy={p.messagedata.written_by}
-                         createdAt={p.messagedata.created_at}
+        d => <DialogItem userId={d.id}
+                         userName={d.name}
+                         message={d.messagedata.message}
+                         photos={getUserPhoto(d)}
+                         writtenBy={d.messagedata.written_by}
+                         createdAt={d.messagedata.created_at}
         />);
 
     return <div>

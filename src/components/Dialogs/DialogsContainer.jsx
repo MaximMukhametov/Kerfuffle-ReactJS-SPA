@@ -8,7 +8,8 @@ import {getAllUsersWithDialogsThunk} from "../../redux/messages_reducer";
 let mapStateProps = (state) => {
     return {
         dialogsPreview: state.messagesPage.dialogsPreview,
-        messagesWithUser: state.messagesPage.messagesWithUser
+        messagesWithUser: state.messagesPage.messagesWithUser,
+        authUserId: state.auth.userId
     }
 };
 

@@ -1,0 +1,32 @@
+.writer img {
+    grid-area: writer;
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.message_body {
+    grid-area: message;
+    background-color: rgba(172, 175, 170, 0.42);
+    border-radius: 10px;
+}
+
+.isMyMessage {
+    color: blue;
+    grid-template: "message writer" /1fr 90px;
+    justify-items: end;
+
+}
+
+.isNotMyMessage {
+    grid-template: "writer message" /90px 1fr;
+    justify-items: start;
+}
+
+.message {
+    padding: 3vw;
+    display: grid;
+    align-items: center;
+    grid-gap: 10px;
+}

@@ -170,21 +170,22 @@ export const dialogsAPI = {
         return requestWithAuth(() => (
             djangoBackEnd.get('message/1?get_users=1')))
     },
-    getUserWithDialogs(userId) {
+    getMessagesWithUser(userId, loadMoreMessages) {
+        const countMessages = !!loadMoreMessages? `?count=${loadMoreMessages}`: '';
         return requestWithAuth(() => (
-            djangoBackEnd.put('message/' + userId)))
+            djangoBackEnd.get('message/' + userId + countMessages)))
     },
     sendMessage(userId, message) {
         return requestWithAuth(() => (
-            djangoBackEnd.post('message/' + userId, message)))
+            djangoBackEnd.post('message/' + userId, {message})))
     },
     editMessage(messageId, message) {
         return requestWithAuth(() => (
-            djangoBackEnd.patch('message/' + messageId, message)))
+            djangoBackEnd.patch('message/' + messageId, {message})))
     },
     deleteMessage(messageId) {
         return requestWithAuth(() => (
-            djangoBackEnd.del('message/' + messageId)))
+            djangoBackEnd.delete('message/' + messageId)))
     },
 };
 
