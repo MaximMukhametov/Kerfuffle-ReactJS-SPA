@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {
     follow,
     requestUsers,
-    setCurrentPage,
+    setCurrentPage, setTotalUsersCount,
     setUsers,
     toggleFollowingProgres,
     unfollow
@@ -19,19 +19,42 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/users_selectors";
+import {withRouter} from "react-router-dom";
+
 
 class UsersContainer extends React.Component {
-    componentDidMount() {
+    refreshUsers(page) {
         const {currentPage, pageSize} = this.props;
-        this.props.requestUsers(currentPage, pageSize);
+        this.props.requestUsers(page? page:currentPage, pageSize,
+            this.props.match.params.postId);
+    }
 
+    componentDidMount() {
+        this.refreshUsers()
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.postId != prevProps.match.params.postId ) {
+             this.props.setTotalUsersCount(0);
+            this.props.setCurrentPage(1);
+        }
+        else if (this.props.totalUsersCount != prevProps.totalUsersCount){
+            this.refreshUsers(1)
+        }
+    }
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //     if (this.props.totalUsersCount != nextProps.totalUsersCount){
+    //                 return true
+    //     }
+    // }
+
+
 
     onPageChanged = (page) => {
         const {pageSize} = this.props;
         this.props.setCurrentPage(page);
-        this.props.requestUsers(page, pageSize)
-
+        this.props.requestUsers(page, pageSize, this.props.match.params.postId)
     };
 
     render() {
@@ -65,6 +88,7 @@ const mapStateProps = (state) => {
 };
 
 export default compose(
+    withRouter,
     connect(mapStateProps, {
         unfollow,
         follow,
@@ -72,6 +96,7 @@ export default compose(
         setCurrentPage,
         toggleFollowingProgres,
         requestUsers,
+        setTotalUsersCount
     }),
 )(UsersContainer);
 

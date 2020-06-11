@@ -4,6 +4,7 @@ import classes from './MyPosts.module.css';
 import {reduxForm, reset} from "redux-form";
 import MyPostsForm from "../../common/forms/postForm";
 import {animated, useTransition} from "react-spring";
+import {setUsers} from "../../../redux/users_reducer";
 
 
 // название только с большой буквы
@@ -27,7 +28,7 @@ const MyPosts = (props) => {
         (animatedObject) =>
             <animated.div style={animatedObject.props}
                           key={animatedObject.item.id}>
-            <Posts
+            <Posts          props={props}
                             key={animatedObject.item.id}
                             id={animatedObject.item.id}
                             text={animatedObject.item.text}
@@ -35,9 +36,6 @@ const MyPosts = (props) => {
                             likes_count={animatedObject.item.likes}
                             like_users={animatedObject.item.like}
                             created_at={animatedObject.item.created_at}
-                            clickLike={props.likePostThunk}
-                            delPost={props.delPostThunk}
-                            editPost={props.changePostThunk}
                             isOwner={!props.match.params.userId}/>
                             </animated.div>
     );

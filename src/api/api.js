@@ -70,18 +70,25 @@ const requestWithAuth = async (action) => {
 
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
+    getUsers(currentPage = 1, pageSize = 10, postId) {
+        const getUsersWhoLikePost = postId ? `&like_post=${postId}` : '';
         return requestWithAuth(() => (
-            djangoBackEnd.get(`users/?page=${currentPage}&count=${pageSize}`)))
-    },
+            djangoBackEnd.get(`users/?page=${currentPage}&count=${pageSize}` +
+                getUsersWhoLikePost)))
+    }
+    ,
 
     follow(userId) {
         return requestWithAuth(() => (
-            djangoBackEnd.post(`follow/${userId}`, {})))
+            djangoBackEnd.post(
+                `follow/${userId}`
+                , {})))
     },
     unfollow(userId) {
         return requestWithAuth(() => (
-            djangoBackEnd.delete(`follow/${userId}`)))
+            djangoBackEnd.delete(
+                `follow/${userId}`
+            )))
     },
 
     getProfile(userId) {

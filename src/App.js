@@ -30,10 +30,15 @@ class App extends React.Component {
                         <HeaderContainer/>
                         <Navbar/>
                         <div className="app-wraper-content">
-                            <Route path='/dialogs' render={WithSuspense(DialogsContainer)}/>
-                            <Route path='/profile/:userId?' render={WithSuspense(ProfileContainer)}/>
+                            <Route path='/dialogs'
+                                   render={WithSuspense(DialogsContainer)}/>
+                                   <Route path='/dialogs:userId'
+                                   render={WithSuspense(DialogsContainer)}/>
+                            <Route path='/profile/:userId?'
+                                   render={WithSuspense(ProfileContainer)}/>
 
-                            <Route path='/users' render={() => <UsersContainer/>}/>
+                            <Route path='/users/:postId?'
+                                   render={() => <UsersContainer/>}/>
                             <Route path='/login' render={() => <Login/>}/>
                         </div>
                     </>

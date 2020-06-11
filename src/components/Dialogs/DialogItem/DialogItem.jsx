@@ -6,7 +6,7 @@ import userPhoto from "../../../userPhoto.jpg"
 const DialogItem = ({userId, userName, message, createdAt, photos, writtenBy}) => {
     return (
         <div>
-            <NavLink to={"#"} className={classes.dialogs}>
+            <NavLink to={"/dialogs/"+userId} className={classes.dialogs}>
                 <img className={classes.userimg}
                      src={photos.small || photos.small_img || userPhoto}/>
                 <div>

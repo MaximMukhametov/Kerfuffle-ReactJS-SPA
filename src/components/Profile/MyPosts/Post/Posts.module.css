@@ -6,18 +6,38 @@
     width: 50px;
     border-radius: 50px;
 }
-.like{
+
+.like {
     position: relative;
 }
 
-.like_users{
+.like_users {
+    color: white;
     position: absolute;
     display: none;
+    width: 80%;
+    bottom: 100%;
 }
 
-.like:hover .like_users{
+.like:hover .like_users {
+    border-radius: 20px;
+    padding: 2%;
+    display: grid;
+    background-color: rgba(0, 0, 0, 0.62);
+    grid-template-columns: repeat(auto-fill, minmax(70px, 90px));
+    grid-auto-columns: 1fr;
+
+
+}
+
+.like_users:hover .like_users {
     display: inline-block;
-    background-color: lightblue;
+}
 
-
+.like_user_element{
+    grid-auto-rows: 1fr;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    grid-template-columns: 1fr;
+    place-items: center;
 }

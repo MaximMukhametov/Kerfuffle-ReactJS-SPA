@@ -8,6 +8,11 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import {
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers
+} from "../../../redux/users_reducer";
 
 const mapStateProps = (state) => {
     return {
@@ -23,7 +28,10 @@ const MyPostsContainer = compose(withRouter,
         getPostThunk,
         delPostThunk,
         changePostThunk,
-        likePostThunk
+        likePostThunk,
+        setUsers,
+        setTotalUsersCount,
+        setCurrentPage
     }))(MyPosts);
 
 export default MyPostsContainer

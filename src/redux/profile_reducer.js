@@ -99,7 +99,7 @@ export const photoIsUploading = (isLoadingPhoto) => ({
 });
 
 export const getUserProfile = (userId, isOwner) => async (dispatch) => {
-    !isOwner && dispatch(setUserProfile(null))
+    !isOwner && dispatch(setUserProfile(null)) &&
     dispatch(getPost([]));
     let response = await userAPI.getProfile(userId);
     dispatch(setUserProfile(response.data))

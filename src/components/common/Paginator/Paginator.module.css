@@ -1,4 +1,9 @@
 .selectPage {
     font-weight: bold;
+    cursor: default;
 
+
+}
+.otherPage{
+    cursor: pointer
 }

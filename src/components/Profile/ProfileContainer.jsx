@@ -27,8 +27,8 @@ class ProfileContainer extends React.Component {
 
         Promise.all([this.props.getUserProfile(userId),
             this.props.getStatus(userId),
-            this.props.getPostThunk(this.props.match.params.userId)]).then(response => {
-            this.props.toggleIsFetching(false)
+            this.props.getPostThunk(this.props.match.params.userId)])
+            .then(response => {this.props.toggleIsFetching(false)
         })
     };
 

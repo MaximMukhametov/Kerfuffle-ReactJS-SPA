@@ -3,7 +3,6 @@ import classes from './Posts.module.css';
 import {reduxForm} from "redux-form";
 import MyPostsForm from "../../../common/forms/postForm";
 import userPhoto from "../../../../userPhoto.jpg";
-import {useTransition} from "react-spring";
 
 
 // название только с большой буквы
@@ -12,28 +11,32 @@ const ChangePostsReduxForm = reduxForm({
 })(MyPostsForm);
 
 
-const Posts = ({
-                   id, name, text, created_at, delPost,
-                   isOwner, editPost, likes_count, like_users, clickLike
-               }) => {
+const Posts = ({id, name, text, created_at, isOwner,
+                   likes_count, like_users, props}) => {
+
     let [editMod, setEditMod] = useState(false);
 
+    const like_user = like_users.slice(0, 10).map(u => {
+        return likes_count > 0 &&
+            (<div className={classes.like_user_element}>
+                <img src={(u.photos && (u.photos.small_img
+                    || u.photos.small)) || userPhoto}/>
+                <div>{u.name}</div>
+            </div>)
+    });
 
-
-    const like_user = like_users.map(u => <div>{u.name}<img
-        src={(u.photos && (u.photos.small_img
-            || u.photos.small)) || userPhoto}/></div>);
+    const showLikeUsers = (postId) => {
+        props.setTotalUsersCount(0);
+        props.setCurrentPage(1);
+        props.history.push('/users/' + postId)
+    };
 
     const deletePost = () => {
-        delPost(id)
+        props.delPostThunk(id)
     };
 
     const changePost = (textOfPost) => {
-        editPost(id, textOfPost.post);
-        setEditMod(!editMod);
-    };
-
-    const activateEditMode = () => {
+        props.changePostThunk(id, textOfPost.post);
         setEditMod(!editMod);
     };
 
@@ -46,7 +49,6 @@ const Posts = ({
                     <button onClick={() => setEditMod(!editMod)}>Exit Edit
                     </button>
                 </div> :
-
                 <div>
                     <img alt='sdf'
                          src='https://encrypted-tbn0.gstatic.com/
@@ -55,14 +57,22 @@ const Posts = ({
                     {text} <br/>
                     {created_at}
                     <div className={classes.like}>Likes{likes_count}
-                        <div className={classes.like_users}>{like_user}</div>
+                    {likes_count > 0 &&
+                        <div className={classes.like_users}>{like_user}
+                        {likes_count > 10 &&
+                            <button onClick={() => showLikeUsers(id)}>...show
+                                all users
+                            </button>}
+                        </div>}
                     </div>
                     {isOwner &&
-                    <button onClick={deletePost}>Delete</button>}
-                    <button onClick={() => clickLike(id)}>Like</button>
-                    }
-                    <button onClick={() => setEditMod(!editMod)}>Edit</button>
-                    }
+                    <div>
+                        <button onClick={deletePost}>Delete</button>
+                        <button onClick={() => setEditMod(!editMod)}>Edit
+                        </button>
+                    </div>}
+                    <button onClick={() => props.likePostThunk(id)}>Like
+                    </button>
                 </div>
             }
         </div>

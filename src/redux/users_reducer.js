@@ -89,11 +89,11 @@ export const toggleFollowingProgres = (followingInProgress, userId) => ({
 // это thunk, он возвращает функцию, мидлвар отлавливает такие функции,
 // разворачивает и исполняет, и через диспатч заного прокидывает в конвеер
 
-export const requestUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize, postId) => {
 
     return async (dispatch) => {
 
-        let data = await usersAPI.getUsers(currentPage, pageSize);
+        let data = await usersAPI.getUsers(currentPage, pageSize, postId);
         if (data.status == 200) {
         dispatch(toggleIsFetching(false));
         dispatch(setUsers(data.data.items));
