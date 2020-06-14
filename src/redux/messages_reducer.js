@@ -30,7 +30,7 @@ export const messagesReducer = (state = initialState, action) => {
         case SET_MESSAGE:
             return {
                 ...state,
-                messagesWithUser: [...state.messagesWithUser, action.textMessage]
+                messagesWithUser: [action.textMessage, ...state.messagesWithUser]
             };
         case SET_EDITED_MESSAGE:
             return {
@@ -78,7 +78,6 @@ export const setMessageCount = (messageCount) => ({
     type: SET_MESSAGE_COUNT,
     messageCount
 });
-
 
 export const getAllUsersWithDialogsThunk = () => async (dispatch) => {
     const response = await dialogsAPI.getAllUsersWithDialogs();

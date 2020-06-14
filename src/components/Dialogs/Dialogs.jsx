@@ -1,11 +1,5 @@
 import React, {useEffect} from "react";
-import classes from './Dialogs.module.css'
-
-import {maxLengthCreator} from "../../utils/validators/validators";
 import DialogItem from "./DialogItem/DialogItem";
-import Posts from "../Profile/MyPosts/Post/Posts";
-
-const maxLength50 = maxLengthCreator(50);
 
 
 const Dialogs = (props) => {
@@ -14,7 +8,7 @@ const Dialogs = (props) => {
     }, []);
 
     const getUserPhoto = (dialog) => (dialog.messagedata.written_by.id === props.authUserId?
-    dialog.messagedata.written_for.photos:dialog.messagedata.written_by.photos)
+    dialog.messagedata.written_for.photos:dialog.messagedata.written_by.photos);
 
     let dialog = props.dialogsPreview.map(
         d => <DialogItem userId={d.id}

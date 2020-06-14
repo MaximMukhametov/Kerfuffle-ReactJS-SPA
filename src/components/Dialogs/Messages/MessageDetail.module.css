@@ -30,3 +30,17 @@
     align-items: center;
     grid-gap: 10px;
 }
+
+.profile_info{
+    margin: 0.5vw;
+    height: 100px;
+    display: grid;
+    /*justify-items: start;*/
+    grid-template-columns: 1fr 1fr;
+
+    border-bottom: 1px solid black;
+}
+
+.profile_info img{
+    height: 100%;
+}

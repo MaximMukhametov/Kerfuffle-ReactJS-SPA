@@ -29,6 +29,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="app-wraper">
+                <img src={this.props.background_photo} id="bg" alt=""/>
                 {this.props.isFetching ?
                     <Preloader/> :
                     <>
@@ -54,6 +55,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetchingApp,
+    background_photo: (state.profilePage.profile ?
+        state.profilePage.profile.background_photo : null),
 });
 
 let AppContainer = connect(mapStateToProps, {getAuthUserData})(App);

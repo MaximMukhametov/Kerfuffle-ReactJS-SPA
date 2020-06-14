@@ -4,6 +4,7 @@ import userPhoto from "../../../userPhoto.jpg";
 import classes from "./ProfileInfo.module.css"
 import ProfileDataForm from "./ProfileDataForm";
 import Preloader from "../../common/preloader/preloader";
+import {Link} from "react-router-dom";
 
 
 const ProfileInfo = ({
@@ -28,23 +29,41 @@ const ProfileInfo = ({
     };
 
     return (
-        <div>
-            <div className={classes.descriptionBlock}>
-                <div className={classes.mainPhoto}>
+        <div className={classes.descriptionBlock}>
+
+            <div className={classes.photo_block}>
+                                <img className={classes.back_photo}
+                     src={profile.background_photo} alt=""/>
+                        <div className={classes.photo_area}></div>
+
+                <div className={classes.main_photo}>
+                    <div className={classes.main_photo_followers}>Followers</div>
                     {!isLoadingPhoto ?
-                        <img className={classes.photo}
+                        <img className={classes.main_photo_photo}
                              src={(profile.photos && (profile.photos.large_img
                                  || profile.photos.large)) || userPhoto}/> :
                         <Preloader/>
                     }
+                    <div className={classes.main_photo_followed}>Followed</div>
                 </div>
-                <div>{isOwner && <input type={"file"}
-                                        onChange={onMainPhotoSelected}/>}</div>
+
+            </div>
+            <div className={classes.profile_info}>
+
+            {isOwner &&
+            <div>
+                <label htmlFor="upload-photo">Edit photo</label>
+                <input type={"file"} id={'upload-photo'}
+                       className={classes.upload_photo}
+                       onChange={onMainPhotoSelected}/>
+            </div>}
+
                 {editMode ? <ProfileDataForm initialValues={profile}
                                              profile={profile}
                                              onSubmit={onSubmit}/> :
                     <ProfileData profile={profile} isOwner={isOwner}
                                  goToEditMode={() => setEditMod(true)}/>}
+
                 <ProfileStatusWithHooks status={status}
                                         updateStatus={updateStatus}
                                         isOwner={isOwner}/>
@@ -56,9 +75,17 @@ const ProfileInfo = ({
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
-            {isOwner && <div>
-                <button onClick={goToEditMode}>Edit</button>
-            </div>}
+            {isOwner ?
+                <div>
+                    <button onClick={goToEditMode}>Edit</button>
+                </div> :
+                <div>
+                    <Link to={"/dialogs/" + profile.id}>Send message</Link>
+                </div>}
+            <div>
+                <b> Name:</b> {profile.name}
+            </div>
+
             <div>
                 <b> Full name:</b> {profile.full_name}
             </div>

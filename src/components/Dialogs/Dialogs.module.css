@@ -1,33 +1,21 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr 2fr;
-}
 
-.dialogs_items {
-    padding: 10px;
-}
+/*.dialogs_items {*/
+/*    padding: 10px;*/
+/*}*/
 
-.dialog {
-    background-color: rgba(255,255,255,0.43);
-    margin: 1%;
-}
+/*.messages {*/
+/*    padding: 10px;*/
+/*}*/
 
-.userimg{
-    margin: 5%;
-    object-fit: cover;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-}
+/*.messeg {*/
 
-.messages {
-    padding: 10px;
-}
+/*}*/
+/*.dialog {*/
+/*    background-color: rgba(255,255,255,0.43);*/
+/*    margin: 1%;*/
+/*}*/
 
-.messeg {
 
-}
-
-.dialogs_items .active{
-    color: blue;
-}
+/*.dialogs_items .active{*/
+/*    color: blue;*/
+/*}*/

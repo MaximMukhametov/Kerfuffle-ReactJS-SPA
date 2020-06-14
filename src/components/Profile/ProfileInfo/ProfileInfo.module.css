@@ -1,17 +1,83 @@
-.panorama{
-  width: 100%;
-}
-.descriptionBlock{
-  padding: 10px;
+.panorama {
+    width: 100%;
 }
 
-.mainPhoto{
-  width: 300px;
-  height: 200px
+.descriptionBlock {
 
 }
 
-.photo{
-  max-width: 100%;
-  max-height: 100%;
+
+.main_photo_photo {
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+    width: calc(6vw + 60px);
+    height: calc(6vw + 60px);
+    max-width: 450px;
+    max-height: 450px;
+}
+
+.photo_block {
+    display: flex;
+    height: calc(10vw + 100px);
+    justify-content: center;
+}
+
+.back_photo {
+    display: flex;
+    object-fit: cover;
+    height: calc(10vw + 100px);
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+    z-index: 0;
+}
+
+.main_photo {
+    color: white;
+    width: 300px;
+    position: absolute;
+    top: -30px;
+    display: grid;
+    align-items: end;
+    grid-template-columns: repeat(3, 1fr);
+    z-index: 1;
+}
+
+.upload_photo {
+    display: none;
+}
+
+.profile_info {
+    padding: 2vw;
+}
+
+.main_photo_followed {
+    text-align: end;
+}
+
+
+.photo_area {
+    position: relative;
+    width: calc(10vw + 180px);
+    height: calc(10vw + 180px);
+    background-color: rgba(255, 55, 11, 0);
+    overflow: hidden;
+}
+
+.photo_area:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    width: calc(10vw + 180px);
+    top: -100px;
+    height: calc(10vw + 180px);
+    background-color: rgba(0, 0, 0, 0.32);
+
+}
+
+.photo_area:hover:after {
+    background-color: rgba(0, 0, 0, 0.6);
 }

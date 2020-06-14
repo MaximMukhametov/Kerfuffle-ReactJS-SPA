@@ -16,6 +16,7 @@ let initialState = {
     posts: [],
     newPostText: 'newPostText',
     profile: null,
+    background_photo: null,
     status: "",
     isLoadingPhoto: false
 };
@@ -38,28 +39,34 @@ const profileReducer = (state = initialState, action) => {
         case DEL_POST:
             return {
                 ...state,
-                posts: state.posts.filter(p => p.id != action.postId)
+                posts: state.posts.filter(p => p.id !== action.postId)
             };
 
         case EDIT_POST:
             return {
                 ...state,
                 posts: state.posts.map(post => (
-                    post.id == action.newPost.id ? action.newPost
+                    post.id === action.newPost.id ? action.newPost
                         : post
                 ))
             };
 
         case SET_USER_PROFILE:
+            if (action.profile) {
+                action.profile.photos = action.profile.photos || state.profile.photos;
+                action.profile.background_photo = action.background_photo || state.background_photo
+            }
             return {
                 ...state,
                 profile: action.profile,
             };
+
         case SET_STATUS:
             return {
                 ...state,
                 status: action.status,
             };
+
         case SAVE_PHOTO_SUCCESS:
             return {
                 ...state,
@@ -86,7 +93,11 @@ export const editPost = (newPost) => ({
     type: EDIT_POST,
     newPost,
 });
-export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const setUserProfile = (profile, background_photo) => ({
+    type: SET_USER_PROFILE,
+    background_photo,
+    profile
+});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const savePhotoSuccess = (photos) => ({
@@ -101,8 +112,9 @@ export const photoIsUploading = (isLoadingPhoto) => ({
 export const getUserProfile = (userId, isOwner) => async (dispatch) => {
     !isOwner && dispatch(setUserProfile(null)) &&
     dispatch(getPost([]));
-    let response = await userAPI.getProfile(userId);
-    dispatch(setUserProfile(response.data))
+    const response = await userAPI.getProfile(userId);
+    const {background_photo, ...profile} = response.data;
+    dispatch(setUserProfile(profile, background_photo))
 };
 
 
@@ -131,7 +143,8 @@ export const savePhoto = (fileWithPhoto) => async (dispatch) => {
 export const saveProfile = (profile, isOwner) => async (dispatch) => {
     const response = await profileAPI.saveProfile(profile);
     if (response.status === 201) {
-        dispatch(getUserProfile(profile.id, isOwner))
+        // dispatch(getUserProfile(profile.id, isOwner))
+        dispatch(setUserProfile(response.data))
     }
 };
 

@@ -2,7 +2,7 @@
     padding: 3%;
     font-size: 2vw;
     grid-area: n;
-    background-color: rgba(0, 0, 255, 0.4);
+    background-color: rgb(138, 143, 164);
 
 
 }
@@ -26,7 +26,7 @@
     color: white;
 }
 
-@media (max-device-width: 900px) {
+@media (max-device-width: 1100px) {
     .nav {
         display: grid;
         grid-template-columns: repeat(6, 1fr);

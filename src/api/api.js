@@ -118,7 +118,7 @@ export const profileAPI = {
     },
     saveProfile(profile) {
         return requestWithAuth(() => (
-            djangoBackEnd.put('profile/', profile)))
+            djangoBackEnd.patch('profile/', profile)))
     },
 
     addPost(text) {
@@ -171,7 +171,7 @@ export const dialogsAPI = {
             djangoBackEnd.get('message/1?get_users=1')))
     },
     getMessagesWithUser(userId, loadMoreMessages) {
-        const countMessages = !!loadMoreMessages? `?count=${loadMoreMessages}`: '';
+        const countMessages = !!loadMoreMessages ? `?count=${loadMoreMessages}` : '';
         return requestWithAuth(() => (
             djangoBackEnd.get('message/' + userId + countMessages)))
     },

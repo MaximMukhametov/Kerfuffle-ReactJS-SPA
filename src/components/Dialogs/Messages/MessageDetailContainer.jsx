@@ -8,15 +8,21 @@ import {
 } from "../../../redux/messages_reducer";
 import {connect} from "react-redux";
 import MessageDetail from "./MessageDetail";
-import ProfileDataForm from "../../Profile/ProfileInfo/ProfileDataForm";
 import MessageSendForm from "./MessageSendForm";
 import {animated, useTransition} from "react-spring";
+import WithAuthRedirect from "../../../hoc/WithAuthRedirect";
+import {getUserProfile} from "../../../redux/profile_reducer";
+import userPhoto from "../../../userPhoto.jpg";
+import classes from "./MessageDetail.module.css"
+
 
 
 const MessageDetailContainer = (props) => {
-    let [messageCounter, setMessageCounter] = useState(10)
+    let [messageCounter, setMessageCounter] = useState(10);
+    const loadMoreMessagesCount = 10;
 
     useEffect(() => {
+            props.getUserProfile(props.match.params.userId);
             props.getMessagesWithUserThunk(props.match.params.userId)
         }, [props.match.params.userId]
     );
@@ -30,47 +36,57 @@ const MessageDetailContainer = (props) => {
     });
 
     const isMyMessage = (message) => (
-        message.written_by.id === props.authUserId ? true : false
+        message.written_by.id === props.authUserId
     );
+
 
     const onSubmit = (messageText) => {
         props.sendMessageThunk(props.match.params.userId, messageText.message)
     };
     const loadMoreMessages = () => {
-        setMessageCounter(messageCounter+10);
-        props.getMessagesWithUserThunk(props.match.params.userId, messageCounter+10)
+        setMessageCounter(messageCounter + loadMoreMessagesCount);
+        props.getMessagesWithUserThunk(props.match.params.userId,
+            messageCounter + loadMoreMessagesCount)
     };
 
 
     const messages = !!props.messages && transitions.reverse().map(
         m => <animated.div style={m.props}
-                          key={m.item.id}>
+                           key={m.item.id}>
 
             <MessageDetail key={m.item.id}
-                            message={{
-                                id: m.item.id,
-                                message: m.item.message,
-                                data: m.item.created_at
-                            }}
-                            writer={m.item.written_by}
-                            isMyMessage={isMyMessage(m.item)}
-                            addressee={m.item.written_for}
-                            sendMessage={props.sendMessageThunk}
-                            editMessage={props.editMessageThunk}
-                            deleteMessage={props.deleteMessageThunk}
-                            routing={{
-                                history: props.history,
-                                location: props.location,
-                                match: props.match
-                            }}
-        /></animated.div>
+                           message={{
+                               id: m.item.id,
+                               message: m.item.message,
+                               data: m.item.created_at
+                           }}
+                           writer={m.item.written_by}
+                           isMyMessage={isMyMessage(m.item)}
+                           addressee={m.item.written_for}
+                           sendMessage={props.sendMessageThunk}
+                           editMessage={props.editMessageThunk}
+                           deleteMessage={props.deleteMessageThunk}
+                           routing={{
+                               history: props.history,
+                               location: props.location,
+                               match: props.match
+                           }}
+            /></animated.div>
     );
 
     return <div>
-        {props.messageCount > messageCounter && <div onClick={loadMoreMessages}>Загрузить ещё...</div>}
+        {!!props.profile && <div className={classes.profile_info}>
+            <img src={(props.profile.photos && (props.profile.photos.small_img
+                || props.profile.photos.small)) || userPhoto}/>
+            <div>{props.profile.name}</div>
+        </div>}
+        {props.messageCount > messageCounter &&
+        <div onClick={loadMoreMessages}>Загрузить ещё...</div>}
 
-        <div>{messages}</div>
-        <MessageSendForm onSubmit={onSubmit}/>
+        <div>
+            <div>{messages}</div>
+            <MessageSendForm onSubmit={onSubmit}/>
+        </div>
     </div>
 };
 
@@ -80,15 +96,17 @@ let mapStateToProps = (state, ownProps) => {
     return ({
         messages: state.messagesPage.messagesWithUser,
         authUserId: state.auth.userId,
-        messageCount: state.messagesPage.messageCount
+        messageCount: state.messagesPage.messageCount,
+        profile: state.profilePage.profile,
 
     })
 };
 
 export default compose(
     withRouter,
+    WithAuthRedirect,
     connect(mapStateToProps, {
-        setMessagesWithUser,
+        setMessagesWithUser, getUserProfile,
         getMessagesWithUserThunk, sendMessageThunk,
         editMessageThunk, deleteMessageThunk
     })
