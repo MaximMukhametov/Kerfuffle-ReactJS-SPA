@@ -34,10 +34,16 @@
     display: inline-block;
 }
 
-.like_user_element{
+.like_user_element {
     grid-auto-rows: 1fr;
     display: grid;
     grid-template-rows: 2fr 1fr;
     grid-template-columns: 1fr;
     place-items: center;
+}
+
+.test_ccs_image_url {
+    width: 100px;
+    height: 100px;
+    background-image: url(../../../../images.jpg);
 }

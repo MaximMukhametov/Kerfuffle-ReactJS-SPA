@@ -1,12 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
+    getPost,
     getPostThunk,
     getStatus,
     getUserProfile, saveBackgroundPhoto,
     savePhoto,
-    saveProfile,
+    saveProfile, setUserProfile,
     updateStatus
 } from "../../redux/profile_reducer";
 import {withRouter} from "react-router-dom";
@@ -25,7 +26,7 @@ const ProfileContainer = (props) => {
             }
         }
 
-        Promise.all([props.getUserProfile(userId),
+        Promise.all([props.getUserProfile(userId, !props.match.params.userId),
             props.getStatus(userId),
             props.getPostThunk(props.match.params.userId)])
             .then(response => {
@@ -35,10 +36,16 @@ const ProfileContainer = (props) => {
 
     useEffect(() => {
         refreshProfile()
+        return () => {
+            if (props.match.params.userId){
+                  props.setUserProfile(null);
+                    props.getPost([])
+        }
+        }
     }, [props.match.params.userId]);
 
-
     return (
+
         <div>
             <Profile {...props}
                      isOwner={!props.match.params.userId}
@@ -50,7 +57,6 @@ const ProfileContainer = (props) => {
                      saveBackgroundPhoto={props.saveBackgroundPhoto}
                      saveProfile={props.saveProfile}
                      isLoadingPhoto={props.isLoadingPhoto}/>
-
         </div>
     )
 };
@@ -97,6 +103,10 @@ export default compose(
             updateStatus,
             savePhoto,
             saveProfile,
-            getPostThunk
+            getPostThunk,
+            getPost,
+            setUserProfile
         })
 )(ProfileContainer)
+    // !isOwner && dispatch(setUserProfile(null)) &&
+    // dispatch(getPost([]));

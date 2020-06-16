@@ -73,7 +73,9 @@ const ProfileInfo = ({
                 <img className={classes.back_photo}
                      src={background_photo} alt=""/>
                 {isOwner &&
-                <label htmlFor='upload-background-photo'>
+                <label htmlFor='upload-background-photo'
+                       className={classes.label_edit_back_photo}>
+
                     {!isLoadingBackgroundPhoto ? <img
                             className={classes.edit_back_photo}
                             src={editBackgroundPhoto} alt=""/> :
@@ -81,7 +83,7 @@ const ProfileInfo = ({
                             className={classes.edit_back_photo}
                             src={imageLoader} alt=""/>}
                     <input type={"file"} id={'upload-background-photo'}
-                           className={classes.upload_photo2}
+                           className={classes.upload_background_photo_input}
                            onChange={onBackgroundPhotoSelected}/></label>}
 
                 <animated.div

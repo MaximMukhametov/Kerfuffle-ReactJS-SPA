@@ -53,6 +53,7 @@ const Posts = ({id, name, text, created_at, isOwner,
                     <img alt='sdf'
                          src='https://encrypted-tbn0.gstatic.com/
                          images?q=tbn%3AANd9GcR_WYzaA1BQvvu0FN7Zu1MsxawEDpzFdG7uczm3cp8_kPigMMFO'></img>
+                    <div className={classes.test_ccs_image_url}></div>
                     {name} <br/>
                     {text} <br/>
                     {created_at}

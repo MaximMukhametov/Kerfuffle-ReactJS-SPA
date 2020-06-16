@@ -133,7 +133,14 @@ text-shadow: 0px 0px 10px white;
 }
 
 .main_photo_followed:active p{
-text-shadow: 0px 0px 10px #7805ff;
+text-shadow: 0px 0px 10px #000000;
+}
+.main_photo_followers:hover p{
+text-shadow: 0px 0px 10px white;
+}
+
+.main_photo_followers:active p{
+text-shadow: 0px 0px 10px #000000;
 }
 
 .status_bar {
@@ -156,12 +163,7 @@ text-shadow: 0px 0px 10px #7805ff;
 }
 
 
-@media (max-device-width: 720px) {
-    .profile_info {
-        grid-template-columns: 1fr;
 
-    }
-}
 
 .main_photo_avatar {
     position: relative;
@@ -189,14 +191,25 @@ text-shadow: 0px 0px 10px #7805ff;
     transition-duration: 500ms;
 }
 
+.main_photo_editPhoto:hover , .edit_back_photo:hover{
+    -webkit-filter: brightness(120%) hue-rotate(10deg)  contrast(110%);
+    filter: brightness(120%) hue-rotate(10deg)  contrast(110%);
+
+}
+/*.label_edit_back_photo{*/
+/*    opacity: 0;*/
+/*    transition-duration: 500ms;*/
+
+/*}*/
+
 .edit_back_photo {
     opacity: 0;
     width: calc(1vw + 30px);
     height: calc(1vw + 30px);
     position: absolute;
     z-index: 2;
-    right: 5px;
-    top: 5px;
+    right: 10px;
+    top: 10px;
     transition-duration: 500ms;
 }
 
@@ -205,4 +218,15 @@ text-shadow: 0px 0px 10px #7805ff;
     cursor: pointer;
     transform: scale(1.2);
     transition-duration: 500ms;
+}
+
+.upload_background_photo_input{
+    opacity: 0;
+}
+
+@media (max-device-width: 720px) {
+    .profile_info {
+        grid-template-columns: 1fr;
+
+    }
 }
