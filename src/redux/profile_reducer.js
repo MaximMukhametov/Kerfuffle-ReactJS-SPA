@@ -1,5 +1,6 @@
 import userAPI, {profileAPI} from "../api/api";
 import authReducer from "./auth_reducer";
+import defaultBackgroundPhoto from "./../media/defaultBackgroundPhoto.jpg"
 
 const GET_POST = 'GET_POST';
 const ADD_POST = 'ADD_POST';
@@ -9,6 +10,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST;';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
+const SAVE_BACKGROUND_PHOTO_SUCCESS = 'SAVE_BACKGROUND_PHOTO_SUCCESS';
 const PHOTO_IS_UPLOADING = 'PHOTO_IS_UPLOADING';
 
 
@@ -18,7 +20,7 @@ let initialState = {
     profile: null,
     background_photo: null,
     status: "",
-    isLoadingPhoto: false
+    isLoadingPhoto: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -54,7 +56,8 @@ const profileReducer = (state = initialState, action) => {
         case SET_USER_PROFILE:
             if (action.profile) {
                 action.profile.photos = action.profile.photos || state.profile.photos;
-                action.profile.background_photo = action.background_photo || state.background_photo
+                action.profile.background_photo = action.background_photo ||
+                    (!!state.profile && state.profile.background_photo) || defaultBackgroundPhoto
             }
             return {
                 ...state,
@@ -71,6 +74,15 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos}
+            };
+
+        case SAVE_BACKGROUND_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    background_photo: action.background_photo
+                }
             };
 
         case PHOTO_IS_UPLOADING:
@@ -103,6 +115,10 @@ export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const savePhotoSuccess = (photos) => ({
     type: SAVE_PHOTO_SUCCESS,
     photos
+});
+export const saveBackgroundPhotoSuccess = ({background_photo}) => ({
+    type: SAVE_BACKGROUND_PHOTO_SUCCESS,
+    background_photo
 });
 export const photoIsUploading = (isLoadingPhoto) => ({
     type: PHOTO_IS_UPLOADING,
@@ -140,11 +156,18 @@ export const savePhoto = (fileWithPhoto) => async (dispatch) => {
     }
 };
 
+export const saveBackgroundPhoto = (fileWithPhoto) => async (dispatch) => {
+    const response = await profileAPI.saveBackgroundPhoto(fileWithPhoto);
+    if (response.status === 201) {
+        dispatch(saveBackgroundPhotoSuccess(response.data));
+    }
+};
+
 export const saveProfile = (profile, isOwner) => async (dispatch) => {
     const response = await profileAPI.saveProfile(profile);
     if (response.status === 201) {
-        // dispatch(getUserProfile(profile.id, isOwner))
-        dispatch(setUserProfile(response.data))
+        dispatch(getUserProfile(profile.id, isOwner))
+        // dispatch(setUserProfile(response.data))
     }
 };
 

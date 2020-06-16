@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {
     follow,
@@ -22,58 +22,56 @@ import {
 import {withRouter} from "react-router-dom";
 
 
-class UsersContainer extends React.Component {
-    refreshUsers(page) {
-        const {currentPage, pageSize} = this.props;
-        this.props.requestUsers(page? page:currentPage, pageSize,
-            this.props.match.params.postId);
-    }
-
-    componentDidMount() {
-        this.refreshUsers()
+const UsersContainer = (props) => {
+    const clearPageCounter = () => {
+        props.setTotalUsersCount(0);
+        props.setCurrentPage(1);
+        props.setUsers([]);
+    };
+    const getQueryString = () => {
+        const queryString = new URLSearchParams(props.location.search);
+        const followers = queryString.get('followers_by_userid');
+        const following = queryString.get('following_by_userid');
+        const action = (!!followers && 'followers') || (!!following && 'following');
+        return {user: followers || following, action}
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.postId != prevProps.match.params.postId ) {
-             this.props.setTotalUsersCount(0);
-            this.props.setCurrentPage(1);
-        }
-        else if (this.props.totalUsersCount != prevProps.totalUsersCount){
-            this.refreshUsers(1)
-        }
-    }
-
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     if (this.props.totalUsersCount != nextProps.totalUsersCount){
-    //                 return true
-    //     }
-    // }
-
-
-
-    onPageChanged = (page) => {
-        const {pageSize} = this.props;
-        this.props.setCurrentPage(page);
-        this.props.requestUsers(page, pageSize, this.props.match.params.postId)
+    const refreshUsers = (page) => {
+        const {currentPage, pageSize} = props;
+        props.requestUsers(page ? page : currentPage, pageSize,
+            props.match.params.postId, getQueryString());
     };
 
-    render() {
-        return <>
-            {this.props.isFetching ?
-                <Preloader/> :
-                <Users
-                    totalUsersCount={this.props.totalUsersCount}
-                    pageSize={this.props.pageSize}
-                    currentPage={this.props.currentPage}
-                    users={this.props.users}
-                    onPageChanged={this.onPageChanged}
-                    follow={this.props.follow}
-                    unfollow={this.props.unfollow}
-                    followingInProgress={this.props.followingInProgress}
-                    toggleFollowingProgres={this.props.toggleFollowingProgres}
-                />}</>
+    useEffect(() => {
+        refreshUsers(1);
+        clearPageCounter()
+    }, [props.match.params, props.location.search]);
+
+
+    const onPageChanged = (page) => {
+        const {pageSize} = props;
+        props.setCurrentPage(page);
+        props.requestUsers(page, pageSize, props.match.params.postId,
+            getQueryString())
     };
-}
+
+
+    return <>
+        {props.isFetching ?
+            <Preloader/> :
+            <Users
+                totalUsersCount={props.totalUsersCount}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                users={props.users}
+                onPageChanged={onPageChanged}
+                follow={props.follow}
+                unfollow={props.unfollow}
+                followingInProgress={props.followingInProgress}
+                toggleFollowingProgres={props.toggleFollowingProgres}
+            />}</>
+};
+
 
 const mapStateProps = (state) => {
     return {

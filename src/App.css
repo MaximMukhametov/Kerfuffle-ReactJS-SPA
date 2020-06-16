@@ -37,6 +37,7 @@
     top: 0;
     left: 0;
     filter: blur(18px);
+    width: 100%;
     -webkit-filter: blur(18px);
     /* Preserve aspet ratio */
     min-width: 100%;

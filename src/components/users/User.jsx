@@ -1,5 +1,5 @@
 import classes from "./Users.module.css";
-import userPhoto from "../../userPhoto.jpg";
+import userPhoto from "../../media/userPhoto.jpg";
 import React from "react";
 import {NavLink} from "react-router-dom";
 

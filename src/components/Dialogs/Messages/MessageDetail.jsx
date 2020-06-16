@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import classes from './MessageDetail.module.css'
-import userPhoto from "../../../userPhoto.jpg";
+import userPhoto from "../../../media/userPhoto.jpg";
 import MessageSendForm, {MessageEditForm} from "./MessageSendForm";
 
 
@@ -28,8 +28,8 @@ const MessageDetail = ({
         </div>
 
         <div className={classes.message_body}>
-            <div onBlur={() => setEditMode(!editMode)}>{editMode ?
-                <MessageEditForm onSubmit={onSubmit}/> : message.message}</div>
+            {editMode ?
+                <MessageEditForm  initialValues={message} onSubmit={onSubmit}/> : message.message}
             <div>{message.data}</div>
             {isMyMessage &&
             <div className={classes.message_control}>

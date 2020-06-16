@@ -1,4 +1,4 @@
-import loadCircle from "../../../VdOY.gif";
+import loadCircle from "../../../media/VdOY.gif";
 import React from "react";
 
 

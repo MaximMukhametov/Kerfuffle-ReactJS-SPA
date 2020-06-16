@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getPostThunk,
     getStatus,
-    getUserProfile,
+    getUserProfile, saveBackgroundPhoto,
     savePhoto,
     saveProfile,
     updateStatus
@@ -14,51 +14,47 @@ import {toggleIsFetching} from "../../redux/users_reducer";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
-class ProfileContainer extends React.Component {
-    refreshProfile() {
-        this.props.toggleIsFetching(true);
-        let userId = this.props.match.params.userId;
+const ProfileContainer = (props) => {
+    const refreshProfile = () => {
+        props.toggleIsFetching(true);
+        let userId = props.match.params.userId;
         if (!userId) {
             userId = '';
-            if (!this.props.isAuth) {
-                this.props.history.push("/login");
+            if (!props.isAuth) {
+                props.history.push("/login");
             }
         }
 
-        Promise.all([this.props.getUserProfile(userId),
-            this.props.getStatus(userId),
-            this.props.getPostThunk(this.props.match.params.userId)])
-            .then(response => {this.props.toggleIsFetching(false)
-        })
+        Promise.all([props.getUserProfile(userId),
+            props.getStatus(userId),
+            props.getPostThunk(props.match.params.userId)])
+            .then(response => {
+                props.toggleIsFetching(false)
+            })
     };
 
-    componentDidMount() {
-        this.refreshProfile()
-    }
+    useEffect(() => {
+        refreshProfile()
+    }, [props.match.params.userId]);
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId) {
-            this.refreshProfile()
-        }
-    }
 
-    render() {
-        return (
-            <div>
-                <Profile {...this.props}
-                         isOwner={!this.props.match.params.userId}
-                         profile={this.props.profile}
-                         isFetching={this.props.isFetching}
-                         status={this.props.status}
-                         updateStatus={this.props.updateStatus}
-                         savePhoto={this.props.savePhoto}
-                         saveProfile={this.props.saveProfile}
-                         isLoadingPhoto={this.props.isLoadingPhoto}/>
+    return (
+        <div>
+            <Profile {...props}
+                     isOwner={!props.match.params.userId}
+                     profile={props.profile}
+                     isFetching={props.isFetching}
+                     status={props.status}
+                     updateStatus={props.updateStatus}
+                     savePhoto={props.savePhoto}
+                     saveBackgroundPhoto={props.saveBackgroundPhoto}
+                     saveProfile={props.saveProfile}
+                     isLoadingPhoto={props.isLoadingPhoto}/>
 
-            </div>
-        )
-    }
-}
+        </div>
+    )
+};
+
 
 // HOC (хок) компонента, что-то типа декоратора в питоне, добавляет одинаковую функциональность к компонентам,
 // принимает компоненту, добавляет что-то и возвращает компоненту
@@ -94,6 +90,7 @@ export default compose(
     WithAuthRedirect,
     connect(mapStateToProps,
         {
+            saveBackgroundPhoto,
             toggleIsFetching,
             getUserProfile,
             getStatus,

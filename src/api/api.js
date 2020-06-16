@@ -70,11 +70,15 @@ const requestWithAuth = async (action) => {
 
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10, postId) {
+    getUsers(currentPage = 1, pageSize = 10, postId, show_follow_users) {
         const getUsersWhoLikePost = postId ? `&like_post=${postId}` : '';
+        const getFollowUsers = show_follow_users && show_follow_users.user ?
+            `&user=${show_follow_users.user}&${show_follow_users.action}=true` : '';
+
+
         return requestWithAuth(() => (
             djangoBackEnd.get(`users/?page=${currentPage}&count=${pageSize}` +
-                getUsersWhoLikePost)))
+                getUsersWhoLikePost + getFollowUsers)))
     }
     ,
 
@@ -116,6 +120,13 @@ export const profileAPI = {
         return requestWithAuth(() => (
             djangoBackEnd.put('profile/photo/', formData)))
     },
+    saveBackgroundPhoto(photoFile) {
+        const formData = new FormData();
+        formData.append("background_photo", photoFile);
+        return requestWithAuth(() => (
+            djangoBackEnd.patch('profile/', formData)))
+    },
+
     saveProfile(profile) {
         return requestWithAuth(() => (
             djangoBackEnd.patch('profile/', profile)))

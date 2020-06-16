@@ -14,9 +14,9 @@ const Profile = (props) => {
                 profile={props.profile}
                 status={props.status}
                 updateStatus={props.updateStatus}
-                isLoadingPhoto={props.isLoadingPhoto}/></div>
-
-            <div className={classes.posts}><MyPostsContainer/></div>
+                history={props.history}
+                isLoadingPhoto={props.isLoadingPhoto}
+                saveBackgroundPhoto={props.saveBackgroundPhoto}/></div>
         </div>
     )
 };

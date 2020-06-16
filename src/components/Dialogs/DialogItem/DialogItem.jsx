@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './DialogItem.module.css'
 import {Link} from "react-router-dom";
-import userPhoto from "../../../userPhoto.jpg"
+import userPhoto from "../../../media/userPhoto.jpg"
 
 const DialogItem = ({userId, userName, message, createdAt, photos, writtenBy}) => {
     const maxMessageLengthToShow = 60;

@@ -1,5 +1,5 @@
 import React from "react";
-import {reduxForm} from "redux-form";
+import {reduxForm, reset} from "redux-form";
 import {
     fieldCreator,
     Textarea
@@ -11,7 +11,7 @@ import classes from "./MessageDetail.module.css"
 const MessageForm = ({handleSubmit, error, ...props}) => {
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onBlur={handleSubmit} onSubmit={handleSubmit}>
               {error && <div className={classes.formCommonError}>
                 {error}
             </div>}
@@ -23,7 +23,11 @@ const MessageForm = ({handleSubmit, error, ...props}) => {
     )
 };
 
-const MessageSendForm = reduxForm({form: "message-form"})(MessageForm);
+const MessageSendForm = reduxForm({form: "message-form",
+    onSubmitSuccess: (result, dispatch, props) => {
+        dispatch(reset('message-form'))
+    },
+})(MessageForm);
 export const MessageEditForm = reduxForm({form: "edit-message-form"})(MessageForm);
 
 export default MessageSendForm

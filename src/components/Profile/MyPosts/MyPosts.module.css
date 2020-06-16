@@ -1,4 +1,5 @@
 .content {
+
     grid-area: c;
     background-color: rgba(210, 105, 30, 0.4);
 
@@ -9,6 +10,8 @@
 }
 
 .postsBlock {
+    padding: 0 3vw 0 3vw;
+    border-left: 2px solid rgba(0, 0, 0, 0.14);
 
 }
 

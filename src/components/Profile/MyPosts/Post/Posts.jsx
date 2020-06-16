@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import classes from './Posts.module.css';
 import {reduxForm} from "redux-form";
 import MyPostsForm from "../../../common/forms/postForm";
-import userPhoto from "../../../../userPhoto.jpg";
+import userPhoto from "../../../../media/userPhoto.jpg";
 
 
 // название только с большой буквы
@@ -26,8 +26,8 @@ const Posts = ({id, name, text, created_at, isOwner,
     });
 
     const showLikeUsers = (postId) => {
-        props.setTotalUsersCount(0);
-        props.setCurrentPage(1);
+        // props.setTotalUsersCount(0);
+        // props.setCurrentPage(1);
         props.history.push('/users/' + postId)
     };
 

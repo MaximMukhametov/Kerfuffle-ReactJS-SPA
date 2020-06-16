@@ -18,9 +18,9 @@ const MyPosts = (props) => {
 
     const transitions = useTransition(props.posts, item => item.id, {
         config: { mass: 10, tension: 2000, friction: 60 },
-        from: {transform: 'rotateX(90deg)', opacity: 1},
-        enter: {transform: 'rotateX(0deg)', opacity: 1},
-        leave: {transform: 'rotateX(90deg)', opacity: 1},
+        from: {transform: 'rotateX(90deg)'},
+        enter: {transform: 'rotateX(0deg)'},
+        leave: {transform: 'rotateX(90deg)'},
     });
     const AnimatedPosts = animated(Posts);
 
@@ -44,10 +44,6 @@ const MyPosts = (props) => {
         props.addPostThunk(textOfPost.post)
     };
 
-    const afterSubmit = (result, dispatch) => {
-        console.log(result, dispatch)
-
-    };
     if (!props.profile) {
         return <div>Loading...</div>
     } else {

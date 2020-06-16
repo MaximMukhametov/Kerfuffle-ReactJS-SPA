@@ -12,18 +12,19 @@ import MessageSendForm from "./MessageSendForm";
 import {animated, useTransition} from "react-spring";
 import WithAuthRedirect from "../../../hoc/WithAuthRedirect";
 import {getUserProfile} from "../../../redux/profile_reducer";
-import userPhoto from "../../../userPhoto.jpg";
+import userPhoto from "../../../media/userPhoto.jpg";
 import classes from "./MessageDetail.module.css"
-
 
 
 const MessageDetailContainer = (props) => {
     let [messageCounter, setMessageCounter] = useState(10);
+    let [isLoadProfile, setIsLoadProfile] = useState(false)
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
-            props.getUserProfile(props.match.params.userId);
+            props.getUserProfile(props.match.params.userId, true);
             props.getMessagesWithUserThunk(props.match.params.userId)
+                .then(r=> setIsLoadProfile(true))
         }, [props.match.params.userId]
     );
     useEffect(() => () => props.setMessagesWithUser([]), []);
@@ -75,7 +76,7 @@ const MessageDetailContainer = (props) => {
     );
 
     return <div>
-        {!!props.profile && <div className={classes.profile_info}>
+        {!!props.profile && isLoadProfile && <div className={classes.profile_info}>
             <img src={(props.profile.photos && (props.profile.photos.small_img
                 || props.profile.photos.small)) || userPhoto}/>
             <div>{props.profile.name}</div>
