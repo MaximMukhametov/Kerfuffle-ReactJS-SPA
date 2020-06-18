@@ -14,8 +14,10 @@ import {withRouter} from "react-router-dom";
 import {toggleIsFetching} from "../../redux/users_reducer";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import Preloader from "../common/preloader/preloader";
 
 const ProfileContainer = (props) => {
+
     const refreshProfile = () => {
         +props.match.params.userId === props.userId && props.history.push('/profile/');
         props.toggleIsFetching(true);
@@ -42,12 +44,13 @@ const ProfileContainer = (props) => {
                 props.setUserProfile(null);
                 props.getPost([])
             }
+            props.toggleIsFetching(true)
         }
     }, [props.match.params.userId]);
 
     return (
 
-        <div>
+        <div>{!props.isFetching?
             <Profile {...props}
                      isOwner={!props.match.params.userId}
                      profile={props.profile}
@@ -57,7 +60,8 @@ const ProfileContainer = (props) => {
                      savePhoto={props.savePhoto}
                      saveBackgroundPhoto={props.saveBackgroundPhoto}
                      saveProfile={props.saveProfile}
-                     isLoadingPhoto={props.isLoadingPhoto}/>
+                     isLoadingPhoto={props.isLoadingPhoto}/>:
+            <Preloader/>}
         </div>
     )
 };

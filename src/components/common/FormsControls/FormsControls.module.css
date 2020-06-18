@@ -1,12 +1,12 @@
-.formControl.error input{
+.formControl.error input {
 
 }
 
-.formControl.error textarea{
+.formControl.error textarea {
     border: solid rgba(255, 0, 0, 0.74) 3px;
 }
 
-.formControl.error span{
+.formControl.error span {
     color: red;
 }
 
@@ -14,4 +14,29 @@
     border: red 1px solid;
     padding: 5px;
     color: crimson;
+}
+
+.formControl textarea {
+    height: auto;
+    font-size: 15px;
+    resize: none;
+    overflow: hidden;
+}
+
+.formControl .spamnnn{
+    border: none;
+
+    outline: none;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.formControl{
+    width: auto;
+}
+
+.divsdpan{
+    border: 4px solid black;
+    min-height: 50px;
+    width: auto;
 }

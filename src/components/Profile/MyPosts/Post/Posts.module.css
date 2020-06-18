@@ -30,6 +30,7 @@
 }
 
 .post_text {
+    word-wrap: break-word;
     border-bottom: 2px solid rgba(0, 0, 0, 0.23);
     /*border-top: 2px solid rgba(0, 0, 0, 0.23);*/
     margin: 10px;
@@ -165,7 +166,7 @@
 }
 
 .post_text_editor textarea {
-    height: 100%;
+    height: auto;
     width: 100%;
     outline: none;
     border: 0;

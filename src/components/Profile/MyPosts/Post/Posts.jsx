@@ -15,7 +15,7 @@ import convertUTCDateToLocalDate
 
 // название только с большой буквы
 const ChangePostsReduxForm = reduxForm({
-    form: 'ChangePostsForm'
+    form: 'ChangePostsForm',
 })(MyPostsForm);
 
 

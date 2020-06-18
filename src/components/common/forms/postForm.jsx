@@ -3,8 +3,10 @@ import {fieldCreator, Textarea} from "../FormsControls/FormsControls";
 import classes from "./../../Profile/MyPosts/MyPosts.module.css";
 
 import React from "react";
+import {formValues} from "redux-form";
+import MyPosts from "../../Profile/MyPosts/MyPosts";
 
-const maxLength10 = maxLengthCreator(300);
+const maxLength10 = maxLengthCreator(700);
 
 const MyPostsForm = (props) => {
 
@@ -17,12 +19,13 @@ const MyPostsForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             {fieldCreator("post", "text", Textarea, {
                 validate: [maxLength10],
-                placeholder: "New Post"
+                placeholder: "New Post",
             })}
             <button>Send</button>
         </form>
     )
 };
+
 
 export default MyPostsForm
 

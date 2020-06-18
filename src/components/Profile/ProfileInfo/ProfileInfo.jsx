@@ -32,9 +32,10 @@ const ProfileInfo = ({
     let [isLoadingBackgroundPhoto,
         setIsLoadingBackgroundPhoto] = useState(false);
 
-    if (!profile) {
-        return <Preloader/>
-    }
+    // if (!profile) {
+    //     return <div></div>
+    // }
+
     const {background_photo, photos, ...initialProfileValues} = profile;
 
     const onMainPhotoSelected = (e) => {
