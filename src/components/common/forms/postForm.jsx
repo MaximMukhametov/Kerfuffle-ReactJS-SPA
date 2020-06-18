@@ -2,7 +2,7 @@ import {maxLengthCreator} from "../../../utils/validators/validators";
 import {fieldCreator, Textarea} from "../FormsControls/FormsControls";
 import React from "react";
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength10 = maxLengthCreator(300);
 
 const MyPostsForm = (props) => {
 

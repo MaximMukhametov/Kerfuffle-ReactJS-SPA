@@ -92,8 +92,9 @@ const ProfileInfo = ({
                     style={{transform: animateProps.xys.interpolate(trans)}}
                     className={classes.main_photo}>
                     <div className={classes.photo_area}></div>
-                    <div onClick={getFollowers}
-                         className={classes.main_photo_followers}>
+                    <div
+                        onClick={getFollowers}
+                        className={classes.main_photo_followers}>
                         FOLLOWERS<p>{profile.followers}</p></div>
                     {!isLoadingPhoto ?
                         <div className={classes.main_photo_avatar}>

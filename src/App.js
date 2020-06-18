@@ -56,7 +56,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetchingApp,
     background_photo: (state.profilePage.profile ?
-        state.profilePage.profile.background_photo : null),
+        state.profilePage.profile.background_photo :
+        state.profilePage.background_photo),
 });
 
 let AppContainer = connect(mapStateToProps, {getAuthUserData})(App);

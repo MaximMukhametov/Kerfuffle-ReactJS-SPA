@@ -17,6 +17,7 @@ import {compose} from "redux";
 
 const ProfileContainer = (props) => {
     const refreshProfile = () => {
+        +props.match.params.userId === props.userId && props.history.push('/profile/');
         props.toggleIsFetching(true);
         let userId = props.match.params.userId;
         if (!userId) {
@@ -35,12 +36,12 @@ const ProfileContainer = (props) => {
     };
 
     useEffect(() => {
-        refreshProfile()
+        refreshProfile();
         return () => {
-            if (props.match.params.userId){
-                  props.setUserProfile(null);
-                    props.getPost([])
-        }
+            if (props.match.params.userId) {
+                props.setUserProfile(null);
+                props.getPost([])
+            }
         }
     }, [props.match.params.userId]);
 
@@ -74,6 +75,7 @@ let mapStateToProps = (state) => {
         authorizedUserId: state.auth.userId,
         isAuth: state.auth.isAuth,
         isLoadingPhoto: state.profilePage.isLoadingPhoto,
+        userId: state.auth.userId,
 
     })
 };
@@ -108,5 +110,5 @@ export default compose(
             setUserProfile
         })
 )(ProfileContainer)
-    // !isOwner && dispatch(setUserProfile(null)) &&
-    // dispatch(getPost([]));
+// !isOwner && dispatch(setUserProfile(null)) &&
+// dispatch(getPost([]));

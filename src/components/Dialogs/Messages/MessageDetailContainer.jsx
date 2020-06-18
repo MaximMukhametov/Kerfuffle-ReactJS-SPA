@@ -14,17 +14,19 @@ import WithAuthRedirect from "../../../hoc/WithAuthRedirect";
 import {getUserProfile} from "../../../redux/profile_reducer";
 import userPhoto from "../../../media/userPhoto.jpg";
 import classes from "./MessageDetail.module.css"
+import convertUTCDateToLocalDate
+    from "../../../utils/convertUTCDateToLocalDate";
 
 
 const MessageDetailContainer = (props) => {
     let [messageCounter, setMessageCounter] = useState(10);
-    let [isLoadProfile, setIsLoadProfile] = useState(false)
+    let [isLoadProfile, setIsLoadProfile] = useState(false);
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
             props.getUserProfile(props.match.params.userId, true);
             props.getMessagesWithUserThunk(props.match.params.userId)
-                .then(r=> setIsLoadProfile(true))
+                .then(r => setIsLoadProfile(true))
         }, [props.match.params.userId]
     );
     useEffect(() => () => props.setMessagesWithUser([]), []);
@@ -59,7 +61,7 @@ const MessageDetailContainer = (props) => {
                            message={{
                                id: m.item.id,
                                message: m.item.message,
-                               data: m.item.created_at
+                               data: convertUTCDateToLocalDate(m.item.created_at)
                            }}
                            writer={m.item.written_by}
                            isMyMessage={isMyMessage(m.item)}
@@ -76,7 +78,8 @@ const MessageDetailContainer = (props) => {
     );
 
     return <div>
-        {!!props.profile && isLoadProfile && <div className={classes.profile_info}>
+        {!!props.profile && isLoadProfile &&
+        <div className={classes.profile_info}>
             <img src={(props.profile.photos && (props.profile.photos.small_img
                 || props.profile.photos.small)) || userPhoto}/>
             <div>{props.profile.name}</div>

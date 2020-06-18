@@ -6,10 +6,6 @@
 
 }
 
-
-
-
-
 .photo_block {
     display: flex;
     height: calc(10vw + 150px);
@@ -46,6 +42,7 @@
     grid-template-rows: calc(5vw + 80px) minmax(50px, 100px);
     z-index: 1;
 }
+
 .main_photo_photo {
 
     box-shadow: 0px 10px 30px -5px rgb(0, 0, 0);
@@ -128,19 +125,20 @@
     border-bottom: 1px solid white;
 }
 
-.main_photo_followed:hover p{
-text-shadow: 0px 0px 10px white;
+.main_photo_followed:hover p {
+    text-shadow: 0px 0px 10px white;
 }
 
-.main_photo_followed:active p{
-text-shadow: 0px 0px 10px #000000;
-}
-.main_photo_followers:hover p{
-text-shadow: 0px 0px 10px white;
+.main_photo_followed:active p {
+    text-shadow: 0px 0px 10px #000000;
 }
 
-.main_photo_followers:active p{
-text-shadow: 0px 0px 10px #000000;
+.main_photo_followers:hover p {
+    text-shadow: 0px 0px 10px white;
+}
+
+.main_photo_followers:active p {
+    text-shadow: 0px 0px 10px #000000;
 }
 
 .status_bar {
@@ -161,8 +159,6 @@ text-shadow: 0px 0px 10px #000000;
     word-break: break-all;
     max-width: 100px;
 }
-
-
 
 
 .main_photo_avatar {
@@ -191,11 +187,12 @@ text-shadow: 0px 0px 10px #000000;
     transition-duration: 500ms;
 }
 
-.main_photo_editPhoto:hover , .edit_back_photo:hover{
-    -webkit-filter: brightness(120%) hue-rotate(10deg)  contrast(110%);
-    filter: brightness(120%) hue-rotate(10deg)  contrast(110%);
+.main_photo_editPhoto:hover, .edit_back_photo:hover {
+    -webkit-filter: brightness(120%) hue-rotate(10deg) contrast(110%);
+    filter: brightness(120%) hue-rotate(10deg) contrast(110%);
 
 }
+
 /*.label_edit_back_photo{*/
 /*    opacity: 0;*/
 /*    transition-duration: 500ms;*/
@@ -220,7 +217,7 @@ text-shadow: 0px 0px 10px #000000;
     transition-duration: 500ms;
 }
 
-.upload_background_photo_input{
+.upload_background_photo_input {
     opacity: 0;
 }
 

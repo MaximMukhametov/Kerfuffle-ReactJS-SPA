@@ -12,6 +12,7 @@ const DELETE_POST = 'DELETE_POST;';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 const SAVE_BACKGROUND_PHOTO_SUCCESS = 'SAVE_BACKGROUND_PHOTO_SUCCESS';
 const PHOTO_IS_UPLOADING = 'PHOTO_IS_UPLOADING';
+const SAVE_OWNER_BACKGROUND_PHOTO = 'SAVE_OWNER_BACKGROUND_PHOTO';
 
 
 let initialState = {
@@ -84,7 +85,11 @@ const profileReducer = (state = initialState, action) => {
                     background_photo: action.background_photo
                 }
             };
-
+        case SAVE_OWNER_BACKGROUND_PHOTO:
+            return {
+                ...state,
+                background_photo: action.background_photo
+            };
         case PHOTO_IS_UPLOADING:
             return {
                 ...state, isLoadingPhoto: action.isLoadingPhoto
@@ -120,6 +125,11 @@ export const saveBackgroundPhotoSuccess = ({background_photo}) => ({
     type: SAVE_BACKGROUND_PHOTO_SUCCESS,
     background_photo
 });
+export const setOwnerBackgroundPhoto = (background_photo) => ({
+    type: SAVE_OWNER_BACKGROUND_PHOTO,
+    background_photo
+});
+
 export const photoIsUploading = (isLoadingPhoto) => ({
     type: PHOTO_IS_UPLOADING,
     isLoadingPhoto
@@ -130,6 +140,7 @@ export const getUserProfile = (userId, isOwner) => async (dispatch) => {
     dispatch(getPost([]));
     const response = await userAPI.getProfile(userId);
     const {background_photo, ...profile} = response.data;
+    isOwner && dispatch(setOwnerBackgroundPhoto(background_photo));
     dispatch(setUserProfile(profile, background_photo))
 };
 

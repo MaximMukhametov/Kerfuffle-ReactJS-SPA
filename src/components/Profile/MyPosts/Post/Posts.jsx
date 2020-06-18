@@ -3,6 +3,12 @@ import classes from './Posts.module.css';
 import {reduxForm} from "redux-form";
 import MyPostsForm from "../../../common/forms/postForm";
 import userPhoto from "../../../../media/userPhoto.jpg";
+import deleteIcon from "../../../../media/delete.png"
+import editIcon from "../../../../media/edit.png"
+import likeIcon from "../../../../media/like.png"
+import emptyLikeIcon from "../../../../media/empty_like.png"
+import convertUTCDateToLocalDate
+    from "../../../../utils/convertUTCDateToLocalDate";
 
 
 // название только с большой буквы
@@ -11,24 +17,31 @@ const ChangePostsReduxForm = reduxForm({
 })(MyPostsForm);
 
 
-const Posts = ({id, name, text, created_at, isOwner,
-                   likes_count, like_users, props}) => {
+const Posts = ({
+                   id, name, text, created_at, isOwner,
+                   likes_count, like_users, props
+               }) => {
 
     let [editMod, setEditMod] = useState(false);
+    const maxLikesUsers = 12;
 
-    const like_user = like_users.slice(0, 10).map(u => {
+    const like_user = like_users.slice(0, maxLikesUsers).map(u => {
         return likes_count > 0 &&
-            (<div className={classes.like_user_element}>
-                <img src={(u.photos && (u.photos.small_img
-                    || u.photos.small)) || userPhoto}/>
-                <div>{u.name}</div>
+            (<div className={classes.post_like_user_element}>
+                <img onClick={() => linkToUserProfile(u.id)}
+                     src={(u.photos && (u.photos.small_img
+                         || u.photos.small)) || userPhoto}/>
+                <div
+                    className={classes.post_like_user_element_name}>{u.name}</div>
             </div>)
     });
 
     const showLikeUsers = (postId) => {
-        // props.setTotalUsersCount(0);
-        // props.setCurrentPage(1);
         props.history.push('/users/' + postId)
+    };
+
+    const linkToUserProfile = (userId) => {
+        props.history.push('/profile/' + userId)
     };
 
     const deletePost = () => {
@@ -41,41 +54,54 @@ const Posts = ({id, name, text, created_at, isOwner,
     };
 
     return (
-        <div className={classes.item}>
-            {editMod ?
+        <div className={classes.post}>
+            <div className={classes.post_owner}>
+                <img className={classes.post_owner_img} alt='sdf'
+                     src={(props.profile.photos && (props.profile.photos.large_img
+                         || props.profile.photos.large)) || userPhoto}/>
+                <div>{name} </div>
+            </div>
+            <div
+                className={classes.post_data}>
+                {convertUTCDateToLocalDate(created_at)}</div>
+            <div className={classes.post_text}>{editMod ?
                 <div>
                     <ChangePostsReduxForm onSubmit={changePost}
                                           initialValues={{post: text}}/>
                     <button onClick={() => setEditMod(!editMod)}>Exit Edit
                     </button>
                 </div> :
+                <div>{text} </div>}</div>
+
+
+            <div className={classes.post_likes}>
+                <img className={classes.post_likes_img}
+                     onClick={() => props.likePostThunk(id)}
+                     src={likes_count > 0 ? likeIcon : emptyLikeIcon}/>
+                <span
+                    className={classes.post_likes_like_count}>{likes_count > 0 && likes_count}</span>
+                {likes_count > 0 &&
                 <div>
-                    <img alt='sdf'
-                         src='https://encrypted-tbn0.gstatic.com/
-                         images?q=tbn%3AANd9GcR_WYzaA1BQvvu0FN7Zu1MsxawEDpzFdG7uczm3cp8_kPigMMFO'></img>
-                    <div className={classes.test_ccs_image_url}></div>
-                    {name} <br/>
-                    {text} <br/>
-                    {created_at}
-                    <div className={classes.like}>Likes{likes_count}
-                    {likes_count > 0 &&
-                        <div className={classes.like_users}>{like_user}
-                        {likes_count > 10 &&
-                            <button onClick={() => showLikeUsers(id)}>...show
-                                all users
-                            </button>}
+                    <div className={classes.post_likes_users}>
+                        {like_user}
+                        {likes_count > maxLikesUsers &&
+                        <div className={classes.show_all_users}
+                             onClick={() => showLikeUsers(id)}>...show
+                            all users
                         </div>}
                     </div>
-                    {isOwner &&
-                    <div>
-                        <button onClick={deletePost}>Delete</button>
-                        <button onClick={() => setEditMod(!editMod)}>Edit
-                        </button>
-                    </div>}
-                    <button onClick={() => props.likePostThunk(id)}>Like
-                    </button>
-                </div>
-            }
+                </div>}
+            </div>
+
+            <div className={classes.post_edit}>{isOwner &&
+            <div>
+                <img src={editIcon} alt="Edit"
+                     onClick={() => setEditMod(!editMod)}/>
+                <img src={deleteIcon} alt="Edit" onClick={deletePost}/>
+
+            </div>}</div>
+
+
         </div>
     )
 };

@@ -18,9 +18,9 @@ const MyPosts = (props) => {
 
     const transitions = useTransition(props.posts, item => item.id, {
         config: { mass: 10, tension: 2000, friction: 60 },
-        from: {transform: 'rotateX(90deg)'},
-        enter: {transform: 'rotateX(0deg)'},
-        leave: {transform: 'rotateX(90deg)'},
+        from: {transform: 'rotateX(90deg) translate(0%)'},
+        enter: {transform: 'rotateX(0deg) translate(0%)'},
+        leave: {transform: 'rotateX(0deg) translate(200%)'},
     });
     const AnimatedPosts = animated(Posts);
 
@@ -54,7 +54,7 @@ const MyPosts = (props) => {
                     <h3>My post</h3>
                 </div>
                 {!props.match.params.userId &&
-                <div>
+                <div className={classes.post_input}>
                     <MyPostsReduxForm onSubmit={addPost}/>
                 </div>}
                 <div className={classes.posts}>

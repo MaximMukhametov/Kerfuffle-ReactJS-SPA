@@ -18,3 +18,20 @@
 .posts {
     margin-top: 10px;
 }
+
+.post_input textarea{
+    resize: none;
+    padding: 0;
+    width: 100%;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.31);
+
+}
+
+.post_input textarea:focus{
+    border-radius: 0;
+        outline: none !important;
+    box-shadow: 0 0 10px #719ECE;
+}
