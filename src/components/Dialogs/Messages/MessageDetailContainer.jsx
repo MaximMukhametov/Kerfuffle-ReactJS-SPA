@@ -16,15 +16,18 @@ import userPhoto from "../../../media/userPhoto.jpg";
 import classes from "./MessageDetail.module.css"
 import convertUTCDateToLocalDate
     from "../../../utils/convertUTCDateToLocalDate";
+import {profileAPI} from "../../../api/api";
 
 
 const MessageDetailContainer = (props) => {
     let [messageCounter, setMessageCounter] = useState(10);
     let [isLoadProfile, setIsLoadProfile] = useState(false);
+    let [profile, setProfile] = useState(null);
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
-            props.getUserProfile(props.match.params.userId, true);
+            profileAPI.getProfile(props.match.params.userId, true)
+                .then(r => setProfile(r.data));
             props.getMessagesWithUserThunk(props.match.params.userId)
                 .then(r => setIsLoadProfile(true))
         }, [props.match.params.userId]
@@ -33,9 +36,9 @@ const MessageDetailContainer = (props) => {
 
     const transitions = useTransition(props.messages, item => item.id, {
         config: {mass: 10, tension: 2000, friction: 60},
-        from: {transform: 'rotateX(90deg)', opacity: 1},
-        enter: {transform: 'rotateX(0deg)', opacity: 1},
-        leave: {transform: 'rotateX(90deg)', opacity: 1},
+        from: {transform: 'rotateX(90deg) translate(0%)'},
+        enter: {transform: 'rotateX(0deg) translate(0%)'},
+        leave: {transform: 'rotateX(0deg) translate(200%)'},
     });
 
     const isMyMessage = (message) => (
@@ -78,11 +81,11 @@ const MessageDetailContainer = (props) => {
     );
 
     return <div>
-        {!!props.profile && isLoadProfile &&
+        {!!profile && isLoadProfile &&
         <div className={classes.profile_info}>
-            <img src={(props.profile.photos && (props.profile.photos.small_img
-                || props.profile.photos.small)) || userPhoto}/>
-            <div>{props.profile.name}</div>
+            <img src={(profile.photos && (profile.photos.small_img
+                || profile.photos.small)) || userPhoto}/>
+            <div>{profile.name}</div>
         </div>}
         {props.messageCount > messageCounter &&
         <div onClick={loadMoreMessages}>Загрузить ещё...</div>}
@@ -101,8 +104,6 @@ let mapStateToProps = (state, ownProps) => {
         messages: state.messagesPage.messagesWithUser,
         authUserId: state.auth.userId,
         messageCount: state.messagesPage.messageCount,
-        profile: state.profilePage.profile,
-
     })
 };
 

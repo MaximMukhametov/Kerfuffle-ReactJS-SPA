@@ -15,7 +15,8 @@
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 }
-.post_owner div{
+
+.post_owner div {
     text-align: center;
 }
 
@@ -42,11 +43,11 @@
     position: relative;
 }
 
-.post_likes img {
-    transition-duration: 300ms;
+.post_likes img, .post_edit img {
+    transition-duration: 400ms;
 }
 
-.post_likes img:hover, .post_edit img:hover {
+.post_likes img:hover, .post_edit img:hover, .post_text_editor button:hover {
     cursor: pointer;
     -webkit-filter: brightness(70%) hue-rotate(15deg) contrast(150%);
     filter: brightness(70%) hue-rotate(15deg) contrast(150%);
@@ -150,6 +151,54 @@
     background-color: rgba(0, 0, 0, 0.6);
 
 }
+
+.post_text_editor {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 40px 40px auto;
+    grid-template-rows: auto 40px;
+}
+
+.post_text_editor form {
+    grid-column: 1 / 4;
+    grid-row: 1 / 3;
+}
+
+.post_text_editor textarea {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.23);
+    resize: none;
+}
+
+.post_text_editor button {
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    border: none;
+    color: rgba(113, 158, 206, 0);
+    width: 40px;
+    height: 40px;
+    transition-duration: 400ms;
+}
+
+.post_text_editor > button {
+    background-image: url("../../../../media/cross_mark.png");
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    bottom: 0;
+    left: 0;
+}
+
+.post_text_editor form button {
+    background-image: url("../../../../media/check_mark.png");
+}
+
+/*.post_text_editor button:hover {*/
+/*    -webkit-filter: brightness(70%) hue-rotate(15deg) contrast(150%);*/
+/*    filter: brightness(70%) hue-rotate(15deg) contrast(150%);*/
+/*}*/
 
 @media (max-device-width: 720px) {
     .post_likes_users {

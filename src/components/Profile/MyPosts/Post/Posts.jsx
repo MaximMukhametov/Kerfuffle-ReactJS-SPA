@@ -5,6 +5,8 @@ import MyPostsForm from "../../../common/forms/postForm";
 import userPhoto from "../../../../media/userPhoto.jpg";
 import deleteIcon from "../../../../media/delete.png"
 import editIcon from "../../../../media/edit.png"
+import checkMark from "../../../../media/check_mark.png"
+import crossMark from "../../../../media/cross_mark.png"
 import likeIcon from "../../../../media/like.png"
 import emptyLikeIcon from "../../../../media/empty_like.png"
 import convertUTCDateToLocalDate
@@ -65,11 +67,10 @@ const Posts = ({
                 className={classes.post_data}>
                 {convertUTCDateToLocalDate(created_at)}</div>
             <div className={classes.post_text}>{editMod ?
-                <div>
+                <div className={classes.post_text_editor}>
                     <ChangePostsReduxForm onSubmit={changePost}
                                           initialValues={{post: text}}/>
-                    <button onClick={() => setEditMod(!editMod)}>Exit Edit
-                    </button>
+                    <button onClick={() => setEditMod(!editMod)}></button>
                 </div> :
                 <div>{text} </div>}</div>
 

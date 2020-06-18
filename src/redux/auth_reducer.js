@@ -1,5 +1,8 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {
+    setOwnerBackgroundPhoto
+} from "./profile_reducer";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHING_START = 'TOGGLE_IS_FETCHING_START';
@@ -57,8 +60,10 @@ export const getAuthUserData = () => async (dispatch) => {
     let response = await authAPI.me();
 
     if (response.status === 200) {
-        let {name: login, id} = response.data; // не важен порядок аргументов, главное чтобы названия совпадали
+        let {name: login, id, background_photo} = response.data; // не важен порядок аргументов, главное чтобы названия совпадали
+        dispatch(setOwnerBackgroundPhoto(background_photo));
         dispatch(setUserData(login, id, true));
+
     }
     dispatch(toggleIsFetchingStart(false))
 };

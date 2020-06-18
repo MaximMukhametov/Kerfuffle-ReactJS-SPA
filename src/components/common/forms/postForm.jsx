@@ -1,5 +1,7 @@
 import {maxLengthCreator} from "../../../utils/validators/validators";
 import {fieldCreator, Textarea} from "../FormsControls/FormsControls";
+import classes from "./../../Profile/MyPosts/MyPosts.module.css";
+
 import React from "react";
 
 const maxLength10 = maxLengthCreator(300);
