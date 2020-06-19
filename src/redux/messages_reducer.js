@@ -117,14 +117,3 @@ export const deleteMessageThunk = (messageId) => async (dispatch) => {
 
 export default messagesReducer;
 
-
-// export const getAuthUserData = () => async (dispatch) => {
-//
-//     let response = await authAPI.me();
-//
-//     if (response.status === 200) {
-//         let {name: login, id} = response.data; // не важен порядок аргументов, главное чтобы названия совпадали
-//         dispatch(setUserData(login, id, true));
-//     }
-//     dispatch(toggleIsFetchingStart(false))
-// };

@@ -16,6 +16,7 @@ import convertUTCDateToLocalDate
 // название только с большой буквы
 const ChangePostsReduxForm = reduxForm({
     form: 'ChangePostsForm',
+    notResize: true,
 })(MyPostsForm);
 
 
@@ -69,6 +70,7 @@ const Posts = ({
             <div className={classes.post_text}>{editMod ?
                 <div className={classes.post_text_editor}>
                     <ChangePostsReduxForm onSubmit={changePost}
+                                          autoresize={false}
                                           initialValues={{post: text}}/>
                     <button onClick={() => setEditMod(!editMod)}></button>
                 </div> :

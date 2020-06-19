@@ -19,8 +19,9 @@ import Preloader from "../common/preloader/preloader";
 const ProfileContainer = (props) => {
 
     const refreshProfile = () => {
-        +props.match.params.userId === props.userId && props.history.push('/profile/');
-        props.toggleIsFetching(true);
+        if (+props.match.params.userId === props.userId){
+        props.history.push('/profile/');}
+
         let userId = props.match.params.userId;
         if (!userId) {
             userId = '';
@@ -38,19 +39,24 @@ const ProfileContainer = (props) => {
     };
 
     useEffect(() => {
+        if (props.match.params.userId &&
+            (+props.match.params.userId !== props.userId)){
+            props.toggleIsFetching(true);}
         refreshProfile();
+
         return () => {
             if (props.match.params.userId) {
                 props.setUserProfile(null);
-                props.getPost([])
+                props.getPost([]);
+                props.toggleIsFetching(true)
             }
-            props.toggleIsFetching(true)
+
         }
     }, [props.match.params.userId]);
 
     return (
 
-        <div>{!props.isFetching?
+        <div>{!props.isFetching ?
             <Profile {...props}
                      isOwner={!props.match.params.userId}
                      profile={props.profile}
@@ -60,7 +66,7 @@ const ProfileContainer = (props) => {
                      savePhoto={props.savePhoto}
                      saveBackgroundPhoto={props.saveBackgroundPhoto}
                      saveProfile={props.saveProfile}
-                     isLoadingPhoto={props.isLoadingPhoto}/>:
+                     isLoadingPhoto={props.isLoadingPhoto}/> :
             <Preloader/>}
         </div>
     )

@@ -20,6 +20,7 @@ const MyPostsForm = (props) => {
             {fieldCreator("post", "text", Textarea, {
                 validate: [maxLength10],
                 placeholder: "New Post",
+                ...props
             })}
             <button>Send</button>
         </form>

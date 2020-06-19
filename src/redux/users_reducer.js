@@ -95,7 +95,7 @@ export const requestUsers = (currentPage, pageSize, postId, show_follow_users) =
 
         let data = await usersAPI.getUsers(currentPage, pageSize, postId, show_follow_users);
         if (data.status == 200) {
-        dispatch(toggleIsFetching(false));
+        // dispatch(toggleIsFetching(false));
         dispatch(setUsers(data.data.items));
         dispatch(setTotalUsersCount(data.data.totalCount))
     }}

@@ -5,7 +5,7 @@ import {
     requestUsers,
     setCurrentPage, setTotalUsersCount,
     setUsers,
-    toggleFollowingProgres,
+    toggleFollowingProgres, toggleIsFetching,
     unfollow
 } from "../../redux/users_reducer";
 import Users from "./Users";
@@ -23,7 +23,9 @@ import {withRouter} from "react-router-dom";
 
 
 const UsersContainer = (props) => {
-    const clearPageCounter = () => {
+    let [isFetching, setIsFetching] = useState(true);
+
+    const clearPageCounter = async () => {
         props.setTotalUsersCount(0);
         props.setCurrentPage(1);
         props.setUsers([]);
@@ -38,13 +40,18 @@ const UsersContainer = (props) => {
 
     const refreshUsers = (page) => {
         const {currentPage, pageSize} = props;
-        props.requestUsers(page ? page : currentPage, pageSize,
+        let d = props.requestUsers(page ? page : currentPage, pageSize,
             props.match.params.postId, getQueryString());
+        return d
     };
 
     useEffect(() => {
-        refreshUsers(1);
-        clearPageCounter()
+        const awaitUserData = async () => {
+            await clearPageCounter();
+            await refreshUsers(1);
+            setIsFetching(false)
+        };
+        awaitUserData()
     }, [props.match.params, props.location.search]);
 
 
@@ -57,7 +64,7 @@ const UsersContainer = (props) => {
 
 
     return <>
-        {props.isFetching ?
+        {isFetching ?
             <Preloader/> :
             <Users
                 totalUsersCount={props.totalUsersCount}
@@ -79,7 +86,7 @@ const mapStateProps = (state) => {
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
+        // isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
 
     };
@@ -89,6 +96,7 @@ export default compose(
     withRouter,
     connect(mapStateProps, {
         unfollow,
+        toggleIsFetching,
         follow,
         setUsers,
         setCurrentPage,

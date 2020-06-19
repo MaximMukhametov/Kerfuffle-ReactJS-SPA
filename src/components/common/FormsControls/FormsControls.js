@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import classes from "./FormsControls.module.css"
 import {Field} from "redux-form";
+import _ from 'lodash';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 
@@ -35,7 +36,10 @@ export const Textarea = (props) => {
         textInput.current.style.height = (textInput.current.scrollHeight) + "px";
     };
 
-    if (textInput.current && props.meta.valid && props.meta.pristine) {
+    if (textInput.current &&
+        props.meta.valid &&
+        props.meta.pristine &&
+        _.get(props, 'notResize')) {
         resetHeight()
     }
 
