@@ -5,9 +5,11 @@ import {
     getPost,
     getPostThunk,
     getStatus,
-    getUserProfile, saveBackgroundPhoto,
+    getUserProfile,
+    saveBackgroundPhoto,
     savePhoto,
-    saveProfile, setUserProfile,
+    saveProfile,
+    setUserProfile,
     updateStatus
 } from "../../redux/profile_reducer";
 import {withRouter} from "react-router-dom";
@@ -15,12 +17,19 @@ import {toggleIsFetching} from "../../redux/users_reducer";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import Preloader from "../common/preloader/preloader";
+import { useQuery } from 'react-query'
 
 const ProfileContainer = (props) => {
+    let [refreshHystory, setRefreshHystory] = useState(true);
+    const isOwnerId = +props.match.params.userId === props.userId;
 
     const refreshProfile = () => {
-        if (+props.match.params.userId === props.userId){
-        props.history.push('/profile/');}
+
+        if (isOwnerId) {
+            props.history.push('/profile/');
+            setRefreshHystory(!refreshHystory);
+            return NaN
+        }
 
         let userId = props.match.params.userId;
         if (!userId) {
@@ -40,19 +49,21 @@ const ProfileContainer = (props) => {
 
     useEffect(() => {
         if (props.match.params.userId &&
-            (+props.match.params.userId !== props.userId)){
-            props.toggleIsFetching(true);}
+            !(isOwnerId)) {
+            props.toggleIsFetching(true);
+        }
+
         refreshProfile();
 
         return () => {
-            if (props.match.params.userId) {
+            if (props.match.params.userId && !isOwnerId) {
                 props.setUserProfile(null);
                 props.getPost([]);
                 props.toggleIsFetching(true)
             }
 
         }
-    }, [props.match.params.userId]);
+    }, [props.match.params.userId, props.location]);
 
     return (
 

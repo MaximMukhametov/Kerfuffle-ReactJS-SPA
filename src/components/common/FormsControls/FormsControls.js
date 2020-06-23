@@ -39,7 +39,7 @@ export const Textarea = (props) => {
     if (textInput.current &&
         props.meta.valid &&
         props.meta.pristine &&
-        _.get(props, 'notResize')) {
+        !(_.get(props, 'editable'))) {
         resetHeight()
     }
 
