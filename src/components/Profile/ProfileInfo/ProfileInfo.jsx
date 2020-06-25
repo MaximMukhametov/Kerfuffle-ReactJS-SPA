@@ -10,6 +10,7 @@ import MyPostsContainer from "../MyPosts/MyPostsContainer";
 import editPhoto from "../../../media/editphoto.png"
 import editBackgroundPhoto from "../../../media/edit_background_photo.png"
 import imageLoader from "../../../media/VdOY.gif"
+import {EditButton, ExitEditModeButton} from "../../common/buttons/Buttons";
 
 
 const calc = (x, y) => [-(y - window.innerHeight / 6) / 30,
@@ -132,10 +133,13 @@ const ProfileInfo = ({
             </div>
             <div className={classes.profile_info}>
 
-                <div>{editMode ?
-                    <ProfileDataForm initialValues={initialProfileValues}
-                                     profile={profile}
-                                     onSubmit={onSubmit}/> :
+                <div className={classes.profile_info_contacts}>{editMode ?
+                    <div>
+                        <ProfileDataForm initialValues={initialProfileValues}
+                                          profile={profile}
+                                          onSubmit={onSubmit}/>
+                    <ExitEditModeButton onClickEvent={() => setEditMod(!editMode)}/>
+                    </div> :
                     <ProfileData profile={profile} isOwner={isOwner}
                                  goToEditMode={() => setEditMod(true)}/>}</div>
                 <div className={classes.posts}><MyPostsContainer/></div>
@@ -149,10 +153,7 @@ const ProfileInfo = ({
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
-            {isOwner ?
-                <div>
-                    <button onClick={goToEditMode}>Edit</button>
-                </div> :
+            {!isOwner &&
                 <div>
                     <Link to={"/dialogs/" + profile.id}>Send message</Link>
                 </div>}
@@ -174,6 +175,10 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
                 <Contact contactTitle={key}
                          contactValue={profile.contacts[key]}/>))}
             </div>
+            {isOwner &&
+                <div>
+                    <EditButton onClickEvent={goToEditMode}/>
+                </div>}
         </div>
     )
 

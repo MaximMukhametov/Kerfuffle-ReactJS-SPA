@@ -57,9 +57,9 @@
 }
 
 .profile_info {
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    padding: 2vw;
 }
 
 .main_photo_followed {
@@ -219,6 +219,29 @@
 
 .upload_background_photo_input {
     opacity: 0;
+}
+
+.profile_info_contacts {
+    padding: 0 1vw 0 1vw;
+}
+
+.profile_info_contacts div {
+    padding: 5px;
+}
+
+.profile_info_contacts form{
+    padding: 5px;
+}
+
+.save_contscts_button {
+    cursor: pointer;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 400ms;
+    background-image: url("../../../media/check_mark.png");
+
 }
 
 @media (max-device-width: 720px) {

@@ -3,12 +3,8 @@ import React, {useEffect, useState} from "react";
 
 
 let Paginator = ({currentPage, onPageChanged, totalUsersCount, pageSize, portionSize = 10}) => {
-
-
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
-
     let pages = [];
-
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -27,22 +23,23 @@ let Paginator = ({currentPage, onPageChanged, totalUsersCount, pageSize, portion
     }, [totalUsersCount]);
 
 
-    return (<div>
+    return (<div className={classes.paginator}>
             {portionNumber > 1 &&
-            <button onClick={() => {
+            <button className={classes.paginator_prev} onClick={() => {
                 changePortion(portionNumber - 1)
-            }}>Prev</button>}
-            {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+            }}></button>}
+            <div
+                className={classes.pages}>{pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(page =>
                     <span key={page}
-                          className={currentPage === page? classes.selectPage: classes.otherPage}
+                          className={currentPage === page ? classes.select_page : classes.other_page}
                           onClick={(e) => onPageChanged(page)}>{page} </span>
-                )}
+                )}</div>
 
             {portionCount > portionNumber &&
-            <button onClick={() => {
+            <button className={classes.paginator_next} onClick={() => {
                 changePortion(portionNumber + 1)
-            }}>Next</button>}
+            }}></button>}
         </div>
     )
 };

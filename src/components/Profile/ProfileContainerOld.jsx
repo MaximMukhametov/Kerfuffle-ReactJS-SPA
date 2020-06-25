@@ -43,13 +43,12 @@ const ProfileContainer = (props) => {
             }
         }
 
-        let allPromise = Promise.all([props.getUserProfile(userId, !props.match.params.userId),
+        Promise.all([props.getUserProfile(userId, !props.match.params.userId),
             props.getStatus(userId),
             props.getPostThunk(props.match.params.userId)])
             .then(response => {
                 props.toggleIsFetching(false)
             })
-        return allPromise
     };
 
     useEffect(() => {
@@ -57,15 +56,16 @@ const ProfileContainer = (props) => {
             !(isOwnerId)) {
             props.toggleIsFetching(true);
         }
-        let allPromise = refreshProfile();
+
+        refreshProfile();
 
         return () => {
-            console.log(allPromise)
             if (props.match.params.userId && !isOwnerId) {
                 props.setUserProfile(null);
                 props.getPost([]);
                 props.toggleIsFetching(true)
             }
+
         }
     }, [props.match.params.userId, props.location]);
 

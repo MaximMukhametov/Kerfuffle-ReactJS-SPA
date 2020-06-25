@@ -16,12 +16,22 @@ const instance = axios.create(
 const djangoBackEnd = axios.create(
     {
         withCredentials: false,
-        baseURL: 'http://localhost:8000/',
+        baseURL: 'https://social-network-spa.herokuapp.com/',
         headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
         }
     }
 );
+
+// const djangoBackEnd = axios.create(
+//     {
+//         withCredentials: false,
+//         baseURL: 'http://localhost:8000/',
+//         headers: {
+//             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+//         }
+//     }
+// );
 
 export const isAuthorized = async (currentPage, pageSize) => {
     const refreshToken = localStorage.getItem('refreshToken');
@@ -164,7 +174,7 @@ export const authAPI = {
     },
 
     login(name, password) {
-        return axios.post(`http://localhost:8000/auth/jwt/create/`, {
+        return axios.post(`https://social-network-spa.herokuapp.com/auth/jwt/create/`, {
             name,
             password
         })

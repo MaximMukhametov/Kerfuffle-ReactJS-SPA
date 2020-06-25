@@ -1,4 +1,17 @@
-.usersPhoto {
+.user_photo_block{
+    text-align: center;
+}
+
+.user_photo_block button{
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    background-color: rgba(118, 148, 191, 0.7);
+    transition-duration: 400ms;
+}
+
+.users_photo {
+    border-radius: 50%;
   object-fit: cover;
   width: 100px;
   height: 100px;
@@ -8,4 +21,17 @@
 .selectPage {
     font-weight: bold;
 
+}
+
+.user{
+    padding: 10px;
+    margin: 15px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 10fr;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.14);
+}
+
+.user_info_name{
+    font-weight: 500;
 }

@@ -1,7 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import classes from './MessageDetail.module.css'
 import userPhoto from "../../../media/userPhoto.jpg";
-import MessageSendForm, {MessageEditForm} from "./MessageSendForm";
+import {MessageEditForm} from "./MessageSendForm";
+import {
+    DeleteButton,
+    EditButton,
+    ExitEditModeButton
+} from "../../common/buttons/Buttons";
 
 
 const MessageDetail = ({
@@ -12,7 +17,7 @@ const MessageDetail = ({
     let [editMode, setEditMode] = useState(false);
 
     const photo = (writer.photos && (writer.photos.small_img
-                || writer.photos.small)) || userPhoto;
+        || writer.photos.small)) || userPhoto;
 
     const onSubmit = (messageText) => {
         editMessage(message.id, messageText.message);
@@ -24,18 +29,24 @@ const MessageDetail = ({
         <div className={classes.writer}>
             <div>{isMyMessage ? 'me' : writer.name}</div>
             <img src={photo} alt="writer"
-                 onClick={() => routing.history.push('/profile/'+ (isMyMessage? '':writer.id))}/>
+                 onClick={() => routing.history.push('/profile/' + (isMyMessage ? '' : writer.id))}/>
         </div>
 
-        <div className={classes.message_body}>
+        <div className={classes.message_content}>
             {editMode ?
-                <MessageEditForm  initialValues={message} onSubmit={onSubmit}/> : message.message}
-            <div>{message.data}</div>
+                <div className={classes.message_body_text}>
+                    <MessageEditForm initialValues={message}
+                                     onSubmit={onSubmit}/>
+                    <ExitEditModeButton
+                        onClickEvent={() => setEditMode(!editMode)}/></div>
+                : <div
+                    className={classes.message_body_text}>{message.message}</div>}
+
+            <div className={classes.message_data}>{message.data}</div>
             {isMyMessage &&
             <div className={classes.message_control}>
-                <span onClick={() => setEditMode(!editMode)}>Edit</span>
-                <span onClick={() => deleteMessage(message.id)}>Delete</span>
-
+                <EditButton onClickEvent={() => setEditMode(!editMode)}/>
+                <DeleteButton onClickEvent={() => deleteMessage(message.id)}/>
             </div>}
         </div>
     </div>

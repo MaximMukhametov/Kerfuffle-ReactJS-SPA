@@ -11,6 +11,11 @@ import likeIcon from "../../../../media/like.png"
 import emptyLikeIcon from "../../../../media/empty_like.png"
 import convertUTCDateToLocalDate
     from "../../../../utils/convertUTCDateToLocalDate";
+import {
+    DeleteButton,
+    EditButton,
+    ExitEditModeButton
+} from "../../../common/buttons/Buttons";
 
 
 // название только с большой буквы
@@ -72,7 +77,8 @@ const Posts = ({
                     <ChangePostsReduxForm onSubmit={changePost}
                                           autoresize={false}
                                           initialValues={{post: text}}/>
-                    <button onClick={() => setEditMod(!editMod)}></button>
+                    {/*<button onClick={() => setEditMod(!editMod)}></button>*/}
+                    <ExitEditModeButton onClickEvent={() => setEditMod(!editMod)}/>
                 </div> :
                 <div>{text} </div>}</div>
 
@@ -98,10 +104,8 @@ const Posts = ({
 
             <div className={classes.post_edit}>{isOwner &&
             <div>
-                <img src={editIcon} alt="Edit"
-                     onClick={() => setEditMod(!editMod)}/>
-                <img src={deleteIcon} alt="Edit" onClick={deletePost}/>
-
+                <EditButton onClickEvent={() => setEditMod(!editMod)}/>
+                <DeleteButton onClickEvent={deletePost}/>
             </div>}</div>
 
 

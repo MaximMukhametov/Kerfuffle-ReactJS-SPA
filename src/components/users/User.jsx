@@ -6,14 +6,14 @@ import {NavLink} from "react-router-dom";
 
 let User = ({user, followingInProgress, unfollow, follow}) => {
 
-    return <div>
-                <span>
+    return <div className={classes.user}>
+                <span className={classes.user_photo_block}>
                     <div>
                         <NavLink to={'/profile/' + user.id}>
                         <img
                             src={(user.photos && (user.photos.small_img ||
                                 user.photos.small)) || userPhoto}
-                            className={classes.usersPhoto}/>
+                            className={classes.users_photo}/>
                         </NavLink>
                     </div>
                     <div>
@@ -34,14 +34,10 @@ let User = ({user, followingInProgress, unfollow, follow}) => {
                                     }>Follow</button>}
                     </div>
                 </span>
-        <span>
+        <span className={classes.user_info}>
                     <span>
-                        <div>{user.name}</div>
-                        <div>{user.status}</div>
-                    </span>
-                    <span>
-                        <div>{'u.location.country'}</div>
-                        <div>{'u.location.city'}</div>
+                        <div className={classes.user_info_name}>{user.name}</div>
+                        <div className={classes.user_info_status}>{user.status}</div>
                     </span>
                 </span>
     </div>;

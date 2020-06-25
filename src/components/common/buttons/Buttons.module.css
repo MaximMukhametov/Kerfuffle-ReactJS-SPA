@@ -1,0 +1,33 @@
+.send_button, .edit_button , .delete_button, .exit_edit_mode_button{
+    cursor: pointer;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 400ms;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+button:hover {
+    -webkit-filter: brightness(70%) hue-rotate(15deg) contrast(150%);
+    filter: brightness(70%) hue-rotate(15deg) contrast(150%);
+}
+
+.send_button {
+    background-image: url("../../../media/send.png");
+}
+
+.edit_button {
+    background-image: url("../../../media/edit.png");
+}
+
+.delete_button {
+    background-image: url("../../../media/delete.png");
+}
+
+.exit_edit_mode_button {
+    background-image: url("../../../media/cross_mark.png");
+}

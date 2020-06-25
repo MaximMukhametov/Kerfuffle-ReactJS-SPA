@@ -1,0 +1,9 @@
+.form{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 10fr 45px;
+}
+.form div{
+    width: 100%;
+}

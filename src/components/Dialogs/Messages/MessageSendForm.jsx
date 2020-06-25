@@ -5,25 +5,32 @@ import {
     Textarea
 } from "../../common/FormsControls/FormsControls";
 import classes from "./MessageDetail.module.css"
+import {maxLengthCreator} from "../../../utils/validators/validators";
+import {SendButton} from "../../common/buttons/Buttons";
 
-
+const maxLength300 = maxLengthCreator(300);
 
 const MessageForm = ({handleSubmit, error, ...props}) => {
 
     return (
-        <form onBlur={handleSubmit} onSubmit={handleSubmit}>
-              {error && <div className={classes.formCommonError}>
+        <form className={classes.form} onSubmit={handleSubmit}>
+            {error && <div className={classes.formCommonError}>
                 {error}
             </div>}
-            <div>
-                {fieldCreator("message", "text", Textarea, {}, 'New message')}
+            <div className={classes.form_field}>
+                {fieldCreator("message", "text", Textarea, {
+                    validate: [maxLength300],
+                    placeholder: "New message", ...props
+                })}
+                {!!props.dirty &&
+                <div className={classes.form_button}><SendButton/></div>}
             </div>
-            <button>Send</button>
         </form>
     )
 };
 
-const MessageSendForm = reduxForm({form: "message-form",
+const MessageSendForm = reduxForm({
+    form: "message-form",
     onSubmitSuccess: (result, dispatch, props) => {
         dispatch(reset('message-form'))
     },

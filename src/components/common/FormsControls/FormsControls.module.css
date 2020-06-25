@@ -17,6 +17,7 @@
 }
 
 .formControl textarea {
+    background-color: rgba(0,0,0,0);
     height: auto;
     font-size: 15px;
     resize: none;

@@ -13,16 +13,6 @@ let mapStateProps = (state) => {
     }
 };
 
-
-// HOC (хок) компонента, что-то типа декоратора в питоне, добавляет одинаковую функциональность к компонентам,
-// принимает компоненту, добавляет что-то и возвращает компоненту
-
-//это старые строки
-// let AuthRedirectComponent = WithAuthRedirect(Dialogs);
-//
-// const DialogsContainer = connect(mapStateProps, mapDispatchProps)(AuthRedirectComponent);
-
-
 export default compose(
     connect(mapStateProps, {getAllUsersWithDialogsThunk}),
     WithAuthRedirect,

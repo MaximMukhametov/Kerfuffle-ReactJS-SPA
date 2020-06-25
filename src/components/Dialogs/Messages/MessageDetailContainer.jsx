@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {
-    deleteMessageThunk, editMessageThunk,
+    deleteMessageThunk,
+    editMessageThunk,
     getMessagesWithUserThunk,
-    sendMessageThunk, setMessagesWithUser
+    sendMessageThunk,
+    setMessagesWithUser
 } from "../../../redux/messages_reducer";
 import {connect} from "react-redux";
 import MessageDetail from "./MessageDetail";
@@ -23,9 +25,11 @@ const MessageDetailContainer = (props) => {
     let [messageCounter, setMessageCounter] = useState(10);
     let [isLoadProfile, setIsLoadProfile] = useState(false);
     let [profile, setProfile] = useState(null);
+    let [banScroll, setBanScroll] = useState(false);
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
+
             profileAPI.getProfile(props.match.params.userId, true)
                 .then(r => setProfile(r.data));
             props.getMessagesWithUserThunk(props.match.params.userId)
@@ -33,6 +37,15 @@ const MessageDetailContainer = (props) => {
         }, [props.match.params.userId]
     );
     useEffect(() => () => props.setMessagesWithUser([]), []);
+
+    useEffect(() => {
+        if (messages.length && !banScroll) {
+            const elem = document.getElementById('messageSendForm');
+            elem.scrollIntoView(true);
+        }
+        banScroll && setBanScroll(!banScroll)
+    }, [props.messages]);
+
 
     const transitions = useTransition(props.messages, item => item.id, {
         config: {mass: 10, tension: 2000, friction: 60},
@@ -48,8 +61,10 @@ const MessageDetailContainer = (props) => {
 
     const onSubmit = (messageText) => {
         props.sendMessageThunk(props.match.params.userId, messageText.message)
+
     };
     const loadMoreMessages = () => {
+        setBanScroll(!banScroll)
         setMessageCounter(messageCounter + loadMoreMessagesCount);
         props.getMessagesWithUserThunk(props.match.params.userId,
             messageCounter + loadMoreMessagesCount)
@@ -58,8 +73,8 @@ const MessageDetailContainer = (props) => {
 
     const messages = !!props.messages && transitions.reverse().map(
         m => <animated.div style={m.props}
-                           key={m.item.id}>
-
+                           key={m.item.id}
+                           id={m.item.id}>
             <MessageDetail key={m.item.id}
                            message={{
                                id: m.item.id,
@@ -80,19 +95,19 @@ const MessageDetailContainer = (props) => {
             /></animated.div>
     );
 
-    return <div>
+    return <div className={classes.messages}>
         {!!profile && isLoadProfile &&
         <div className={classes.profile_info}>
-            <img src={(profile.photos && (profile.photos.small_img
+            <img onClick={() => props.history.push('/profile/' + profile.id)}
+                 src={(profile.photos && (profile.photos.small_img
                 || profile.photos.small)) || userPhoto}/>
             <div>{profile.name}</div>
         </div>}
-        {props.messageCount > messageCounter &&
-        <div onClick={loadMoreMessages}>Загрузить ещё...</div>}
-
-        <div>
-            <div>{messages}</div>
-            <MessageSendForm onSubmit={onSubmit}/>
+        <div className={classes.messages_body}>
+            {props.messageCount > messageCounter &&
+            <div className={classes.messages_body_load_previous} onClick={loadMoreMessages}>Load previous...</div>}
+            <div className={classes.messages_body_list}>{messages}</div>
+            <MessageSendForm id={'messageSendForm'} onSubmit={onSubmit}/>
         </div>
     </div>
 };

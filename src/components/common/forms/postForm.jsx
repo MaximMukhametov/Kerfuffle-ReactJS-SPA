@@ -1,12 +1,11 @@
 import {maxLengthCreator} from "../../../utils/validators/validators";
 import {fieldCreator, Textarea} from "../FormsControls/FormsControls";
-import classes from "./../../Profile/MyPosts/MyPosts.module.css";
 
 import React from "react";
-import {formValues} from "redux-form";
-import MyPosts from "../../Profile/MyPosts/MyPosts";
+import {SendButton} from "../buttons/Buttons";
+import classes from "./postForm.module.css"
 
-const maxLength10 = maxLengthCreator(700);
+const maxLength700 = maxLengthCreator(700);
 
 const MyPostsForm = (props) => {
 
@@ -16,14 +15,14 @@ const MyPostsForm = (props) => {
     // так же туда попадают параметры Meta, и все остальные парааметры просто передаются
     // как обычные пропсы(например placeholder и lalalala={'lalalala'})
     return (
-        <form onSubmit={props.handleSubmit}>
-            {fieldCreator("post", "text", Textarea, {
-                validate: [maxLength10],
-                placeholder: "New Post",
-                ...props
-            })}
-            <button>Send</button>
-        </form>
+            <form className={classes.form} onSubmit={props.handleSubmit}>
+                {fieldCreator("post", "text", Textarea, {
+                    validate: [maxLength700],
+                    placeholder: "New Post",
+                    ...props
+                })}
+                {!!props.dirty && <SendButton/>}
+            </form>
     )
 };
 

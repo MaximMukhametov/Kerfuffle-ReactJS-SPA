@@ -9,6 +9,7 @@
 }
 
 .post_owner {
+    font-weight: 500;
     margin: 10px;
     align-self: center;
     justify-self: center;
@@ -44,11 +45,11 @@
     position: relative;
 }
 
-.post_likes img, .post_edit img {
+.post_likes img, .post_edit button {
     transition-duration: 400ms;
 }
 
-.post_likes img:hover, .post_edit img:hover, .post_text_editor button:hover {
+.post_likes img:hover {
     cursor: pointer;
     -webkit-filter: brightness(70%) hue-rotate(15deg) contrast(150%);
     filter: brightness(70%) hue-rotate(15deg) contrast(150%);
