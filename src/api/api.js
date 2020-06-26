@@ -80,7 +80,8 @@ const requestWithAuth = async (action) => {
 
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10, postId, show_follow_users) {
+    getUsers(currentPage = 1, pageSize = 10, postId, show_follow_users, name) {
+        const searchUsersByName = name ? `&name=${name}` : '';
         const getUsersWhoLikePost = postId ? `&like_post=${postId}` : '';
         const getFollowUsers = show_follow_users && show_follow_users.user ?
             `&user=${show_follow_users.user}&${show_follow_users.action}=true` : '';
@@ -88,7 +89,7 @@ export const usersAPI = {
 
         return requestWithAuth(() => (
             djangoBackEnd.get(`users/?page=${currentPage}&count=${pageSize}` +
-                getUsersWhoLikePost + getFollowUsers)))
+                getUsersWhoLikePost + getFollowUsers + searchUsersByName)))
     }
     ,
 

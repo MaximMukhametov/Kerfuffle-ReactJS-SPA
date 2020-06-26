@@ -19,6 +19,7 @@ import classes from "./MessageDetail.module.css"
 import convertUTCDateToLocalDate
     from "../../../utils/convertUTCDateToLocalDate";
 import {profileAPI} from "../../../api/api";
+import Preloader from "../../common/preloader/preloader";
 
 
 const MessageDetailContainer = (props) => {
@@ -26,6 +27,7 @@ const MessageDetailContainer = (props) => {
     let [isLoadProfile, setIsLoadProfile] = useState(false);
     let [profile, setProfile] = useState(null);
     let [banScroll, setBanScroll] = useState(false);
+    let [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const MessageDetailContainer = (props) => {
     useEffect(() => () => props.setMessagesWithUser([]), []);
 
     useEffect(() => {
-        if (messages.length && !banScroll) {
+        if (messages.length && !banScroll && isLoadProfile) {
             const elem = document.getElementById('messageSendForm');
             elem.scrollIntoView(true);
         }
@@ -64,10 +66,12 @@ const MessageDetailContainer = (props) => {
 
     };
     const loadMoreMessages = () => {
-        setBanScroll(!banScroll)
+        setIsLoadingMoreMessages(true);
+        setBanScroll(!banScroll);
         setMessageCounter(messageCounter + loadMoreMessagesCount);
         props.getMessagesWithUserThunk(props.match.params.userId,
             messageCounter + loadMoreMessagesCount)
+            .then(r=>setIsLoadingMoreMessages(false))
     };
 
 
@@ -95,21 +99,29 @@ const MessageDetailContainer = (props) => {
             /></animated.div>
     );
 
-    return <div className={classes.messages}>
-        {!!profile && isLoadProfile &&
-        <div className={classes.profile_info}>
-            <img onClick={() => props.history.push('/profile/' + profile.id)}
-                 src={(profile.photos && (profile.photos.small_img
-                || profile.photos.small)) || userPhoto}/>
-            <div>{profile.name}</div>
-        </div>}
-        <div className={classes.messages_body}>
-            {props.messageCount > messageCounter &&
-            <div className={classes.messages_body_load_previous} onClick={loadMoreMessages}>Load previous...</div>}
-            <div className={classes.messages_body_list}>{messages}</div>
-            <MessageSendForm id={'messageSendForm'} onSubmit={onSubmit}/>
-        </div>
-    </div>
+    return (
+        <div>{isLoadProfile ?
+            <div className={classes.messages}>
+                {!!profile && isLoadProfile &&
+                <div className={classes.profile_info}>
+                    <img
+                        onClick={() => props.history.push('/profile/' + profile.id)}
+                        src={(profile.photos && (profile.photos.small_img
+                            || profile.photos.small)) || userPhoto}/>
+                    <div>{profile.name}</div>
+                </div>}
+                <div className={classes.messages_body}>
+                    {props.messageCount > messageCounter &&
+                    <div className={classes.messages_body_load_previous}
+                         onClick={loadMoreMessages}>
+                        {!isLoadingMoreMessages?
+                        'Load previous...' : 'Loading...'}</div>}
+                    <div
+                        className={classes.messages_body_list}>{messages}</div>
+                    <MessageSendForm id={'messageSendForm'}
+                                     onSubmit={onSubmit}/>
+                </div>
+            </div> : <Preloader/>}</div> )
 };
 
 

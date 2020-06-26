@@ -27,9 +27,10 @@ const MessageDetail = ({
     return <div className={`${classes.message} 
     ${isMyMessage ? classes.isMyMessage : classes.isNotMyMessage}`}>
         <div className={classes.writer}>
-            <div>{isMyMessage ? 'me' : writer.name}</div>
+
             <img src={photo} alt="writer"
                  onClick={() => routing.history.push('/profile/' + (isMyMessage ? '' : writer.id))}/>
+                 <div>{isMyMessage ? 'me' : writer.name}</div>
         </div>
 
         <div className={classes.message_content}>

@@ -3,7 +3,7 @@ import {fieldCreator, Textarea} from "../FormsControls/FormsControls";
 
 import React from "react";
 import {SendButton} from "../buttons/Buttons";
-import classes from "./postForm.module.css"
+import classes from "./PostForm.module.css"
 
 const maxLength700 = maxLengthCreator(700);
 
@@ -25,7 +25,6 @@ const MyPostsForm = (props) => {
             </form>
     )
 };
-
 
 export default MyPostsForm
 

@@ -1,0 +1,12 @@
+.form {
+    color: white;
+
+}
+
+.form textarea {
+    width: 100%;
+    text-align: center;
+    color: white;
+    border: 0;
+    outline: 0;
+}

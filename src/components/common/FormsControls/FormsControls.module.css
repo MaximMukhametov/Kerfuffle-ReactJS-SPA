@@ -17,14 +17,16 @@
 }
 
 .formControl textarea {
-    background-color: rgba(0,0,0,0);
+
+
+    background-color: rgba(0, 0, 0, 0);
     height: auto;
     font-size: 15px;
     resize: none;
     overflow: hidden;
 }
 
-.formControl .spamnnn{
+.formControl .spamnnn {
     border: none;
 
     outline: none;
@@ -32,11 +34,12 @@
     word-break: break-all;
 }
 
-.formControl{
+.formControl {
+    padding: 5px;
     width: auto;
 }
 
-.divsdpan{
+.divsdpan {
     border: 4px solid black;
     min-height: 50px;
     width: auto;

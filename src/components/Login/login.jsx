@@ -5,14 +5,16 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {LoginThunk} from "../../redux/auth_reducer";
 import {Redirect} from "react-router-dom";
-import classes from "./../common/FormsControls/FormsControls.module.css"
+import classesform from "./../common/FormsControls/FormsControls.module.css"
+import classes from "./login.module.css"
+import logo from "./../../media/logo_large.png"
+import background from "./../../media/defaultBackgroundPhoto.jpg"
 
 
 const maxLength30 = maxLengthCreator(30);
 const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={handleSubmit}>
-
+        <form className={classes.login_form} onSubmit={handleSubmit}>
             {fieldCreator("Login", "text", Input, {
                 validate: [required, maxLength30],
                 placeholder: "Login"
@@ -21,21 +23,16 @@ const LoginForm = ({handleSubmit, error}) => {
                 validate: [required, maxLength30],
                 placeholder: "Password"
             })}
-
-
-            {error && <div className={classes.formCommonError}>
+            {error && <div className={classesform.formCommonError}>
                 {error}
             </div>}
-
             <div>
-                <button>Login</button>
+                <button className={classes.login_button}>Login</button>
             </div>
         </form>
     )
 };
 
-// 'login' - даём уникальное имя для формы? и передаём форму
-// которую необходимо обернуть( в данном случае LoginForm)
 const LoginReduxForm = reduxForm({
     form: 'login'
 })(LoginForm);
@@ -47,9 +44,14 @@ const Login = (props) => {
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
     }
-    return <div>
-        <h1> Login</h1>
+    return <div className={classes.login}>
+        <img src={background} id="bg" alt=""/>
+        <div className={classes.login_logo}>
+            <img src={logo} alt=""/>
+            <h1 className={classes.login_title}>Kerfuffle</h1></div>
         <LoginReduxForm onSubmit={onSubmit}/>
+        <span className={classes.login_test_account}>Test account: Linus <br/>
+            password: w2e3r4t5y6</span>
     </div>
 };
 

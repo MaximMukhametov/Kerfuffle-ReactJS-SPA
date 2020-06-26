@@ -1,0 +1,65 @@
+.login{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.51);
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    vertical-align: middle;
+    margin: 0 auto;
+    margin-top: -140px;
+    margin-left: -140px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width:280px;
+    height: auto;
+    grid-template-rows: 80px 3fr 1fr;
+}
+.login_title{
+    font-family: 'Raleway', sans-serif;
+}
+
+.login_logo{
+    position: relative;
+}
+.login_logo img{
+    position: absolute;
+    left: -90%;
+    top: -40%;
+    width: 100px;
+    height: 100px;
+}
+
+.login_form{
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+}
+.login_form div {
+    text-align: center;
+    margin: 5px 0;
+    justify-self: center;
+}
+
+.login_form input{
+    padding: 5px;
+    border: 0;
+    border-radius: 6px;
+    width: 100%;
+    height: 25px;
+
+}
+
+.login_button{
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+}
+
+.login_test_account{
+    color: rgba(255, 255, 255, 0.55);
+}

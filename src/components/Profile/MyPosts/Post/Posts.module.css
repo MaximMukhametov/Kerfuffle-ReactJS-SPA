@@ -79,6 +79,7 @@
 
 .post_likes_users {
     background-color: rgba(0, 0, 0, 0.58);
+    padding: 10px 0;
     max-width: 450px;
     border-radius: 5px;
     height: auto;
@@ -121,16 +122,19 @@
 }
 
 .post_like_user_element {
-    word-break: break-word;
+    word-break: break-all;
     color: white;
     display: grid;
     justify-items: center;
-    padding: 15px 0;
     width: 90px;
-    height: 70px;
+
 
 }
-
+.post_like_user_element_name{
+    height: 100%;
+    text-align: center;
+    padding: 5px;
+}
 .show_all_users {
     grid-column: span 2 / -1;
     border-radius: 5px;

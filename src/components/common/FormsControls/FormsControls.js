@@ -22,7 +22,6 @@ export const FormControl = ({input, meta: {touched, error}, children}) => {
 };
 
 export const Textarea = (props) => {
-
     console.log(props.input);
 
     let textInput = useRef(null);
@@ -46,7 +45,7 @@ export const Textarea = (props) => {
     return <FormControl {...props}>
         <textarea ref={textInput}
                   onSelect={() => auto_grow()}
-                  autoFocus={true} {...input} {...restProps}/>
+                  autoFocus={_.get(props, 'autoFocus') || false} {...input} {...restProps}/>
     </FormControl>
 };
 

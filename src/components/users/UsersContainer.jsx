@@ -40,8 +40,13 @@ const UsersContainer = (props) => {
 
     const refreshUsers = (page) => {
         const {currentPage, pageSize} = props;
-        let d = props.requestUsers(page ? page : currentPage, pageSize,
-            props.match.params.postId, getQueryString());
+        const curPage = page ? page : currentPage;
+        let d = props.requestUsers({
+            currentPage: curPage,
+            pageSize: pageSize,
+            postId: props.match.params.postId,
+            show_follow_users: getQueryString()
+        });
         return d
     };
 
@@ -58,10 +63,13 @@ const UsersContainer = (props) => {
     const onPageChanged = (page) => {
         const {pageSize} = props;
         props.setCurrentPage(page);
-        props.requestUsers(page, pageSize, props.match.params.postId,
-            getQueryString())
+        props.requestUsers({
+            currentPage: page,
+            pageSize: pageSize,
+            postId: props.match.params.postId,
+            show_follow_users: getQueryString()
+        });
     };
-
 
     return <>
         {isFetching ?
@@ -71,6 +79,7 @@ const UsersContainer = (props) => {
                 pageSize={props.pageSize}
                 currentPage={props.currentPage}
                 users={props.users}
+                requestUsers={props.requestUsers}
                 onPageChanged={onPageChanged}
                 follow={props.follow}
                 unfollow={props.unfollow}

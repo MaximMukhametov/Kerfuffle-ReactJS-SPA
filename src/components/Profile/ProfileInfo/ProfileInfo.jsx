@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../media/userPhoto.jpg";
 import classes from "./ProfileInfo.module.css"
 import ProfileDataForm from "./ProfileDataForm";
@@ -10,7 +10,11 @@ import MyPostsContainer from "../MyPosts/MyPostsContainer";
 import editPhoto from "../../../media/editphoto.png"
 import editBackgroundPhoto from "../../../media/edit_background_photo.png"
 import imageLoader from "../../../media/VdOY.gif"
-import {EditButton, ExitEditModeButton} from "../../common/buttons/Buttons";
+import {
+    EditButton,
+    ExitEditModeButton,
+    SendButton
+} from "../../common/buttons/Buttons";
 
 
 const calc = (x, y) => [-(y - window.innerHeight / 6) / 30,
@@ -84,7 +88,7 @@ const ProfileInfo = ({
                         <img
                             className={classes.edit_back_photo}
                             src={imageLoader} alt=""/>}
-                    <input type={"file"} id={'upload-background-photo'}
+                    <input accept="image/png,image/jpeg" type={"file"} id={'upload-background-photo'}
                            className={classes.upload_background_photo_input}
                            onChange={onBackgroundPhotoSelected}/></label>}
 
@@ -122,7 +126,7 @@ const ProfileInfo = ({
                         className={classes.main_photo_user_name}>
                         {profile.name.toUpperCase()}
                         <div className={classes.status_bar}>
-                            <ProfileStatusWithHooks
+                            <ProfileStatus
                                 status={status}
                                 updateStatus={updateStatus}
                                 isOwner={isOwner}/></div>
@@ -136,11 +140,13 @@ const ProfileInfo = ({
                 <div className={classes.profile_info_contacts}>{editMode ?
                     <div>
                         <ProfileDataForm initialValues={initialProfileValues}
-                                          profile={profile}
-                                          onSubmit={onSubmit}/>
-                    <ExitEditModeButton onClickEvent={() => setEditMod(!editMode)}/>
+                                         profile={profile}
+                                         onSubmit={onSubmit}/>
+                        <ExitEditModeButton
+                            onClickEvent={() => setEditMod(!editMode)}/>
                     </div> :
                     <ProfileData profile={profile} isOwner={isOwner}
+                                 routing={history}
                                  goToEditMode={() => setEditMod(true)}/>}</div>
                 <div className={classes.posts}><MyPostsContainer/></div>
 
@@ -150,13 +156,13 @@ const ProfileInfo = ({
     )
 };
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+const ProfileData = ({profile, isOwner, goToEditMode, routing}) => {
     return (
         <div>
             {!isOwner &&
-                <div>
-                    <Link to={"/dialogs/" + profile.id}>Send message</Link>
-                </div>}
+            <SendButton
+                onClickEvent={() => routing.push("/dialogs/" + profile.id)}/>
+            }
             <div>
                 <b> Full name:</b> {profile.full_name}
             </div>
@@ -176,9 +182,9 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
                          contactValue={profile.contacts[key]}/>))}
             </div>
             {isOwner &&
-                <div>
-                    <EditButton onClickEvent={goToEditMode}/>
-                </div>}
+            <div>
+                <EditButton onClickEvent={goToEditMode}/>
+            </div>}
         </div>
     )
 
@@ -186,7 +192,8 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
 
 
 export const Contact = ({contactTitle, contactValue}) => {
-    return <div className={classes.contact}><b>{contactTitle}</b>{contactValue}
+    return <div className={classes.contact}>
+        <b>{contactTitle}:</b> {contactValue}
     </div>
 };
 

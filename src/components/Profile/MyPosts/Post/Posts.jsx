@@ -1,12 +1,8 @@
 import React, {useState} from "react";
 import classes from './Posts.module.css';
 import {reduxForm} from "redux-form";
-import MyPostsForm from "../../../common/forms/postForm";
+import MyPostsForm from "../../../common/forms/PostForm";
 import userPhoto from "../../../../media/userPhoto.jpg";
-import deleteIcon from "../../../../media/delete.png"
-import editIcon from "../../../../media/edit.png"
-import checkMark from "../../../../media/check_mark.png"
-import crossMark from "../../../../media/cross_mark.png"
 import likeIcon from "../../../../media/like.png"
 import emptyLikeIcon from "../../../../media/empty_like.png"
 import convertUTCDateToLocalDate
@@ -18,7 +14,6 @@ import {
 } from "../../../common/buttons/Buttons";
 
 
-// название только с большой буквы
 const ChangePostsReduxForm = reduxForm({
     form: 'ChangePostsForm',
     editable: true,
@@ -78,7 +73,8 @@ const Posts = ({
                                           autoresize={false}
                                           initialValues={{post: text}}/>
                     {/*<button onClick={() => setEditMod(!editMod)}></button>*/}
-                    <ExitEditModeButton onClickEvent={() => setEditMod(!editMod)}/>
+                    <ExitEditModeButton
+                        onClickEvent={() => setEditMod(!editMod)}/>
                 </div> :
                 <div>{text} </div>}</div>
 

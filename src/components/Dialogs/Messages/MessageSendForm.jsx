@@ -31,6 +31,7 @@ const MessageForm = ({handleSubmit, error, ...props}) => {
 
 const MessageSendForm = reduxForm({
     form: "message-form",
+    autoFocus: true,
     onSubmitSuccess: (result, dispatch, props) => {
         dispatch(reset('message-form'))
     },

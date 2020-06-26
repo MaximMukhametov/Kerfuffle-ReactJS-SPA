@@ -1,5 +1,5 @@
 import userAPI, {profileAPI} from "../api/api";
-import authReducer from "./auth_reducer";
+import authReducer, {setPhoto} from "./auth_reducer";
 import defaultBackgroundPhoto from "./../media/defaultBackgroundPhoto.jpg"
 
 const GET_POST = 'GET_POST';
@@ -163,6 +163,7 @@ export const savePhoto = (fileWithPhoto) => async (dispatch) => {
     const response = await profileAPI.savePhoto(fileWithPhoto);
     if (response.status === 201) {
         dispatch(savePhotoSuccess(response.data));
+        dispatch(setPhoto(response.data));
         dispatch(photoIsUploading(false))
     }
 };

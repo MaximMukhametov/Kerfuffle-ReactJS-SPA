@@ -73,12 +73,18 @@ const usersReducer = (state = initialState, action) => {
 export const followSuccess = (userId) => ({type: FOLLOW, userId: userId});
 export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId: userId});
 export const setUsers = (users) => ({type: SET_USERS, users: users});
-export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, currentPage: page});
+export const setCurrentPage = (page) => ({
+    type: SET_CURRENT_PAGE,
+    currentPage: page
+});
 export const setTotalUsersCount = (totalUsersCount) => ({
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount: totalUsersCount
 });
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching});
+export const toggleIsFetching = (isFetching) => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching: isFetching
+});
 export const toggleFollowingProgres = (followingInProgress, userId) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     followingInProgress,
@@ -89,16 +95,21 @@ export const toggleFollowingProgres = (followingInProgress, userId) => ({
 // это thunk, он возвращает функцию, мидлвар отлавливает такие функции,
 // разворачивает и исполняет, и через диспатч заного прокидывает в конвеер
 
-export const requestUsers = (currentPage, pageSize, postId, show_follow_users) => {
+export const requestUsers = ({
+                                 currentPage, pageSize, postId,
+                                 show_follow_users, name
+                             }) => {
 
     return async (dispatch) => {
 
-        let data = await usersAPI.getUsers(currentPage, pageSize, postId, show_follow_users);
+        let data = await usersAPI.getUsers(currentPage, pageSize,
+            postId, show_follow_users, name);
         if (data.status == 200) {
-        // dispatch(toggleIsFetching(false));
-        dispatch(setUsers(data.data.items));
-        dispatch(setTotalUsersCount(data.data.totalCount))
-    }}
+            // dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.data.items));
+            dispatch(setTotalUsersCount(data.data.totalCount))
+        }
+    }
 };
 
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {

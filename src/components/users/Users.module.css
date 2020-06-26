@@ -24,14 +24,47 @@
 }
 
 .user{
+    width: 50%;
+    margin: 0 auto;
     padding: 10px;
-    margin: 15px;
+
     display: grid;
     gap: 10px;
     grid-template-columns: 1fr 10fr;
     border-bottom: 2px solid rgba(0, 0, 0, 0.14);
 }
 
+.user_info{
+    text-align: center;
+}
 .user_info_name{
+    padding: 10px;
     font-weight: 500;
+}
+
+.search_form{
+    border-bottom: 2px solid rgba(0, 0, 0, 0.23);
+    gap: 5px;
+    justify-items: end;
+    align-items: center;
+    margin: 15px   auto;
+    width: 300px;
+
+    display: grid;
+    grid-template-columns: 240px auto;
+
+}
+
+.search_form input{
+    border: 0;
+    width: 240px;
+}
+
+.search_form input:focus
+{
+	outline:0;
+}
+.search_not_found{
+    text-align: center;
+    margin: 10px;
 }

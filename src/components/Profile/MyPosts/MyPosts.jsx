@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Posts from "./Post/Posts";
 import classes from './MyPosts.module.css';
 import {formValues, formValueSelector, reduxForm, reset} from "redux-form";
-import MyPostsForm from "../../common/forms/postForm";
+import MyPostsForm from "../../common/forms/PostForm";
 import {animated, useTransition} from "react-spring";
 import {setUsers} from "../../../redux/users_reducer";
 import {connect} from "react-redux";

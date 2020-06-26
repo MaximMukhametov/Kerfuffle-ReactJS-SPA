@@ -172,5 +172,12 @@
 }
 
 .messages_body_load_previous{
+    transition-duration: 400ms;
     cursor: pointer;
+    font-weight: 500;
+}
+
+.messages_body_load_previous:hover{
+    color: #38436e;
+    text-shadow: 1px 1px 10px black;
 }

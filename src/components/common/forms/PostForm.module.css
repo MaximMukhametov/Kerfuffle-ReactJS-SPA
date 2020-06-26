@@ -7,3 +7,7 @@
 .form div{
     width: 100%;
 }
+
+.form textarea{
+  border: 15px solid black;
+}

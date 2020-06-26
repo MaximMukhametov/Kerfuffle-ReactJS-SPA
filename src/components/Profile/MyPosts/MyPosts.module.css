@@ -15,22 +15,27 @@
 
 }
 
+.postsBlock h3 {
+    text-align: center;
+}
+
 .posts {
     margin-top: 10px;
 }
 
-.post_input textarea{
+.post_input textarea {
     resize: none;
     padding: 0;
-    width: 100%;
-    border: 0;
+    width: 97%;
+    border: 5px solid rgba(0, 0, 0, 0);
+    border-right: 0;
     border-bottom: 2px solid rgba(0, 0, 0, 0.31);
+
 
 }
 
 
-
-.post_input textarea:focus{
+.post_input textarea:focus {
     border-radius: 0;
     outline: none !important;
     box-shadow: 0 0 10px #719ECE;
