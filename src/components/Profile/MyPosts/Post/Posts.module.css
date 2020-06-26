@@ -8,6 +8,10 @@
 
 }
 
+.post form {
+    display: block;
+}
+
 .post_owner {
     font-weight: 500;
     margin: 10px;
@@ -33,7 +37,6 @@
 .post_text {
     word-wrap: break-word;
     border-bottom: 2px solid rgba(0, 0, 0, 0.23);
-    /*border-top: 2px solid rgba(0, 0, 0, 0.23);*/
     margin: 10px;
     grid-column: 1 / 3;
     grid-row: 2 / 3;
@@ -130,11 +133,13 @@
 
 
 }
-.post_like_user_element_name{
+
+.post_like_user_element_name {
     height: 100%;
     text-align: center;
     padding: 5px;
 }
+
 .show_all_users {
     grid-column: span 2 / -1;
     border-radius: 5px;
@@ -191,7 +196,8 @@
 
 .post_text_editor > button {
     background-image: url("../../../../media/cross_mark.png");
-    grid-column: 2 / 3;
+    justify-self: end;
+    grid-column: 3 / 4;
     grid-row: 2 / 3;
     bottom: 0;
     left: 0;
@@ -200,11 +206,6 @@
 .post_text_editor form button {
     background-image: url("../../../../media/check_mark.png");
 }
-
-/*.post_text_editor button:hover {*/
-/*    -webkit-filter: brightness(70%) hue-rotate(15deg) contrast(150%);*/
-/*    filter: brightness(70%) hue-rotate(15deg) contrast(150%);*/
-/*}*/
 
 @media (max-device-width: 720px) {
     .post_likes_users {

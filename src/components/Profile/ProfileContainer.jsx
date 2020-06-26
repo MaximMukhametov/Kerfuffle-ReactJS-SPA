@@ -17,7 +17,7 @@ import {toggleIsFetching} from "../../redux/users_reducer";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import Preloader from "../common/preloader/preloader";
-import { useIsFetching, useQueryCache, useQuery  } from 'react-query'
+import {useIsFetching, useQueryCache} from 'react-query'
 
 
 const ProfileContainer = (props) => {
@@ -43,12 +43,13 @@ const ProfileContainer = (props) => {
             }
         }
 
-        let allPromise = Promise.all([props.getUserProfile(userId, !props.match.params.userId),
+        let allPromise = Promise.all([props.getUserProfile(userId,
+            !props.match.params.userId),
             props.getStatus(userId),
             props.getPostThunk(props.match.params.userId)])
             .then(response => {
                 props.toggleIsFetching(false)
-            })
+            });
         return allPromise
     };
 
@@ -60,7 +61,7 @@ const ProfileContainer = (props) => {
         let allPromise = refreshProfile();
 
         return () => {
-            console.log(allPromise)
+            console.log(allPromise);
             if (props.match.params.userId && !isOwnerId) {
                 props.setUserProfile(null);
                 props.getPost([]);
@@ -88,10 +89,6 @@ const ProfileContainer = (props) => {
 };
 
 
-// HOC (хок) компонента, что-то типа декоратора в питоне, добавляет одинаковую функциональность к компонентам,
-// принимает компоненту, добавляет что-то и возвращает компоненту
-let AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
-
 let mapStateToProps = (state) => {
     return ({
         profile: state.profilePage.profile,
@@ -104,19 +101,6 @@ let mapStateToProps = (state) => {
 
     })
 };
-
-
-// withRouter нужен для того чтобы достать url-параметры (и не только)
-// из урла и запихать их в пропс (см. дебаг что приходит в пропс)
-
-// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);   <--- старый код
-
-// connect принимает функцию которая принимает стейт и возвращает то что нам нужно,
-// вторым параметром принимает функции акшн-криейторы, которые диспатчит и оотдаёт
-// пропсам в виде колбэка, затем мы в отдельных скобках вызываем функцию конект с
-// параметром - контейнерная компонента, чтобы запихать в неё получившиеся пропсы
-// с параметрами и колбэками
-
 
 export default compose(
     withRouter,
@@ -135,5 +119,3 @@ export default compose(
             setUserProfile
         })
 )(ProfileContainer)
-// !isOwner && dispatch(setUserProfile(null)) &&
-// dispatch(getPost([]));

@@ -3,10 +3,7 @@ import classes from "./FormsControls.module.css"
 import {Field} from "redux-form";
 import _ from 'lodash';
 
-
-// rest оператор {input, meta, ...props} раскукоживает два первых параметра , а все остальные запихивает в пропс
-// в <textarea {...input} {...props}/> надо передать как минимуму value чтобы она работала, а value находится в input
-export const FormControl = ({input, meta: {touched, error}, children}) => {
+export const FormControl = ({meta: {touched, error}, children}) => {
 
     const hasError = touched && error;
     return (

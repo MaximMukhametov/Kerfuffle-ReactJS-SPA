@@ -17,8 +17,6 @@
 }
 
 .formControl textarea {
-
-
     background-color: rgba(0, 0, 0, 0);
     height: auto;
     font-size: 15px;
@@ -28,7 +26,6 @@
 
 .formControl .spamnnn {
     border: none;
-
     outline: none;
     word-wrap: break-word;
     word-break: break-all;
@@ -36,11 +33,5 @@
 
 .formControl {
     padding: 5px;
-    width: auto;
-}
-
-.divsdpan {
-    border: 4px solid black;
-    min-height: 50px;
     width: auto;
 }

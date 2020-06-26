@@ -1,27 +1,16 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Posts from "./Post/Posts";
 import classes from './MyPosts.module.css';
-import {formValues, formValueSelector, reduxForm, reset} from "redux-form";
+import {reduxForm, reset} from "redux-form";
 import MyPostsForm from "../../common/forms/PostForm";
 import {animated, useTransition} from "react-spring";
-import {setUsers} from "../../../redux/users_reducer";
-import {connect} from "react-redux";
-
-
-// название только с большой буквы
-
 
 const MyPosts = (props) => {
-    useEffect(() => {
-        // props.getPostThunk(props.match.params.userId)
-    }, props.posts, props.match.params);
-
-
     const transitions = useTransition(props.posts, item => item.id, {
         config: {mass: 10, tension: 2000, friction: 60},
         from: {transform: 'rotateX(90deg) translate(0%)'},
         enter: {transform: 'rotateX(0deg) translate(0%)'},
-        leave: {transform: 'rotateX(0deg) translate(200%)'},
+        leave: {transform: 'rotateX(0deg) translate(300%)'},
     });
 
     let postElemetns = !!props.posts && transitions.map(
@@ -54,11 +43,12 @@ const MyPosts = (props) => {
                 <div className={classes.post_input}>
                     <MyPostsReduxForm onSubmit={addPost}/>
                 </div>}
-                {props.posts && props.posts.length?
-                <div className={classes.posts}>
-                    {postElemetns}
-                </div>:
-                    <div>{props.profile.name} hasn't posted anything yet :(</div>}
+                {props.posts && props.posts.length ?
+                    <div className={classes.posts}>
+                        {postElemetns}
+                    </div> :
+                    <div>{props.profile.name} hasn't posted anything yet
+                        :(</div>}
             </div>
         )
     }

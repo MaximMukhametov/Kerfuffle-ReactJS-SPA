@@ -80,7 +80,8 @@ export const LoginThunk = (email, password) => async (dispatch) => {
         dispatch(setAuth(true))
 
     } catch (error) {
-        dispatch(stopSubmit("login", {_error: error.request.responseText})) // доработать поулчение описания ошибки
+        dispatch(stopSubmit("login",
+            {_error: error.request.responseText}))
     }
 };
 

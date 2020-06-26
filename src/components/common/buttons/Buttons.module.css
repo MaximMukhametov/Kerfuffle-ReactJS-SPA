@@ -1,5 +1,5 @@
-.send_button, .edit_button ,
-.delete_button, .exit_edit_mode_button, .user_search_button{
+.send_button, .edit_button,
+.delete_button, .exit_edit_mode_button, .user_search_button {
     cursor: pointer;
     border: 0;
     width: 40px;
@@ -32,6 +32,7 @@ button:hover {
 .exit_edit_mode_button {
     background-image: url("../../../media/cross_mark.png");
 }
-.user_search_button{
+
+.user_search_button {
     background-image: url("../../../media/search_user.png");
 }

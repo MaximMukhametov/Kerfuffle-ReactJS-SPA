@@ -1,17 +1,5 @@
-// Слой доступа к данным (Data Access Layer — DAL)
-
 import * as axios from "axios";
 
-
-const instance = axios.create(
-    {
-        withCredentials: true,
-        baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-        headers: {
-            "API-KEY": "29b52a33-0663-4c91-8b93-9c77dbcc6e59"
-        }
-    }
-);
 
 const djangoBackEnd = axios.create(
     {
@@ -61,7 +49,7 @@ const requestWithAuth = async (action) => {
         return await action();
     } catch (error) {
         const refreshToken = localStorage.getItem('refreshToken');
-        if (refreshToken && error.response.status == 401) {
+        if (refreshToken && error.response.status === 401) {
             try {
                 const updateToken = await djangoBackEnd.post('auth/jwt/refresh/',
                     {refresh: refreshToken});

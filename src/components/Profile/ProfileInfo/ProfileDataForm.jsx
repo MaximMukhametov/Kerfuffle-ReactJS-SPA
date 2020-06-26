@@ -6,10 +6,7 @@ import {
 } from "../../common/FormsControls/FormsControls";
 import classes from "./ProfileInfo.module.css"
 import {reduxForm} from "redux-form";
-import {
-    maxLengthCreator,
-    required
-} from "../../../utils/validators/validators";
+import {maxLengthCreator} from "../../../utils/validators/validators";
 
 
 const maxLength30 = maxLengthCreator(30);
@@ -58,7 +55,7 @@ const ProfileDataForm = ({handleSubmit, error, profile, ...props}) => {
                         })}</b>
                 </div>))}
             </div>
-            <button className={classes.save_contscts_button}></button>
+            <button className={classes.save_contscts_button}/>
         </form>
     )
 };

@@ -71,7 +71,7 @@ const MessageDetailContainer = (props) => {
         setMessageCounter(messageCounter + loadMoreMessagesCount);
         props.getMessagesWithUserThunk(props.match.params.userId,
             messageCounter + loadMoreMessagesCount)
-            .then(r=>setIsLoadingMoreMessages(false))
+            .then(r => setIsLoadingMoreMessages(false))
     };
 
 
@@ -114,14 +114,14 @@ const MessageDetailContainer = (props) => {
                     {props.messageCount > messageCounter &&
                     <div className={classes.messages_body_load_previous}
                          onClick={loadMoreMessages}>
-                        {!isLoadingMoreMessages?
-                        'Load previous...' : 'Loading...'}</div>}
+                        {!isLoadingMoreMessages ?
+                            'Load previous...' : 'Loading...'}</div>}
                     <div
                         className={classes.messages_body_list}>{messages}</div>
                     <MessageSendForm id={'messageSendForm'}
                                      onSubmit={onSubmit}/>
                 </div>
-            </div> : <Preloader/>}</div> )
+            </div> : <Preloader/>}</div>)
 };
 
 

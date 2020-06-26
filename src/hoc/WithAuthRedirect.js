@@ -2,8 +2,6 @@ import {Redirect} from "react-router-dom";
 import * as React from "react";
 import {connect} from "react-redux";
 
-// HOC (хок) компонента, что-то типа декоратора в питоне, добавляет одинаковую функциональность к компонентам,
-// принимает компоненту, добавляет что-то и возвращает компоненту
 
 let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth
@@ -18,7 +16,8 @@ export const WithAuthRedirect = (Component) => {
         }
     }
 
-    let ConnectedRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent);
+    let ConnectedRedirectComponent = connect(mapStateToPropsForRedirect)
+    (RedirectComponent);
     return ConnectedRedirectComponent;
 };
 

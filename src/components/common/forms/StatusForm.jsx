@@ -21,6 +21,9 @@ const StatusForm = (props) => {
     )
 };
 
-const StatusReduxForm = reduxForm({form: "edit-profile", autoFocus: true})(StatusForm);
+const StatusReduxForm = reduxForm({
+    form: "edit-profile",
+    autoFocus: true
+})(StatusForm);
 export default StatusReduxForm
 

@@ -18,8 +18,7 @@ const Dialogs = (props) => {
                          photos={getUserPhoto(d)}
                          writtenBy={d.messagedata.written_by}
                          createdAt={convertUTCDateToLocalDate(
-                             d.messagedata.created_at)}
-        />);
+                             d.messagedata.created_at)}/>);
 
     return <div>
         {dialog}

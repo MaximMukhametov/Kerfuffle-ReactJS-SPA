@@ -1,5 +1,3 @@
-
-
 .select_page, .other_page {
     text-align: center;
     display: inline-block;
@@ -46,7 +44,7 @@
 .paginator_prev {
     justify-self: end;
     background-image: url("../../../media/page_selector.png");
-       -webkit-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     -o-transform: rotate(180deg);

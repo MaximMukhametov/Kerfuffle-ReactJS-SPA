@@ -1,9 +1,9 @@
 import React from "react";
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import SubNavbar from "./subNavbar/subNavbar";
 
-const Navbar = (props) => {
+
+const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.nav_items}>

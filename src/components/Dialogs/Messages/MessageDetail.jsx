@@ -10,8 +10,8 @@ import {
 
 
 const MessageDetail = ({
-                           key, message, writer, addressee, routing,
-                           sendMessage, editMessage, deleteMessage, isMyMessage
+                           message, writer, routing,
+                           editMessage, deleteMessage, isMyMessage
                        }) => {
 
     let [editMode, setEditMode] = useState(false);
@@ -29,8 +29,9 @@ const MessageDetail = ({
         <div className={classes.writer}>
 
             <img src={photo} alt="writer"
-                 onClick={() => routing.history.push('/profile/' + (isMyMessage ? '' : writer.id))}/>
-                 <div>{isMyMessage ? 'me' : writer.name}</div>
+                 onClick={() => routing.history.push('/profile/'
+                     + (isMyMessage ? '' : writer.id))}/>
+            <div>{isMyMessage ? 'me' : writer.name}</div>
         </div>
 
         <div className={classes.message_content}>

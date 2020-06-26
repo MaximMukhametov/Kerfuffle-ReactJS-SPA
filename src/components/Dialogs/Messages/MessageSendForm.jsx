@@ -36,6 +36,9 @@ const MessageSendForm = reduxForm({
         dispatch(reset('message-form'))
     },
 })(MessageForm);
-export const MessageEditForm = reduxForm({form: "edit-message-form"})(MessageForm);
+export const MessageEditForm = reduxForm({
+    form: "edit-message-form",
+    autoFocus: true,
+})(MessageForm);
 
 export default MessageSendForm

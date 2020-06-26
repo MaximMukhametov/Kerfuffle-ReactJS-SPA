@@ -1,8 +1,8 @@
-.user_photo_block{
+.user_photo_block {
     text-align: center;
 }
 
-.user_photo_block button{
+.user_photo_block button {
     cursor: pointer;
     border: 0;
     border-radius: 5px;
@@ -12,9 +12,9 @@
 
 .users_photo {
     border-radius: 50%;
-  object-fit: cover;
-  width: 100px;
-  height: 100px;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
 }
 
 
@@ -23,7 +23,7 @@
 
 }
 
-.user{
+.user {
     width: 50%;
     margin: 0 auto;
     padding: 10px;
@@ -34,20 +34,21 @@
     border-bottom: 2px solid rgba(0, 0, 0, 0.14);
 }
 
-.user_info{
+.user_info {
     text-align: center;
 }
-.user_info_name{
+
+.user_info_name {
     padding: 10px;
     font-weight: 500;
 }
 
-.search_form{
+.search_form {
     border-bottom: 2px solid rgba(0, 0, 0, 0.23);
     gap: 5px;
     justify-items: end;
     align-items: center;
-    margin: 15px   auto;
+    margin: 15px auto;
     width: 300px;
 
     display: grid;
@@ -55,16 +56,16 @@
 
 }
 
-.search_form input{
+.search_form input {
     border: 0;
     width: 240px;
 }
 
-.search_form input:focus
-{
-	outline:0;
+.search_form input:focus {
+    outline: 0;
 }
-.search_not_found{
+
+.search_not_found {
     text-align: center;
     margin: 10px;
 }

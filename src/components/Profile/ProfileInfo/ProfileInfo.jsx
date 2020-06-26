@@ -4,7 +4,6 @@ import userPhoto from "../../../media/userPhoto.jpg";
 import classes from "./ProfileInfo.module.css"
 import ProfileDataForm from "./ProfileDataForm";
 import Preloader from "../../common/preloader/preloader";
-import {Link} from "react-router-dom";
 import {animated, useSpring} from "react-spring";
 import MyPostsContainer from "../MyPosts/MyPostsContainer";
 import editPhoto from "../../../media/editphoto.png"
@@ -36,10 +35,6 @@ const ProfileInfo = ({
     let [editMode, setEditMod] = useState(false);
     let [isLoadingBackgroundPhoto,
         setIsLoadingBackgroundPhoto] = useState(false);
-
-    // if (!profile) {
-    //     return <div></div>
-    // }
 
     const {background_photo, photos, ...initialProfileValues} = profile;
 
@@ -88,7 +83,8 @@ const ProfileInfo = ({
                         <img
                             className={classes.edit_back_photo}
                             src={imageLoader} alt=""/>}
-                    <input accept="image/png,image/jpeg" type={"file"} id={'upload-background-photo'}
+                    <input accept="image/png,image/jpeg" type={"file"}
+                           id={'upload-background-photo'}
                            className={classes.upload_background_photo_input}
                            onChange={onBackgroundPhotoSelected}/></label>}
 
@@ -97,7 +93,7 @@ const ProfileInfo = ({
                     onMouseLeave={() => set({xys: [0, 0, 1]})}
                     style={{transform: animateProps.xys.interpolate(trans)}}
                     className={classes.main_photo}>
-                    <div className={classes.photo_area}></div>
+                    <div className={classes.photo_area}/>
                     <div
                         onClick={getFollowers}
                         className={classes.main_photo_followers}>
@@ -111,7 +107,7 @@ const ProfileInfo = ({
                             <div>
                                 <label htmlFor="upload-photo"><img
                                     className={classes.main_photo_editPhoto}
-                                    src={editPhoto}/>
+                                    src={editPhoto} alt='empty photo'/>
                                     <input type={"file"} id={'upload-photo'}
                                            className={classes.upload_photo}
                                            onChange={onMainPhotoSelected}/></label>

@@ -1,8 +1,10 @@
 import React from "react";
 import {
-    addPostThunk, changePostThunk,
+    addPostThunk,
+    changePostThunk,
     delPostThunk,
-    getPostThunk, likePostThunk
+    getPostThunk,
+    likePostThunk
 } from "../../../redux/profile_reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";

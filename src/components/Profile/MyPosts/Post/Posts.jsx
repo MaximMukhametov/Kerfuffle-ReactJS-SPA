@@ -16,6 +16,7 @@ import {
 
 const ChangePostsReduxForm = reduxForm({
     form: 'ChangePostsForm',
+    autoFocus: true,
     editable: true,
 })(MyPostsForm);
 
@@ -72,7 +73,6 @@ const Posts = ({
                     <ChangePostsReduxForm onSubmit={changePost}
                                           autoresize={false}
                                           initialValues={{post: text}}/>
-                    {/*<button onClick={() => setEditMod(!editMod)}></button>*/}
                     <ExitEditModeButton
                         onClickEvent={() => setEditMod(!editMod)}/>
                 </div> :
@@ -84,7 +84,8 @@ const Posts = ({
                      onClick={() => props.likePostThunk(id)}
                      src={likes_count > 0 ? likeIcon : emptyLikeIcon}/>
                 <span
-                    className={classes.post_likes_like_count}>{likes_count > 0 && likes_count}</span>
+                    className={classes.post_likes_like_count}>
+                    {likes_count > 0 && likes_count}</span>
                 {likes_count > 0 &&
                 <div>
                     <div className={classes.post_likes_users}>
@@ -103,8 +104,6 @@ const Posts = ({
                 <EditButton onClickEvent={() => setEditMod(!editMod)}/>
                 <DeleteButton onClickEvent={deletePost}/>
             </div>}</div>
-
-
         </div>
     )
 };

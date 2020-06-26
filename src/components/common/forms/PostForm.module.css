@@ -1,13 +1,15 @@
-.form{
+.form {
     display: grid;
     justify-items: center;
     align-items: center;
     grid-template-columns: 10fr 45px;
 }
-.form div{
+
+.form div {
     width: 100%;
 }
 
-.form textarea{
-  border: 15px solid black;
+.form_empty {
+    width: 40px;
+    height: 40px;
 }

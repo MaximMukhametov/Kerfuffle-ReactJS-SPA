@@ -27,19 +27,20 @@ let Paginator = ({currentPage, onPageChanged, totalUsersCount, pageSize, portion
             {portionNumber > 1 &&
             <button className={classes.paginator_prev} onClick={() => {
                 changePortion(portionNumber - 1)
-            }}></button>}
-            <div
-                className={classes.pages}>{pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map(page =>
-                    <span key={page}
-                          className={currentPage === page ? classes.select_page : classes.other_page}
-                          onClick={(e) => onPageChanged(page)}>{page} </span>
-                )}</div>
+            }}/>}
+            <div className={classes.pages}>
+                {pages.filter(p => p >= leftPortionPageNumber &&
+                    p <= rightPortionPageNumber)
+                    .map(page =>
+                        <span key={page}
+                              className={currentPage === page ? classes.select_page : classes.other_page}
+                              onClick={(e) => onPageChanged(page)}>{page} </span>
+                    )}</div>
 
             {portionCount > portionNumber &&
             <button className={classes.paginator_next} onClick={() => {
                 changePortion(portionNumber + 1)
-            }}></button>}
+            }}/>}
         </div>
     )
 };

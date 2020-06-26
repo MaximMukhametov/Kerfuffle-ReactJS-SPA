@@ -3,9 +3,11 @@ import {connect} from "react-redux";
 import {
     follow,
     requestUsers,
-    setCurrentPage, setTotalUsersCount,
+    setCurrentPage,
+    setTotalUsersCount,
     setUsers,
-    toggleFollowingProgres, toggleIsFetching,
+    toggleFollowingProgres,
+    toggleIsFetching,
     unfollow
 } from "../../redux/users_reducer";
 import Users from "./Users";
@@ -14,7 +16,6 @@ import {compose} from "redux";
 import {
     getCurrentPage,
     getFollowingInProgress,
-    getIsFetching,
     getPageSize,
     getTotalUsersCount,
     getUsers

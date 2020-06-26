@@ -26,21 +26,17 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
-
-                // отрефакторил старый код ( в UNFOLLOW по аналогии)
-                // users: state.users.map(u => {
-                //     if (u.id === action.userId) {
-                //         return {...u, followed: true}
-                //     }
-                //     return u;
-                // }),
+                users: updateObjectInArray(state.users,
+                    action.userId,
+                    "id",
+                    {followed: true})
             };
 
         case UNFOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
+                users: updateObjectInArray(state.users, action.userId,
+                    "id", {followed: false})
             };
         case SET_USERS:
             return {...state, users: [...action.users]};
@@ -58,7 +54,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 followingInProgress: action.followingInProgress
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id != action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId)
             };
 
         default:
@@ -92,9 +88,6 @@ export const toggleFollowingProgres = (followingInProgress, userId) => ({
 });
 
 
-// это thunk, он возвращает функцию, мидлвар отлавливает такие функции,
-// разворачивает и исполняет, и через диспатч заного прокидывает в конвеер
-
 export const requestUsers = ({
                                  currentPage, pageSize, postId,
                                  show_follow_users, name
@@ -104,8 +97,7 @@ export const requestUsers = ({
 
         let data = await usersAPI.getUsers(currentPage, pageSize,
             postId, show_follow_users, name);
-        if (data.status == 200) {
-            // dispatch(toggleIsFetching(false));
+        if (data.status === 200) {
             dispatch(setUsers(data.data.items));
             dispatch(setTotalUsersCount(data.data.totalCount))
         }
@@ -115,7 +107,7 @@ export const requestUsers = ({
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
     dispatch(toggleFollowingProgres(true, userId));
     let response = await apiMethod(userId);
-    if (response.status == 200) {
+    if (response.status === 200) {
         dispatch(actionCreator(userId));
     }
     dispatch(toggleFollowingProgres(false, userId));
@@ -124,13 +116,15 @@ const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) =>
 export const unfollow = (userId) => {
 
     return async (dispatch) => {
-        await followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
+        await followUnfollowFlow(dispatch, userId,
+            usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
     }
 };
 
 export const follow = (userId) => {
     return async (dispatch) => {
-        await followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess)
+        await followUnfollowFlow(dispatch, userId,
+            usersAPI.follow.bind(usersAPI), followSuccess)
     }
 };
 

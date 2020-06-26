@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {
     follow,
     requestUsers,
-    setCurrentPage, setTotalUsersCount,
+    setCurrentPage,
+    setTotalUsersCount,
     setUsers,
     toggleFollowingProgres,
     unfollow
@@ -60,13 +61,6 @@ class UsersContainer extends React.Component {
             this.refreshUsers(1)
         }
     }
-
-
-// shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     if (this.props.totalUsersCount != nextProps.totalUsersCount){
-    //                 return true
-    //     }
-    // }
 
 
     onPageChanged = (page) => {

@@ -36,8 +36,10 @@ let User = ({user, followingInProgress, unfollow, follow}) => {
                 </span>
         <span className={classes.user_info}>
                     <span>
-                        <div className={classes.user_info_name}>{user.name}</div>
-                        <div className={classes.user_info_status}>{user.status}</div>
+                        <div
+                            className={classes.user_info_name}>{user.name}</div>
+                        <div
+                            className={classes.user_info_status}>{user.status}</div>
                     </span>
                 </span>
     </div>;

@@ -2,10 +2,10 @@ import loadCircle from "../../../media/VdOY.gif";
 import React from "react";
 
 
-let Preloader = (props) => {
+let Preloader = () => {
     return <img src={loadCircle} style={{
         display: 'block',
-        width: '200px',
+        width: '150px',
         margin: '0 auto'
     }} alt="Loading"/>
 };

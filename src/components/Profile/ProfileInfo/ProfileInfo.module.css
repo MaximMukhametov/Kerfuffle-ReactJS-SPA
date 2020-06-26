@@ -194,12 +194,6 @@
 
 }
 
-/*.label_edit_back_photo{*/
-/*    opacity: 0;*/
-/*    transition-duration: 500ms;*/
-
-/*}*/
-
 .edit_back_photo {
     opacity: 0;
     width: calc(1vw + 30px);

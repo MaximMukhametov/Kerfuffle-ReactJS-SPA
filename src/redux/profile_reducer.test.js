@@ -1,7 +1,4 @@
-import profileReducer, {
-    addPostThunk,
-    deletePost
-} from "./profile_reducer";
+import profileReducer, {addPostThunk, deletePost} from "./profile_reducer";
 import React from "react";
 
 
@@ -19,7 +16,7 @@ let state = {
 test('new post should be added', () => {
     let action = addPostThunk('test text');
     let newState = profileReducer(state, action);
-    expect(newState.posts.length).toBe(6)
+    expect(newState.posts.length).toBe(5)
 
 });
 

@@ -1,5 +1,5 @@
 import userAPI, {profileAPI} from "../api/api";
-import authReducer, {setPhoto} from "./auth_reducer";
+import {setPhoto} from "./auth_reducer";
 import defaultBackgroundPhoto from "./../media/defaultBackgroundPhoto.jpg"
 
 const GET_POST = 'GET_POST';

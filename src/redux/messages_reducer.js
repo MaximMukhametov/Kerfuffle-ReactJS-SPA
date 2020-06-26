@@ -1,5 +1,4 @@
-import {authAPI, dialogsAPI} from "../api/api";
-import {setUserData, toggleIsFetchingStart} from "./auth_reducer";
+import {dialogsAPI} from "../api/api";
 
 const SET_DIALOGS_PREVIEW = 'SET_DIALOGS_PREVIEW';
 const SET_MESSAGES_WITH_USER = 'SET_MESSAGES_WITH_USER';
@@ -43,7 +42,8 @@ export const messagesReducer = (state = initialState, action) => {
         case DELETE_MESSAGE:
             return {
                 ...state,
-                messagesWithUser: state.messagesWithUser.filter(m => m.id != action.deletedMessageId)
+                messagesWithUser: state.messagesWithUser.filter(m =>
+                    m.id !== action.deletedMessageId)
 
             };
         case SET_MESSAGE_COUNT:
@@ -85,14 +85,16 @@ export const getAllUsersWithDialogsThunk = () => async (dispatch) => {
         dispatch(setDialogsPreview(response.data))
     }
 };
-export const getMessagesWithUserThunk = (userId, loadMoreMessages) => async (dispatch) => {
-    const response = await dialogsAPI.getMessagesWithUser(userId, loadMoreMessages);
-    if (response.status === 200) {
-        dispatch(setMessagesWithUser(response.data.data));
-        dispatch(setMessageCount(response.data.count))
+export const getMessagesWithUserThunk = (userId, loadMoreMessages) =>
+    async (dispatch) => {
+        const response = await dialogsAPI.getMessagesWithUser(userId,
+            loadMoreMessages);
+        if (response.status === 200) {
+            dispatch(setMessagesWithUser(response.data.data));
+            dispatch(setMessageCount(response.data.count))
 
-    }
-};
+        }
+    };
 export const sendMessageThunk = (userId, message) => async (dispatch) => {
     const response = await dialogsAPI.sendMessage(userId, message);
     if (response.status === 200) {
