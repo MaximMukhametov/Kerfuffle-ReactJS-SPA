@@ -6,13 +6,15 @@
 }
 
 
-.postsBlock {
+.posts_block {
     padding: 0 1vw 0 1vw;
     border-left: 2px solid rgba(0, 0, 0, 0.14);
 
 }
-
-.postsBlock h3 {
+.posts_block_empty{
+    padding: 10px;
+}
+.posts_block h3 {
     text-align: center;
 }
 

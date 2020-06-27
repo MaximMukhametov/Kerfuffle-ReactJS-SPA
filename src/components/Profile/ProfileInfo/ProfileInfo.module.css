@@ -1,3 +1,15 @@
+
+.main_photo_editPhoto, .edit_back_photo {
+    opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .main_photo_editPhoto, .edit_back_photo {
+    opacity: 0;
+}
+}
+
+
 .panorama {
     width: 100%;
 }
@@ -130,19 +142,11 @@
     border-bottom: 1px solid white;
 }
 
-.main_photo_followed:hover p {
+.main_photo_followed:hover p, .main_photo_followers:hover p {
     text-shadow: 0px 0px 10px white;
 }
 
-.main_photo_followed:active p {
-    text-shadow: 0px 0px 10px #000000;
-}
-
-.main_photo_followers:hover p {
-    text-shadow: 0px 0px 10px white;
-}
-
-.main_photo_followers:active p {
+.main_photo_followed:active p, .main_photo_followers:active p {
     text-shadow: 0px 0px 10px #000000;
 }
 
@@ -175,7 +179,6 @@
 
 
 .main_photo_editPhoto {
-    opacity: 0;
     width: calc(1vw + 25px);
     height: calc(1vw + 25px);
     cursor: pointer;
@@ -200,7 +203,6 @@
 }
 
 .edit_back_photo {
-    opacity: 0;
     width: calc(1vw + 30px);
     height: calc(1vw + 30px);
     position: absolute;

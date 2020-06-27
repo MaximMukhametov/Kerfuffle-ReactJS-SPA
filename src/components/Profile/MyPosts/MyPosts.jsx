@@ -37,7 +37,7 @@ const MyPosts = (props) => {
         return <div>Loading...</div>
     } else {
         return (
-            <div className={classes.postsBlock}>
+            <div className={classes.posts_block}>
                 <h3>Posts</h3>
                 {!props.match.params.userId &&
                 <div className={classes.post_input}>
@@ -47,7 +47,7 @@ const MyPosts = (props) => {
                     <div className={classes.posts}>
                         {postElemetns}
                     </div> :
-                    <div>{props.profile.name} hasn't posted anything yet
+                    <div className={classes.posts_block_empty}>{props.profile.name} hasn't posted anything yet
                         :(</div>}
             </div>
         )

@@ -16,7 +16,10 @@
 
 .login_block {
     float: right;
+}
 
+.login_block::-moz-focus-inner {
+    border: 0px !important;
 }
 
 .header_title {
@@ -28,10 +31,13 @@
 }
 
 .login_block a {
+
     color: white;
 }
 
 .login_block__isauth {
+
+    cursor: pointer;
     position: relative;
     height: 50px;
     display: grid;
@@ -41,9 +47,10 @@
 }
 
 .login_block__name {
+
     font-weight: 500;
     padding: 5px;
-    cursor: default;
+    cursor: pointer;
     color: white;
 }
 
@@ -53,18 +60,17 @@
     border: 0;
     width: 80px;
     height: 25px;
-    top: 50%;
+    top: -150%;
     left: 50%;
     margin-left: -60px;
     transition: all 0.5s cubic-bezier(.25, 1.7, .35, .8);
     opacity: 0;
     position: absolute;
-    /*display: none;*/
     z-index: 2;
 }
 
-.login_block__isauth:hover .login_block__logout {
-    /*display: block;*/
+
+.login_block__isauth__active {
     opacity: 1;
     top: 105%;
 }
@@ -137,12 +143,14 @@
 }
 
 
-.login_block__isauth:hover .left_bar:after {
+.left_bar_rotate:after {
     transform-origin: center center;
     transform: rotate(-70deg);
 }
 
-.login_block__isauth:hover .right_bar:after {
+.right_bar_rotate:after {
     transform-origin: center center;
     transform: rotate(70deg);
 }
+
+

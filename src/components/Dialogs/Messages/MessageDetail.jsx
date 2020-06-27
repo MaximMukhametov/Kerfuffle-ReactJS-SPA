@@ -10,7 +10,7 @@ import {
 
 
 const MessageDetail = ({
-                           message, writer, routing,
+                           message, writer, routing, setBanScroll,
                            editMessage, deleteMessage, isMyMessage
                        }) => {
 
@@ -48,7 +48,10 @@ const MessageDetail = ({
             {isMyMessage &&
             <div className={classes.message_control}>
                 <EditButton onClickEvent={() => setEditMode(!editMode)}/>
-                <DeleteButton onClickEvent={() => deleteMessage(message.id)}/>
+                <DeleteButton onClickEvent={() => {
+                    deleteMessage(message.id);
+                    setBanScroll(true)
+                }}/>
             </div>}
         </div>
     </div>

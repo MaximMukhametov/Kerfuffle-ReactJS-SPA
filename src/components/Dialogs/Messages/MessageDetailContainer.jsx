@@ -49,12 +49,13 @@ const MessageDetailContainer = (props) => {
     }, [props.messages]);
 
 
-    const transitions = useTransition(props.messages, item => item.id, {
-        config: {mass: 10, tension: 2000, friction: 60},
-        from: {transform: 'rotateX(90deg) translate(0%)'},
-        enter: {transform: 'rotateX(0deg) translate(0%)'},
-        leave: {transform: 'rotateX(0deg) translate(200%)'},
-    });
+    const transitions = useTransition(props.messages,
+        item => item.id, {
+            config: {mass: 10, tension: 2000, friction: 60},
+            from: {transform: 'rotateX(90deg) translate(0%)'},
+            enter: {transform: 'rotateX(0deg) translate(0%)'},
+            leave: {transform: 'rotateX(0deg) translate(200%)'},
+        });
 
     const isMyMessage = (message) => (
         message.written_by.id === props.authUserId
@@ -91,6 +92,7 @@ const MessageDetailContainer = (props) => {
                            sendMessage={props.sendMessageThunk}
                            editMessage={props.editMessageThunk}
                            deleteMessage={props.deleteMessageThunk}
+                           setBanScroll={setBanScroll}
                            routing={{
                                history: props.history,
                                location: props.location,
