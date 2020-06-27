@@ -24,6 +24,7 @@
 }
 
 .main_photo {
+    text-shadow: 0 0 10px #000000;
     padding: 0 calc(3vw + 10px) calc(5vw + 15px) calc(3vw + 10px);
     justify-self: center;
     font-size: 15px;
@@ -100,7 +101,11 @@
 
 
 .main_photo_user_name {
-    font-size: 25px;
+    top: 40%;
+    right: -20%;
+    left: -20%;
+    position: absolute;
+    font-size: calc(0.5vw + 15px);
     align-self: start;
     margin-top: 20px;
     grid-column: 2/3;
@@ -239,9 +244,6 @@
 
 }
 
-.send_message {
-
-}
 
 @media (max-device-width: 720px) {
     .profile_info {

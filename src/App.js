@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import store from "./redux/redux_store";
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Redirect, Route} from "react-router-dom"
+import {HashRouter, Redirect, Route} from "react-router-dom"
 import UsersContainer from "./components/users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
@@ -52,7 +52,6 @@ class App extends React.Component {
                                                render={() => <Login/>}/>
                                     </div>
                                 </div>
-                                }
                             </div>}</div> :
                     <Login/>}
             </div>
@@ -72,11 +71,11 @@ let AppContainer = connect(mapStateToProps, {getAuthUserData})(App);
 
 
 const MainApp = () => {
-    return <BrowserRouter>
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 };
 
 
