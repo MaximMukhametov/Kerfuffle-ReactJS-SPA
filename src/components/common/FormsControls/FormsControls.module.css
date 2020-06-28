@@ -11,6 +11,7 @@
 }
 
 .formCommonError {
+    width: 90%;
     border: red 1px solid;
     padding: 5px;
     color: crimson;

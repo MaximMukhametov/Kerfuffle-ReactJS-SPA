@@ -34,7 +34,8 @@ const LoginForm = ({handleSubmit, error}) => {
 };
 
 const LoginReduxForm = reduxForm({
-    form: 'login'
+    form: 'login',
+    onSubmitFail : (errors , dispatch ) => errors.detail
 })(LoginForm);
 
 const Login = (props) => {
