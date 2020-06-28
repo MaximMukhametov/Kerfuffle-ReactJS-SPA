@@ -108,7 +108,8 @@ const ProfileInfo = ({
                                 <label htmlFor="upload-photo"><img
                                     className={classes.main_photo_editPhoto}
                                     src={editPhoto} alt='empty photo'/>
-                                    <input type={"file"} id={'upload-photo'}
+                                    <input accept="image/png,image/jpeg"
+                                           type={"file"} id={'upload-photo'}
                                            className={classes.upload_photo}
                                            onChange={onMainPhotoSelected}/></label>
                             </div>}

@@ -1,6 +1,7 @@
 import userAPI, {profileAPI} from "../api/api";
 import {setPhoto} from "./auth_reducer";
 import defaultBackgroundPhoto from "./../media/defaultBackgroundPhoto.jpg"
+import _ from "lodash";
 
 const GET_POST = 'GET_POST';
 const ADD_POST = 'ADD_POST';
@@ -161,25 +162,29 @@ export const updateStatus = (status) => async (dispatch) => {
 export const savePhoto = (fileWithPhoto) => async (dispatch) => {
     dispatch(photoIsUploading(true));
     const response = await profileAPI.savePhoto(fileWithPhoto);
+    const imageSizeError = _.get(response.data, 'large_img');
     if (response.status === 201) {
         dispatch(savePhotoSuccess(response.data));
         dispatch(setPhoto(response.data));
         dispatch(photoIsUploading(false))
-    }
+    } else if (response.status === 400 && imageSizeError)
+        dispatch(photoIsUploading(false));
+    window.alert(imageSizeError)
 };
 
 export const saveBackgroundPhoto = (fileWithPhoto) => async (dispatch) => {
     const response = await profileAPI.saveBackgroundPhoto(fileWithPhoto);
+    const imageSizeError = _.get(response.data, 'background_photo');
     if (response.status === 201) {
         dispatch(saveBackgroundPhotoSuccess(response.data));
-    }
+    } else if (response.status === 400 && imageSizeError)
+        window.alert(imageSizeError)
 };
 
 export const saveProfile = (profile, isOwner) => async (dispatch) => {
     const response = await profileAPI.saveProfile(profile);
     if (response.status === 201) {
         dispatch(getUserProfile(profile.id, isOwner))
-        // dispatch(setUserProfile(response.data))
     }
 };
 
