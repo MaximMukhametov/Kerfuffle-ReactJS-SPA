@@ -36,7 +36,8 @@ const MessageDetail = ({
 
         <div className={classes.message_content}>
             {editMode ?
-                <div onBlur={() => setEditMode(!editMode)} className={classes.message_body_text}>
+                <div onBlur={() => setEditMode(!editMode)}
+                     className={classes.message_body_text}>
                     <MessageEditForm initialValues={message}
                                      onSubmit={onSubmit}/>
                     <ExitEditModeButton
