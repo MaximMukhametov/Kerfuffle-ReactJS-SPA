@@ -11,45 +11,15 @@ const djangoBackEnd = axios.create(
     }
 );
 
-// const djangoBackEnd = axios.create(
-//     {
-//         withCredentials: false,
-//         baseURL: 'http://localhost:8000/',
-//         headers: {
-//             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-//         }
-//     }
-// );
-
-export const isAuthorized = async (currentPage, pageSize) => {
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    if (refreshToken) {
-        const updateToken = await djangoBackEnd.post('auth/jwt/refresh/',
-            {refresh: refreshToken})
-            .then(response => {
-                sessionStorage.setItem('accessToken', response.data.access);
-                return response
-            })
-            .then(response => {
-                djangoBackEnd.defaults.headers['Authorization'] = "Bearer " +
-                    response.data.access;
-                return response.status
-            })
-            .catch(error => {
-                return error.response.status
-            });
-        return updateToken
-    }
-};
-
-
+// Wraps all requests, if the error is 401, then it tries to restore the
+// token using a refresher token, if this fails, it resets the tokens.
 const requestWithAuth = async (action) => {
     try {
         return await action();
     } catch (error) {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken && error.response.status === 401) {
+            // Try to update token.
             try {
                 const updateToken = await djangoBackEnd.post('auth/jwt/refresh/',
                     {refresh: refreshToken});
