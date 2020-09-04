@@ -2,7 +2,7 @@ import React from "react";
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
-
+// Site navigation bar
 const Navbar = () => {
     return (
         <nav className={classes.nav}>

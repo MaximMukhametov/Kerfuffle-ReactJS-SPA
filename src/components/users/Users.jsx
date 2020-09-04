@@ -10,6 +10,8 @@ import {reduxForm} from "redux-form";
 import {UserSearchButton} from "../common/buttons/Buttons";
 
 const maxLength30 = maxLengthCreator(30);
+
+// Displays pagination of pages with users, search field, and throws further props.
 const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, ...props}) => {
     let [searchName, setSearchName] = useState(null);
     const searchUsersByName = (formData) => {
@@ -36,7 +38,7 @@ const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, ...props}
     </div>
 };
 
-
+// Form for searching users by name.
 const SearchUserForm = ({handleSubmit, error, ...props}) => {
     return (
         <form className={classes.search_form} onSubmit={handleSubmit}>

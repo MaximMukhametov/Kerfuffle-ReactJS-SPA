@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import classes from "./ProfileInfo.module.css"
 import StatusReduxForm from "../../common/forms/StatusForm";
 
+
+// Component for displaying user status
 const ProfileStatus = (props) => {
     let [editMod, setEditMod] = useState(false);
 

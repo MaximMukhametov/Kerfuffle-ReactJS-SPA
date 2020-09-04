@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {LogoutThunk} from "../../redux/auth_reducer";
 
 
+// Site header, displays user avatar, name, login button
 class HeaderContainer extends React.Component {
 
     render() {

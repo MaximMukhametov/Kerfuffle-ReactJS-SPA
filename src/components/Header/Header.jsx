@@ -5,6 +5,7 @@ import logo from "./../../media/logo.png"
 import avatar from "./../../media/userPhoto.jpg"
 
 
+// Site header, displays user avatar, name, login button
 const Header = (props) => {
     let [logoutClick, setLogoutClick] = useState(false);
     const photo = props.photos ? props.photos.small_img : avatar;

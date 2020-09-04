@@ -21,6 +21,7 @@ const ChangePostsReduxForm = reduxForm({
 })(MyPostsForm);
 
 
+// Component for detailed rendering, like, delete, edit posts.
 const Posts = ({
                    id, name, text, created_at, isOwner,
                    likes_count, like_users, props

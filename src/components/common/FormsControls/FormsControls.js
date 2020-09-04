@@ -3,6 +3,8 @@ import classes from "./FormsControls.module.css"
 import {Field} from "redux-form";
 import _ from 'lodash';
 
+
+// Creating form elements
 export const FormControl = ({meta: {touched, error}, children}) => {
 
     const hasError = touched && error;
@@ -13,11 +15,12 @@ export const FormControl = ({meta: {touched, error}, children}) => {
                 {children}
             </div>
             {hasError && <span>{error}</span>}
-
         </div>
     );
 };
 
+
+// Custom texarea with automatically adjusting height
 export const Textarea = (props) => {
     console.log(props.input);
 
@@ -51,6 +54,7 @@ export const Input = (props) => {
     return <FormControl {...props}><input {...input} {...restProps}/></FormControl>
 };
 
+// Creating form fields
 export const fieldCreator = (name, type, component, props = {}, text = '') => (
     <div>
         <Field type={type} name={name} component={component}

@@ -2,13 +2,10 @@ import React, {useState} from "react";
 import classes from './MessageDetail.module.css'
 import userPhoto from "../../../media/userPhoto.jpg";
 import {MessageEditForm} from "./MessageSendForm";
-import {
-    DeleteButton,
-    EditButton,
-    ExitEditModeButton
-} from "../../common/buttons/Buttons";
+import {DeleteButton, EditButton, ExitEditModeButton} from "../../common/buttons/Buttons";
 
 
+// Renders each message, allows you to send, edit, delete
 const MessageDetail = ({
                            message, writer, routing, setBanScroll,
                            editMessage, deleteMessage, isMyMessage

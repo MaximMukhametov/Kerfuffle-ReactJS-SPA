@@ -11,6 +11,8 @@ import {maxLengthCreator} from "../../../utils/validators/validators";
 
 const maxLength30 = maxLengthCreator(30);
 const maxLength300 = maxLengthCreator(300);
+
+// Form for changing personal data about the user and his contacts.
 const ProfileDataForm = ({handleSubmit, error, profile, ...props}) => {
 
     return (

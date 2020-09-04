@@ -7,6 +7,7 @@ import classes from "./PostForm.module.css"
 
 const maxLength700 = maxLengthCreator(700);
 
+// Post creation form
 const MyPostsForm = (props) => {
 
     return (

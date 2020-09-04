@@ -20,6 +20,8 @@ import Preloader from "../common/preloader/preloader";
 import {useIsFetching, useQueryCache} from 'react-query'
 
 
+// Container component for displaying personal
+// data about the user and his contacts
 const ProfileContainer = (props) => {
     const isFetching = useIsFetching();
     const queryCache = useQueryCache();

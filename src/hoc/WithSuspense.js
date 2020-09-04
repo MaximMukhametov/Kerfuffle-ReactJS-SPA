@@ -3,6 +3,7 @@ import {Suspense} from "react";
 import Preloader from "../components/common/preloader/preloader";
 
 
+// Preloader for lazy-load components.
 export const WithSuspense = (Component) => {
     return (props) => {
         return <Suspense fallback={<Preloader/>}>

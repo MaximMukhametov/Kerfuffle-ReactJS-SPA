@@ -3,6 +3,9 @@ import classes from './DialogItem.module.css'
 import {Link} from "react-router-dom";
 import userPhoto from "../../../media/userPhoto.jpg"
 
+
+// Component for displaying a list of people with whom the user
+// had a dialogue, as well as the last message between them.
 const DialogItem = ({userId, userName, message, createdAt, photos, writtenBy}) => {
     const maxMessageLengthToShow = 60;
 

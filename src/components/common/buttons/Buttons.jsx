@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./Buttons.module.css"
 
+// Buttons templates for reuse in different areas of the application
+
 export const SendButton = ({onClickEvent}) => {
     return <button onClick={onClickEvent}
                    className={classes.send_button}/>

@@ -2,6 +2,7 @@ import classes from "../../common/Paginator/Paginator.module.css";
 import React, {useEffect, useState} from "react";
 
 
+// Component for pagination of user pages
 let Paginator = ({currentPage, onPageChanged, totalUsersCount, pageSize, portionSize = 10}) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages = [];

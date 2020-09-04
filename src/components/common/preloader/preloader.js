@@ -2,6 +2,7 @@ import loadCircle from "../../../media/VdOY.gif";
 import React from "react";
 
 
+// Page loading animation
 let Preloader = () => {
     return <img src={loadCircle} style={{
         display: 'block',

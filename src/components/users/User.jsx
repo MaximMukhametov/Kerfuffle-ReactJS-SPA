@@ -4,6 +4,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 
 
+// Renders the user with their avatar and name.
 let User = ({user, followingInProgress, unfollow, follow}) => {
 
     return <div className={classes.user}>

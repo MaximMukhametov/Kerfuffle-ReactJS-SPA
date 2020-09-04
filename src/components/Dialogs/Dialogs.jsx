@@ -3,6 +3,8 @@ import DialogItem from "./DialogItem/DialogItem";
 import convertUTCDateToLocalDate from "../../utils/convertUTCDateToLocalDate";
 
 
+// Container for displaying a list of people with whom the user
+// had a dialogue, as well as the last message between them.
 const Dialogs = (props) => {
     useEffect(() => {
         props.getAllUsersWithDialogsThunk()

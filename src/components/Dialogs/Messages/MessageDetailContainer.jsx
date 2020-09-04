@@ -22,6 +22,7 @@ import {profileAPI} from "../../../api/api";
 import Preloader from "../../common/preloader/preloader";
 
 
+// Renders messages and passes props further
 const MessageDetailContainer = (props) => {
     let [messageCounter, setMessageCounter] = useState(10);
     let [isLoadProfile, setIsLoadProfile] = useState(false);
@@ -31,7 +32,6 @@ const MessageDetailContainer = (props) => {
     const loadMoreMessagesCount = 10;
 
     useEffect(() => {
-
             profileAPI.getProfile(props.match.params.userId, true)
                 .then(r => setProfile(r.data));
             props.getMessagesWithUserThunk(props.match.params.userId)
@@ -60,7 +60,6 @@ const MessageDetailContainer = (props) => {
     const isMyMessage = (message) => (
         message.written_by.id === props.authUserId
     );
-
 
     const onSubmit = (messageText) => {
         props.sendMessageThunk(props.match.params.userId, messageText.message)

@@ -10,6 +10,7 @@ import {SendButton} from "../../common/buttons/Buttons";
 
 const maxLength300 = maxLengthCreator(300);
 
+// Form for sending a message
 const MessageForm = ({handleSubmit, error, ...props}) => {
 
     return (

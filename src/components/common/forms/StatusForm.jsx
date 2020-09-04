@@ -8,6 +8,7 @@ import {reduxForm} from "redux-form";
 
 const maxLength40 = maxLengthCreator(40);
 
+// Form for editing status
 const StatusForm = (props) => {
 
     return (

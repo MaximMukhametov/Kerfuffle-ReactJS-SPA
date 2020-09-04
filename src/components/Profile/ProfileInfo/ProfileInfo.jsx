@@ -21,7 +21,7 @@ const calc = (x, y) => [-(y - window.innerHeight / 6) / 30,
 const trans = (x, y, s) => `perspective(500px) rotateX(${x}deg) 
 rotateY(${y}deg) scale(${s})`;
 
-
+// Component for displaying personal data about the user and his contacts
 const ProfileInfo = ({
                          profile, status, updateStatus, history, saveBackgroundPhoto,
                          isOwner, savePhoto, saveProfile, isLoadingPhoto,

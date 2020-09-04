@@ -1,3 +1,4 @@
+// Converts time from UTC to local time.
 const convertUTCDateToLocalDate = (date) => {
     date = new Date(date);
     const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);

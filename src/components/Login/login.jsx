@@ -12,6 +12,8 @@ import background from "./../../media/defaultBackgroundPhoto.jpg"
 
 
 const maxLength30 = maxLengthCreator(30);
+
+// Login form component
 const LoginForm = ({handleSubmit, error}) => {
     return (
         <form className={classes.login_form} onSubmit={handleSubmit}>
@@ -38,6 +40,8 @@ const LoginReduxForm = reduxForm({
     onSubmitFail : (errors , dispatch ) => errors.detail
 })(LoginForm);
 
+
+// Login component
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.LoginThunk(formData.Login, formData.Password)

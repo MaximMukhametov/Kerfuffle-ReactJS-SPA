@@ -5,7 +5,13 @@ import {reduxForm, reset} from "redux-form";
 import MyPostsForm from "../../common/forms/PostForm";
 import {animated, useTransition} from "react-spring";
 
+
+// Rendering of posts
 const MyPosts = (props) => {
+
+    // Feed it your items, keys (which can be null if items are atomic),
+    // and lifecycles. Whenever items are added
+    // or removed, it will animate these changes.
     const transitions = useTransition(props.posts, item => item.id, {
         config: {mass: 10, tension: 2000, friction: 60},
         from: {transform: 'rotateX(90deg) translate(0%)'},
@@ -47,7 +53,9 @@ const MyPosts = (props) => {
                     <div className={classes.posts}>
                         {postElemetns}
                     </div> :
-                    <div className={classes.posts_block_empty}>{props.profile.name} hasn't posted anything yet
+                    <div
+                        className={classes.posts_block_empty}>{props.profile.name} hasn't
+                        posted anything yet
                         :(</div>}
             </div>
         )

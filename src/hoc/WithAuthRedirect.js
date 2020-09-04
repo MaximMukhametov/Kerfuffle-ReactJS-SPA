@@ -7,6 +7,7 @@ let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth
 });
 
+// A component that redirects the user to the login page if he is not authorized.
 export const WithAuthRedirect = (Component) => {
 
     class RedirectComponent extends React.Component {
